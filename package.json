@@ -1,0 +1,19 @@
+{
+  "name": "final-year-project",
+  "version": "1.0.0",
+  "description": "Raspberry Pi NAS server",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lclarke98/Final-Year-Project.git"
+  },
+  "author": "Leo Clarke",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lclarke98/Final-Year-Project/issues"
+  },
+  "homepage": "https://github.com/lclarke98/Final-Year-Project#readme"
+}
