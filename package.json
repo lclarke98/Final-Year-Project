@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lclarke98/Final-Year-Project/issues"
   },
-  "homepage": "https://github.com/lclarke98/Final-Year-Project#readme"
+  "homepage": "https://github.com/lclarke98/Final-Year-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
