@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/lclarke98/Final-Year-Project#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^2.0.2"
   }
 }
