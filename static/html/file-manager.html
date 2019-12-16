@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>File Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+  <link rel="stylesheet" type="text/css" href="/css/global.css">
+  <link rel="stylesheet" type="text/css" href="/css/file-manager.css">
+
+  <script type="text/javascript" src="scripts/global.js"></script>
+  <script type="text/javascript" src="scripts/file-manager.js"></script>
+</head>
+
+<body>
+
+  <header id="pageHeader" class="page-header-properties">
+  </header>
+
+  <section id="uploadFileDialog" class="dialog-container">
+
+    <div class="dialog-internal-container">
+      <article>
+        <header class="dialog-header">
+          <a href="javascript:void(0)" class="close-dialog" id="dialogClose">&times;</a>
+
+          <div id="dialogText" class="dialog-text">
+            <h1>Files Manager</h1>
+          </div>
+
+          <form action="/api/file" method="post" enctype="multipart/form-data">
+            <p><input name="media" type="file" multiple="multiple" class="choose-btn"></p>
+            <p><input id="submitBtn" name="submit" type="submit" value="Upload" class="upload-btn"></p>
+          </form>
+
+        </header>
+      </article>
+    </div>
+  </section>
+
+  <section id="fileViewer" class="dialog-container">
+    <div class="dialog-overlay"></div>
+
+    <div class="preview-internal-container">
+      <article>
+        <header class="dialog-header">
+          <a href="javascript:void(0)" class="close-preview" id="fileViewerClose">&#127367;</a>
+
+          <img id="previewImage" class="preview" src="">
+
+          <video id="previewVideo" class="preview" controls></video>
+
+          <p id="previewError" class="preview-error">Sorry, the media you selected cannot be previewed.</p>
+        </header>
+      </article>
+    </div>
+  </section>
+
+  <main id="pageContent">
+
+    <section id="fileBrowser" class="file-browser">
+
+      <section id="fileOptions" class="file-options">
+
+        <div class="button-container">
+          <button id="uploadNewFile" class="btn s-button create-btn" name="create">Upload File</button>
+          <button id="delete" class="btn s-button delete-btn" name="delete">Delete File</button>
+        </div>
+
+      </section>
+
+      <section id="fileDisplay" class="media-display">
+
+        <article id="medias" class="media-list-window">
+          <div class="file-type-heading">
+            <h2>Files:</h2>
+          </div>
+
+          <div class="file-listing">
+            <ul id="mediasList">
+            </ul>
+            <ul id="delMediasList">
+            </ul>
+          </div>
+        </article>
+
+      </section>
+
+    </section>
+
+  </main>
+
+</body>
+</html>
