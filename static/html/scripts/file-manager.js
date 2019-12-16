@@ -16,7 +16,7 @@ function loadScripts() {
 * getMedias() - Fetches the page files and submits them to generateFileList.
 */
 async function getAllFiles() {
-  const url = '/api/allFiles';
+  const url = '/allFiles';
   const response = await fetch(url);
   const allFiles = await response.json();
   console.log("All files retrieved");

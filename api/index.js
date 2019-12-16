@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
 //   GET     /api/medias/x        - retrieves a media of file name x, returns status code and { path: mediaPath, modified: mediaModified }
 //   POST    /api/medias          - creates media(s) uploaded by the user, returns redirect link
 //   DELETE  /api/medias/x        - deletes a media of file name x, returns http status code only
-api.get('/api/allFiles', fileManager.getAllFiles);
+api.get('/allFiles', fileManager.getAllFiles);
 
 api.get('/api/file/:file', fileManager.getFile);
 
@@ -34,7 +34,6 @@ api.post('/file', upload.array('file'), async (req, res, next) => {
     try {
       for (let i = 0; i < files.length; i++) {
         await db.addFile('medias', '/medias/' + files[i].originalname);
-        config.logInfo(files[i].originalname + ' uploaded to media.')
       }
       res.status(200).redirect('/fileManager');
     } catch (e) {
