@@ -20,12 +20,6 @@ const upload = multer({ storage: storage });
 api.get('/allFiles', fileManager.getAllFiles);
 api.get('/subDir', fileManager.openSubDir);
 
-//api.get('/subDir', function(req, res) {
-  //console.log("also here")
-  //res.send(fileManager.openSubDir());
-//});
-
-
 api.post('/file', upload.array('media'), async (req, res, next) => {
   const files = req.files
 
