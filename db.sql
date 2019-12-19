@@ -12,9 +12,17 @@ CREATE TABLE if not exists nas.permissions(
   user_password VARCHAR(64) NOT NULL
 );
 
+CREATE TABLE if not exists nas.drive(
+  drive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  drive_name VARCHAR(64) NOT NULL,
+  drive_path VARCHAR(75) NOT NULL,
+  drive_raid BOOLEAN NOT NULL
+);
+
 CREATE TABLE if not exists nas.file(
   file_path VARCHAR(75) NOT NULL PRIMARY KEY,
   file_modified BIGINT NOT NULL
+  drive_id INT NOT NULL,
 );
 
 use nas
