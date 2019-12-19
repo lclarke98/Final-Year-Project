@@ -240,7 +240,7 @@
 }
 
 .create-btn {
-  background-color: #81427f;
+  background-color: blue;
 }
 
 .delete-btn, .cancel-btn {
@@ -301,10 +301,10 @@
 }
 
 .create-btn:hover {
-  background-color: #621360;
+  background-color: lightskyblue;
 }
 
-.delete-btn:hover, .cancel-btn:hover {
+.delete-btn:hover, .cancel-btn:hover{
   background-color: #c9302c;
 }
 

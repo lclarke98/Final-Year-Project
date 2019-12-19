@@ -65,7 +65,7 @@ function reloadPage() {
 /**
 * deleteFile() - Deletes the selected file after user confirmation and then refreshes the page.
 */
-async function deleteFile() {
+async function deleteFiled() {
   const fileToDelete = this.id;
   const filePath = fileToDelete.substr(3);
   const fileName = filePath.split("/");
@@ -91,3 +91,10 @@ async function deleteFile() {
     reloadPage();
   }
 };
+
+
+async function deleteFile() {
+  const filePath = this.id;
+  const url = `/api/download?path=${filePath}`;
+  const response = await fetch(url);
+}
