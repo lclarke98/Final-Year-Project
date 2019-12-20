@@ -30,12 +30,12 @@ api.post('/file', upload.array('media'), async (req, res, next) => {
       for (let i = 0; i < files.length; i++) {
         await db.addFile(files[i].originalname);
       }
-      res.status(200).redirect('/api/fileManager');
+      res.status(200).redirect('/fileManager');
     } catch (e) {
       if (e.status === 'exists') {
-        res.status(200).redirect('/api/fileManager'); // already done
+        res.status(200).redirect('/fileManager'); // already done
       } else {
-        res.status(200).redirect('/api/fileManager'); 
+        res.status(200).redirect('/fileManager'); 
       }
     };
   }

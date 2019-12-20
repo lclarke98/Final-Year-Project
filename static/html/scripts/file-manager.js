@@ -19,7 +19,6 @@ async function generateFileList(ID, deleteID, files) {
 
   for (let i = 0; i < files.length; i++) {
     const elem = document.createElement("li");
-    const delElem = document.createElement("li");
     elem.textContent = files[i];
     elem.id = files[i];;
     list.appendChild(elem);
