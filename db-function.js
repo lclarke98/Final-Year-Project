@@ -1,14 +1,21 @@
-const mysql = require('mysql2/promise');
-const config = require('./db-config');
-const sqlPromise = mysql.createConnection(config.mysql);
+const mysql = require('mysql2/promise')
+const config = require('./db-config')
+const sqlPromise = mysql.createConnection(config.mysql)
 
-module.exports.getDrive= async (req, res) => {
+module.exports.getDriveList = async (req, res) => {
     try {
-      fs.readdir(path, (err, files) => {
-        res.send(files)
-      });
+        //some sql here
     }
     catch (e) {
       console.log("err")
     }
-  };
+};
+
+module.exports.addNewDrive = async (req, res) => {
+    try {
+        //some sql here
+    }
+    catch (e) {
+      console.log("err")
+    }
+};
