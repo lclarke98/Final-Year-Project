@@ -5,9 +5,17 @@ const db = require('../db-function');
 module.exports = api;
 
 
-
-// Drive Setup Functions
-api.get('/driveList', db.getDriveList);
+api.get('unAddeddriveList', async (req, res) => {
+  const path = '/media/pi/'
+  try {
+    fs.readdir(path, (err, unaddedDriveList) => {
+      res.send(db.getDriveList(unaddedDriveList))
+    });
+  } catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
 
 
 

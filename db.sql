@@ -12,11 +12,18 @@ CREATE TABLE if not exists nas.permissions(
   user_password VARCHAR(64) NOT NULL
 );
 
-CREATE TABLE if not exists nas.drive(
-  drive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  drive_name VARCHAR(64) NOT NULL,
-  drive_path VARCHAR(75) NOT NULL
-  drive_raid BOOLEAN NOT NULL
+CREATE TABLE if not exists nas.addedDrive(
+  addedDrive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  addedDrive_name VARCHAR(64) NOT NULL,
+  addedDrive_path VARCHAR(75) NOT NULL,
+  addedDrive_raid BOOLEAN NOT NULL
+);,
+
+CREATE TABLE if not exists nas.unaddedDrive(
+  unaddedDrive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  unaddedDrive_name VARCHAR(64) NOT NULL,
+  unaddedDrive_path VARCHAR(75) NOT NULL,
+  unaddedDrive_added BOOLEAN NOT NULL
 );,
 
 use nas

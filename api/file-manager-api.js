@@ -1,5 +1,5 @@
 //------------- GLOBAL VARIABLES -------------//
-const fs = require('fs');
+
 const db = require('../db-function');
 const config = require('../db-config');
 const multer = require('multer');
