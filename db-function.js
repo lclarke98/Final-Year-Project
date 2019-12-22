@@ -4,15 +4,22 @@ const config = require('./db-config')
 const connection = mysql.createConnection(config.mysql)
 
 async function refreshList(){
-    const path = '/media/pi/'
+    //const path = '/media/pi/'
     const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/media/'
-    fs.readdir(path, (err, driveList))
-    const list = driveList
-    for(let i = 0; i < list.length; i++){
-        let drivePath = path + list[i]
-        let con = await connection;
-        await con.query("INSERT INTO unaddedDrive(unaddedDrive_name, unaddedDrive_path, unaddedDrive_added) VALUES (?,?,?,?)", [list[i], drivePath, FALSE]);
-   }
+    try {
+        fs.readdir(path, (err, unaddedDriveList) => {
+            console.log(unaddedDriveList)
+            return unaddedDriveList
+        });
+        const list = unaddedDriveList
+        for(let i = 0; i < list.length; i++){
+            let drivePath = path + list[i]
+            let con = await connection;
+            await con.query("INSERT INTO unaddedDrive(unaddedDrive_name, unaddedDrive_path, unaddedDrive_added) VALUES (?,?,?,?)", [list[i], drivePath, 'FALSE']);
+         }
+      } catch (e) {
+        console.error(e);
+      }
 }
 
 module.exports.getUnaddedDriveList = async () => {

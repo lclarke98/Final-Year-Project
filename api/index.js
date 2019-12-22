@@ -1,15 +1,17 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs');
 const api = express.Router();
 const db = require('../db-function');
 module.exports = api;
 
 
-api.get('unAddeddriveList', async (req, res) => {
-  const path = '/media/pi/'
+api.get('/unaddedDriveList', async (req, res) => {
+  //const path = '/media/pi/'
+  const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/media/'
   try {
     fs.readdir(path, (err, unaddedDriveList) => {
-      res.send(db.getDriveList(unaddedDriveList))
+      res.send(db.getUnaddedDriveList(unaddedDriveList))
     });
   } catch (e) {
     console.error(e);
