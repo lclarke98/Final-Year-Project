@@ -3,16 +3,16 @@ const mysql = require('mysql2/promise')
 const config = require('./db-config')
 const connection = mysql.createConnection(config.mysql)
 
-function refreshList(){
-    path = '/media/pi/'
-    fs.readdir(path, (err, driveList) => {
-        const list = driveList
-        for(let i = 0; i < list.length; i++){
-            let drivePath = path + list[i]
-            let con = await connection;
-            await con.query("INSERT INTO unaddedDrive(unaddedDrive_name, unaddedDrive_path, unaddedDrive_added) VALUES (?,?,?,?)", [list[i], drivePath, FALSE]);
-       }
-    });
+async function refreshList(){
+    const path = '/media/pi/'
+    const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/media/'
+    fs.readdir(path, (err, driveList))
+    const list = driveList
+    for(let i = 0; i < list.length; i++){
+        let drivePath = path + list[i]
+        let con = await connection;
+        await con.query("INSERT INTO unaddedDrive(unaddedDrive_name, unaddedDrive_path, unaddedDrive_added) VALUES (?,?,?,?)", [list[i], drivePath, FALSE]);
+   }
 }
 
 module.exports.getUnaddedDriveList = async () => {
