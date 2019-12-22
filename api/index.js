@@ -7,13 +7,9 @@ module.exports = api;
 
 
 api.get('/unaddedDriveList', async (req, res) => {
-  //const path = '/media/pi/'
-  const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/media/'
   try {
-    fs.readdir(path, (err, unaddedDriveList) => {
-      res.send(db.getUnaddedDriveList(unaddedDriveList))
-    });
-  } catch (e) {
+      res.send(await db.getUnaddedDriveList()) 
+  }catch (e) {
     console.error(e);
     res.sendStatus(500);
   }
