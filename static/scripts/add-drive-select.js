@@ -5,6 +5,7 @@ async function getDriveList() {
   const url = `/api/unaddedDriveList`;
   const response = await fetch(url);
   const result = await response.json();
+  console.log(result)
   let list = document.getElementById('drive-list');
   for(let i = 0; i < result.length; i++) {
     let item = document.createElement('li');
