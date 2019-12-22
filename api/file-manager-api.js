@@ -13,7 +13,11 @@ const storage = multer.diskStorage({
   }
 });
 
-const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive';
+//localhost path
+//const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive';
+
+//RaspberryPi path
+const path = '/media/pi/'
 
 const upload = multer({ storage: storage });
 
