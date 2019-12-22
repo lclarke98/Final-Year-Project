@@ -2,10 +2,31 @@ const express = require('express');
 const multer = require('multer');
 const api = express.Router();
 const db = require('../db-function');
-
-const fileManager = require('./file-manager-api');
 module.exports = api;
 
+
+
+// Drive Setup Functions
+api.get('/driveList', db.getDriveList);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// File Manager Functions
+const fileManager = require('./file-manager-api');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive')

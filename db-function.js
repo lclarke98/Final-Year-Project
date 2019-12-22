@@ -13,7 +13,7 @@ module.exports.getDriveList = async (req, res) => {
 
 module.exports.addNewDrive = async (req, res) => {
     try {
-        //some sql here
+       console.log("Add new Drive")
     }
     catch (e) {
       console.log("err")
