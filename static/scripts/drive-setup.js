@@ -1,13 +1,14 @@
 //gets the displays ip address from the url
 function getUrlVars() {
-    var vars = {}
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    let vars = {}
+    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
       vars[key] = value
-    });
+    })
     return vars
-  }
+}
   
   window.addEventListener("load", getPath)
+  window.addEventListener("load", getUserList)
   //window.addEventListener("load", pageLoad);
   
 //function pageLoad() {
@@ -19,4 +20,29 @@ function getPath(){
     path = getUrlVars()["path"]
     console.log(path)
     document.getElementById("path").textContent = path
+}
+
+async function getUserList(){
+    const url = "/api/userList"
+    const response = await fetch(url)
+    const userList = await response.json()
+    const permissionList = document.getElementById("permission-list")
+    for (let i = 0; i < userList.length; i++) {
+        console.log(userList[i])
+        const elem = document.createElement("li")
+        const read = document.createElement("input")
+        read.type = "checkbox"
+        const write = document.createElement("input")
+        write.type = "checkbox"
+        elem.append
+        elem.textContent = userList[i].user_name
+        elem.id = userList[i].user_name;
+        permissionList.appendChild(elem)
+        permissionList.appendChild(read)
+        permissionList.appendChild(write)
+    }
+}
+
+async function addNewDrive(){
+    const url = "/api/newUser"
 }
