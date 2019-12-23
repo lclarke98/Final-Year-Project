@@ -6,14 +6,13 @@ const connection = mysql.createConnection(config.mysql)
 const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/media/'
 //const path = '/media/pi/'
 function getMediaVolumes(){
-        
-        try {
-            fs.readdir(path, (err, unaddedDriveList) => {
-                refreshList(unaddedDriveList)
-            });
-        } catch (e) {
-            console.error(e);
-        }
+    try {
+        fs.readdir(path, (err, unaddedDriveList) => {
+           refreshList(unaddedDriveList)
+        });
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 async function refreshList(list){
