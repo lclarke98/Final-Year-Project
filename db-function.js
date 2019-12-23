@@ -45,3 +45,10 @@ module.exports.addDrive = async (name, path, raid) => {
         console.log(e)
     }
 };
+
+module.exports.getUserList = async () => {
+    getMediaVolumes()
+    let con = await connection
+    let [list] = await con.query("SELECT * FROM user")
+    return list
+};

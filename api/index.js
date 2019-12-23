@@ -15,14 +15,14 @@ api.get('/unaddedDriveList', async (req, res) => {
   }
 });
 
-
-
-
-
-
-
-
-
+api.get('/userList', async (req, res) => {
+  try {
+      res.send(await db.getUserList()) 
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
 
 
 
