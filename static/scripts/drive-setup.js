@@ -7,18 +7,17 @@ function getUrlVars() {
     return vars
 }
   
-  window.addEventListener("load", getPath)
-  window.addEventListener("load", getUserList)
-  //window.addEventListener("load", pageLoad);
+window.addEventListener("load", getPath)
+window.addEventListener("load", getUserList)
+window.addEventListener("load", pageLoad);
   
-//function pageLoad() {
-    //document.getElementById("addDisplay").addEventListener('click', addDisplay);
-//}
+function pageLoad(){
+    document.getElementById("add-drive").addEventListener('click', addDisplay);
+}
   
 let path;
 function getPath(){
     path = getUrlVars()["path"]
-    console.log(path)
     document.getElementById("path").textContent = path
 }
 
@@ -44,5 +43,24 @@ async function getUserList(){
 }
 
 async function addNewDrive(){
-    const url = "/api/newUser"
+    const driveNmae = document.getElementById("drive-name")
+    const raid = document.getElementById("drive-raid")
+    const raidTarget = document.getElementById("raid-target")
+    const userPermission = document.getElementById("user-permissions")
+    const data = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          data: {
+            name: driveName,
+            raid: raid,
+            raidTarget: raidTarget,
+            userPermission: userPermission,
+          }
+        })
+      }
+    const response = await fetch('/api/newDrive', data);
+    const obj = await response.json();
 }

@@ -25,12 +25,21 @@ api.get('/userList', async (req, res) => {
 });
 
 
+api.post('/addDrive', async (req, res) => {
+  try{
+    await db.addNewDrive()
+    res.send('/driveConsole') 
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
 
 
 
 
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 // File Manager Functions
 const fileManager = require('./file-manager-api');
 const storage = multer.diskStorage({

@@ -52,3 +52,9 @@ module.exports.getUserList = async () => {
     let [list] = await con.query("SELECT * FROM user")
     return list
 };
+
+module.exports.addNewDrive = async (name, raid, raidTarget, userPermission) => {
+    let con = await connection
+    let [list] = await con.query("SELECT * FROM user")
+    return list
+};
