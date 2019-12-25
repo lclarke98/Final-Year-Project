@@ -43,10 +43,9 @@ async function getUserList(){
 }
 
 async function addNewDrive(){
-    const driveNmae = document.getElementById("drive-name")
+    const driveName = document.getElementById("drive-name")
     const raid = document.getElementById("drive-raid")
     const raidTarget = document.getElementById("raid-target")
-    const userPermission = document.getElementById("user-permissions")
     const data = {
         method: 'POST',
         headers: {
@@ -54,10 +53,9 @@ async function addNewDrive(){
         },
         body: JSON.stringify({
           data: {
-            name: driveName,
+            driveName: driveName,
             raid: raid,
             raidTarget: raidTarget,
-            userPermission: userPermission,
           }
         })
       }
