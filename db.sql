@@ -6,10 +6,20 @@ CREATE TABLE if not exists nas.user(
   user_password VARCHAR(64) NOT NULL
 );
 
+/* Permission codes
+1 read and write
+2 read
+*/
 CREATE TABLE if not exists nas.permissions(
-  user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  user_name VARCHAR(64) NOT NULL,
-  user_password VARCHAR(64) NOT NULL
+  permission_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  user_id VARCHAR(64) NOT NULL,
+  permission_code VARCHAR(64) NOT NULL
+);
+
+CREATE TABLE if not exists nas.raid(
+  raid_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  raid_target_drive VARCHAR(64) NOT NULL,
+  raid_dest_drive VARCHAR(64) NOT NULL
 );
 
 CREATE TABLE if not exists nas.addedDrive(

@@ -3,6 +3,7 @@
 const db = require('../db-function');
 const config = require('../db-config');
 const multer = require('multer');
+const fs = require('fs');
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -14,21 +15,21 @@ const storage = multer.diskStorage({
 });
 
 //localhost path
-//const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive';
+const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/';
 
 //RaspberryPi path
-const path = '/media/pi/'
+//const path = '/media/pi/'
 
 const upload = multer({ storage: storage });
 
 module.exports.getAllFiles = async (req, res) => {
   try {
     fs.readdir(path, (err, files) => {
-      res.send(files)
+      res.send(JSON.stringify(files))
     });
   }
   catch (e) {
-    console.log("err")
+    console.log(e)
   }
 };
 
@@ -39,7 +40,7 @@ module.exports.openSubDir = async (req, res) => {
   console.log(subDir)
   try {
     fs.readdir(subDir, (err, files) => {
-      res.send(files)
+      res.send(JSON.stringify(files))
   });
   }
   catch (e) {

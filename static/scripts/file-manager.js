@@ -8,7 +8,7 @@ async function getAllFiles() {
   const url = '/api/allFiles';
   const response = await fetch(url);
   const allFiles = await response.json();
-  console.log("All files retrieved");
+  console.log(allFiles);
   generateFileList("fileList", "delFilesList", allFiles);
 };
 
