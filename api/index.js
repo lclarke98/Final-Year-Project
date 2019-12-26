@@ -1,10 +1,13 @@
 const express = require('express');
 const multer = require('multer');
-const fs = require('fs');
+//const fs = require('fs');
 const api = express.Router();
 const db = require('../db-function');
+const bodyParser = require('body-parser')
 module.exports = api;
 
+api.use(bodyParser.json());
+api.use(bodyParser.urlencoded({ extended: true }));
 
 api.get('/unaddedDriveList', async (req, res) => {
   try {
@@ -24,11 +27,20 @@ api.get('/userList', async (req, res) => {
   }
 });
 
-
-api.post('/addDrive', async (req, res) => {
+api.post('/newDrive', async (req, res) => {
   try{
-    await db.addNewDrive()
-    res.send('/driveConsole') 
+    const name = req.body.info.driveName
+    const path = req.body.info.drivePath
+    const raid = req.body.info.raid
+    const raidTarget = req.body.info.raidTarget
+    const permissionList = req.body.info.permissionList
+    const ID = await db.addNewDrive(name,path,raid,raidTarget)
+    if(ID.length ==1){
+      db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
+      res.status(200).redirect('/fileManager') 
+    }else{
+      console.log("error2")
+    }
   }catch (e) {
     console.error(e);
     res.sendStatus(500);
