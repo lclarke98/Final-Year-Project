@@ -18,13 +18,11 @@ function getMediaVolumes(){
 async function refreshList(list){
     for(let i = 0; i < list.length; i++){
         let con = await connection
-        let [dbList] = await con.query("SELECT unaddedDrive_name FROM unaddedDrive WHERE unaddedDrive_name = ? AND unaddedDrive_added = ? ",[list[i].toString(),false])
+        let [dbList] = await con.query("SELECT unaddedDrive_name FROM unaddedDrive WHERE unaddedDrive_name = ?",[list[i].toString()])
         if (!dbList.length) {
             let drivePath = path + list[i]
             let con = await connection;
             await con.query("INSERT INTO unaddedDrive(unaddedDrive_name, unaddedDrive_path, unaddedDrive_added) VALUES (?,?,?)", [list[i], drivePath, false]);
-        }else{
-           console.log("already added") 
         }
     }
 }
@@ -36,11 +34,27 @@ module.exports.getUnaddedDriveList = async () => {
     return JSON.stringify(list)
 };
 
-module.exports.addDrive = async (name, path, raid) => {
+module.exports.addNewDrive = async (name, path, raid, raidTarget) => {
     try{
         let con = await connection
-        let [list] = await con.query("SELECT * FROM unaddedDrive WHERE unaddedDrive_added = ? ",["FALSE"])
-        return list
+        await con.query("INSERT INTO addedDrive(addedDrive_name, addedDrive_path,addedDrive_raid, addedDrive_raidTarget ) VALUES (?,?,?,?)", [name, path, raid, raidTarget]);
+        await con.query("UPDATE unaddedDrive SET unaddedDrive_added = ? WHERE unaddedDrive_path = ? ",[true, path])
+        let [id] = await con.query("SELECT addedDrive_name FROM addedDrive WHERE addedDrive_name = ? ",[name])
+        return id
+    }catch(e){
+        console.log(e)
+    }
+};
+
+module.exports.addDrivePermissions = async (driveName, permissionList) => {
+    try{
+        for(let i = 0; i < permissionList.length; i++){
+            const user = permissionList[i].user
+            const read = permissionList[i].readValue
+            const write = permissionList[i].writeValue
+            let con = await connection
+            con.query("INSERT INTO permissions(addedDrive_name, user_name, permission_read, permission_write ) VALUES (?,?,?,?)", [driveName, user, read, write]);
+        }
     }catch(e){
         console.log(e)
     }
@@ -48,12 +62,6 @@ module.exports.addDrive = async (name, path, raid) => {
 
 module.exports.getUserList = async () => {
     getMediaVolumes()
-    let con = await connection
-    let [list] = await con.query("SELECT * FROM user")
-    return list
-};
-
-module.exports.addNewDrive = async (name, raid, raidTarget, userPermission) => {
     let con = await connection
     let [list] = await con.query("SELECT * FROM user")
     return list
