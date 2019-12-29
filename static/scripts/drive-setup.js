@@ -12,7 +12,8 @@ window.addEventListener("load", getUserList)
 window.addEventListener("load", pageLoad);
   
 function pageLoad(){
-    document.getElementById("add-drive").addEventListener('click', addNewDrive);
+    document.getElementById("add-drive").addEventListener('click', addNewDrive)
+    document.getElementById("drive-raid").addEventListener('click', getRaidList)
 }
   
 let path
@@ -29,7 +30,6 @@ async function getUserList(){
     userList = await response.json()
     const permissionList = document.getElementById("permission-list")
     for (let i = 0; i < userList.length; i++) {
-        console.log(userList[i])
         const elem = document.createElement("li")
         const read = document.createElement("input")
         read.id=userList[i].user_name+"-read"
@@ -51,8 +51,6 @@ async function addNewDrive(){
     const raid = validateRaid()
     const raidTarget = document.getElementById("raid-target").value
     const userPermissionList = generatePermissionList()
-    console.log(userPermissionList[1].writeValue)
-    console.log(userPermissionList[1].readValue)
     const data = {
         method: 'POST',
         headers: {
@@ -83,7 +81,6 @@ function validateRaid(){
 function generatePermissionList(){
     let permissionTable = []
     for(let i = 0; i < userList.length; i++){
-        console.log(userList.length)
         const user = document.getElementById(userList[i].user_name)
         const read = document.getElementById(userList[i].user_name+"-read")
         const write = document.getElementById(userList[i].user_name+"-write")
@@ -101,4 +98,22 @@ function generatePermissionList(){
         permissionTable.push(userEntry)
     }
     return permissionTable
+}
+
+async function getRaidList(){
+  const url = "/api/driveList"
+  const response = await fetch(url)
+  const raidList = await response.json()
+  const selectionList = document.getElementById("raid-list")
+  for (let i = 0; i < raidList.length; i++) {
+      const elem = document.createElement("li")
+      const select = document.createElement("input")
+      select.id=raidList[i].addedDrive_name
+      select.type = "checkbox"
+      elem.append
+      elem.textContent = raidList[i].addedDrive_name
+      elem.id = raidList[i].addedDrive_path;
+      selectionList.appendChild(elem)
+      selectionList.appendChild(select)
+  }
 }

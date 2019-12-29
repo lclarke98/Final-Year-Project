@@ -1,8 +1,4 @@
-window.addEventListener('load', pageLoad)
-
-function pageLoad(){
-    getDrive()
-}
+window.addEventListener('load', getDrive)
 
 async function getDrive(){
     const url = `/api/driveList`
@@ -12,17 +8,15 @@ async function getDrive(){
 }
 
 async function displayDriveList(list){
-    const list = document.getElementById("driveList")
-    for (let i = 0; i < list.length; i++) {
-        const elem = document.createElement("li")
-        elem.textContent = list[i]
-        elem.id = list[i];;
-        list.appendChild(elem)
-        if(list[i] = "..."){
-            document.getElementById(elem.id).addEventListener("click", openPreview)
-        }
-        else{
-            document.getElementById(elem.id).addEventListener("click", openSubDir)
-        }
+    const driveList = document.getElementById("drive-list")
+    for(let i = 0; i < list.length; i++) {
+        let item = document.createElement('li');
+        let a = document.createElement('a');
+        a.textContent = list[i].addedDrive_name;
+        let path = list[i].addedDrive_path;
+        let link = 'file-manager.html?path='+path;
+        a.setAttribute('href', link);
+        item.appendChild(a);
+        driveList.appendChild(item);
     }
 }

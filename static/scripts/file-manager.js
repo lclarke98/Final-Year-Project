@@ -1,8 +1,24 @@
 function loadScripts() {
-  loadPageHeader();
-  addEventListeners();
-  getAllFiles();
+  loadPageHeader()
+  addEventListeners()
+  getAllFiles()
+  getPath()
 };
+
+//gets the displays ip address from the url
+function getUrlVars() {
+  let vars = {}
+  let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+    vars[key] = value
+  })
+  return vars
+}
+
+let path
+function getPath(){
+  path = getUrlVars()["path"]
+  document.getElementById("path").textContent = path
+}
 
 async function getAllFiles() {
   const url = '/api/allFiles';

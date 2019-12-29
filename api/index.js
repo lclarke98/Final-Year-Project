@@ -5,7 +5,6 @@ const api = express.Router();
 const db = require('../db-function');
 const bodyParser = require('body-parser')
 module.exports = api;
-
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 
@@ -27,6 +26,17 @@ api.get('/userList', async (req, res) => {
   }
 });
 
+api.get('/driveList', async (req, res) => {
+  try {
+      res.send(await db.getDriveList()) 
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
+
+
 api.post('/newDrive', async (req, res) => {
   try{
     const name = req.body.info.driveName
@@ -37,7 +47,7 @@ api.post('/newDrive', async (req, res) => {
     const ID = await db.addNewDrive(name,path,raid,raidTarget)
     if(ID.length ==1){
       db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
-      res.status(200).redirect('/fileManager') 
+      return res.status(200).redirect('/api/fileManager') 
     }else{
       console.log("error2")
     }
@@ -87,7 +97,7 @@ api.post('/file', upload.array('media'), async (req, res, next) => {
 });
 
 api.get('/fileManager', function(req, res) {
-  res.sendFile(__dirname + '../static/html/file-manager.html');
+  res.sendFile('static/file-manager.html')
 });
 
 api.get('/download', function(req, res) {

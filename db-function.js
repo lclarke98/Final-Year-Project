@@ -1,10 +1,12 @@
 const fs = require('fs');
 const mysql = require('mysql2/promise')
 const config = require('./db-config')
+
 const connection = mysql.createConnection(config.mysql)
 //const connection = mysql.createConnection(config.mysqlPi)
 const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/media/'
 //const path = '/media/pi/'
+
 function getMediaVolumes(){
     try {
         fs.readdir(path, (err, unaddedDriveList) => {
@@ -65,4 +67,10 @@ module.exports.getUserList = async () => {
     let con = await connection
     let [list] = await con.query("SELECT * FROM user")
     return list
+};
+
+module.exports.getDriveList = async () => {
+    let con = await connection
+    let [list] = await con.query("SELECT * FROM addedDrive WHERE addedDrive_raid = ? ",[false])
+    return JSON.stringify(list)
 };
