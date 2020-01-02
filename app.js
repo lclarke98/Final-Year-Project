@@ -3,10 +3,16 @@ const path = require('path');
 const app = express();
 
 app.use('/api', require('./api'));
-//app.use(express.static('static', { extensions: ['html'] }));
+app.use(express.static('static', { extensions: ['html'] }));
 app.use(express.static(path.join(__dirname, 'static')));
 //App runs on port 80
 const port = process.env.PORT || 80;
+
+
+app.get('/redirect', async (req, res) => {
+  console.log("here")
+  res.render("index.html")
+});
 
 app.listen(port, (err) => {
   if (err) console.log('error', err);

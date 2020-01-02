@@ -2,6 +2,7 @@ window.addEventListener("load", getDriveList);
 
 //gets the initial list of displays ip addresses
 async function getDriveList() {
+  document.getElementById("test").addEventListener("click", redirect)
   const url = `/api/unaddedDriveList`;
   const response = await fetch(url);
   const result = await response.json();
@@ -18,4 +19,9 @@ async function getDriveList() {
     list.appendChild(item);
   }
   return list;
+}
+
+async function redirect(){
+  const url = `/redirect`;
+  fetch(url);
 }
