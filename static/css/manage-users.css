@@ -1,0 +1,9 @@
+#menu{
+    position: relative;
+    margin: 150px;
+    display: none;
+    width: 30%;
+    height: 30%;
+    border: black;
+    border-style: solid;
+}

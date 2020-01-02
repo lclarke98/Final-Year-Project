@@ -66,7 +66,7 @@ module.exports.getUserList = async () => {
     getMediaVolumes()
     let con = await connection
     let [list] = await con.query("SELECT * FROM user")
-    return list
+    return JSON.stringify(list)
 };
 
 module.exports.getDriveList = async () => {
