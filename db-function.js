@@ -74,3 +74,15 @@ module.exports.getDriveList = async () => {
     let [list] = await con.query("SELECT * FROM addedDrive WHERE addedDrive_raid = ? ",[false])
     return JSON.stringify(list)
 };
+
+module.exports.deleteDrive = async (name) => {
+    let con = await connection
+    await con.query("DELETE FROM addedDrive WHERE addedDrive_name = ? ",[name])
+    return 200
+};
+
+module.exports.getPermissionList = async (name) => {
+    let con = await connection
+    let [list] = await con.query("SELECT * FROM permissions WHERE addedDrive_name = ? ",[name])
+    return JSON.stringify(list)
+};

@@ -35,7 +35,15 @@ api.get('/driveList', async (req, res) => {
   }
 });
 
-
+api.get('/permissionList', async (req, res) => {
+  try{
+    const name = req.query.driveName
+    res.send(await db.getPermissionList(name))
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
 
 api.post('/newDrive', async (req, res) => {
   try{
@@ -51,6 +59,16 @@ api.post('/newDrive', async (req, res) => {
     }else{
       console.log("error2")
     }
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
+api.delete('/drive', async (req, res) => {
+  try{
+    const name = req.body.info.driveName
+    res.status(200).send(await db.deleteDrive(name))
   }catch (e) {
     console.error(e);
     res.sendStatus(500);
