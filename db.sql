@@ -37,3 +37,4 @@ use nas
 
 insert into user (user_name, user_password) values ('admin', 'admin');
 insert into user (user_name, user_password) values ('root', 'root');
+insert into user (user_name, user_password) values ('lclarke', 'lclarke');
