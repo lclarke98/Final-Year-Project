@@ -8,10 +8,20 @@
 </head>
 
 <html>
-    <section id="user-list"></section>
+    <nav>NAS SYSTEM</nav>
+    <button id="open-add-user">Add New User</button>
+    <div class="menu" id="add-user-menu">
+        <h1>Add A new User</h1>
+        <input type="text" placeholder="Enter a user name">
+        <input type="text" placeholder="Enter a user password">
+        <div id="permission-list"></div>
+        <button id="add-user">Add User</button>
+        <button id="close-add-window">close</button>
+    </div>
     <div class="menu" id="menu">
         <div id="user-name"></div>
-        <button id="delete-user">delete Drive</button>
+        <button id="delete-user">delete User</button>
         <button id="close">close</button>
     </div>
+    <section id="user-list"></section>
 </html>
