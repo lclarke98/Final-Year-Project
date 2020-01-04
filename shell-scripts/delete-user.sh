@@ -1,0 +1,1 @@
+sudo smbpasswd -x $1
