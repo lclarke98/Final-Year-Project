@@ -1,7 +1,6 @@
 const fs = require('fs');
 const mysql = require('mysql2/promise')
 const config = require('./db-config')
-
 const connection = mysql.createConnection(config.mysql)
 //const connection = mysql.createConnection(config.mysqlPi)
 const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/media/'
@@ -61,6 +60,16 @@ module.exports.addDrivePermissions = async (driveName, permissionList) => {
         console.log(e)
     }
 };
+module.exports.addNewUser = async (userName, password) => {
+    try{
+        let con = await connection
+        await con.query("INSERT INTO user(user_name, user_password) VALUES (?,?)", [userName, password]);
+        return 200
+    }catch(e){
+        console.log(e)
+    }
+};
+
 
 module.exports.getUserList = async () => {
     getMediaVolumes()
@@ -78,6 +87,13 @@ module.exports.getDriveList = async () => {
 module.exports.deleteDrive = async (name) => {
     let con = await connection
     await con.query("DELETE FROM addedDrive WHERE addedDrive_name = ? ",[name])
+    return 200
+};
+
+module.exports.deleteUser = async (name) => {
+    console.log(name)
+    let con = await connection
+    await con.query("DELETE FROM user WHERE user_name = ? ",[name])
     return 200
 };
 
