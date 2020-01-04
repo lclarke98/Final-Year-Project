@@ -4,6 +4,7 @@ const multer = require('multer');
 const api = express.Router();
 const db = require('../db-function');
 const bodyParser = require('body-parser')
+const shell = require('shelljs');
 module.exports = api;
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -75,6 +76,32 @@ api.delete('/drive', async (req, res) => {
   }
 });
 
+api.delete('/user', async (req, res) => {
+  try{
+    const name = req.body.info.userName
+    shell.exec('sh ../shell-scripts/delete-user.sh' + name)
+    res.status(200).send(await db.deleteUser(name))
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
+api.post('/user', async (req, res) => {
+  try{
+    const name = req.body.info.userName
+    const password = req.body.info.password
+    const permissions = req.body.info.permissions
+    shell.exec('sh ../shell-scripts/add-user.sh' + name)
+    const approval = await db.addUser(name, password)
+    if(approval == 200){
+      db.addUserPermissions(permissions)
+    }
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // File Manager Functions
