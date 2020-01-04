@@ -1,9 +1,32 @@
 #menu{
-    position: relative;
-    margin: 150px;
+    
+    position: fixed;
+    z-index: 2;
     display: none;
-    width: 30%;
-    height: 30%;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    height: 90%;
     border: black;
     border-style: solid;
+    align-self: centre;
+    background-color: cornsilk;
+}
+
+body{
+    position: relative;
+}
+nav{
+    margin-bottom: 25px;
+    border-bottom: solid;
+    padding: 20px;
+}
+li{
+    z-index: 1;
+    padding: 5px;
+    border-color: grey;
+    border-style: solid;
+    list-style-type: none;
+    font-weight: bold;
+    font-size: 20px;
 }
