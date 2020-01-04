@@ -13,6 +13,17 @@
     background-color: cornsilk;
 }
 
+#permission-list{
+    border-color: black;
+    border-style: solid;
+    margin: 20%;
+}
+
+#close-add-window{
+    margin-left: 95%;
+    top: 0;
+}
+
 body{
     position: relative;
 }
