@@ -46,6 +46,16 @@ api.get('/permissionList', async (req, res) => {
   }
 });
 
+api.get('/permissionListByUsername', async (req, res) => {
+  try{
+    const name = req.query.userName
+    res.send(await db.getPermissionListByUsername(name))
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 api.post('/newDrive', async (req, res) => {
   try{
     const name = req.body.info.driveName

@@ -102,3 +102,9 @@ module.exports.getPermissionList = async (name) => {
     let [list] = await con.query("SELECT * FROM permissions WHERE addedDrive_name = ? ",[name])
     return JSON.stringify(list)
 };
+
+module.exports.getPermissionListByUsername = async (name) => {
+    let con = await connection
+    let [list] = await con.query("SELECT * FROM permissions WHERE user_name = ? ",[name])
+    return JSON.stringify(list)
+};
