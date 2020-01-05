@@ -13,7 +13,8 @@ function openAddUserWindow(){
 }
 
 function closeAddUserWindow(){
-    document.getElementById("add-user-menu").style.display = "none";
+    document.getElementById("add-user-menu").style.display = "none"
+    document.getElementById("permission-list").textContent = ""
 }
 
 async function getUsers(){
@@ -25,6 +26,7 @@ async function getUsers(){
 
 let driveList
 
+//gets the nas drives tio allow admin to assign permissions for new user
 async function getDriveList(){
     const url = "/api/driveList"
     const response = await fetch(url)
@@ -40,7 +42,36 @@ async function getDriveList(){
         write.type = "checkbox"
         elem.append
         elem.textContent = driveList[i].addedDrive_name
-        elem.id = driveList[i].addedDrive_name;
+        elem.id = driveList[i].addedDrive_name
+        permissionList.appendChild(elem)
+        permissionList.appendChild(read)
+        permissionList.appendChild(write)
+    }
+}
+
+async function getPermissionList(index){
+    const userName = data[index].user_name
+    const url = `/api/permissionListByUsername?userName=${userName}`;
+    const response = await fetch(url)
+    result = await response.json()
+    const permissionList = document.getElementById("user-permissions")
+    for (let i = 0; i < result.length; i++) {
+        const elem = document.createElement("li")
+        const read = document.createElement("input")
+        read.id=result[i].permission_read+"-read"
+        read.type = "checkbox"
+        if(result[i].permission_read == 1){
+            read.checked = true
+        }
+        const write = document.createElement("input")
+        write.id = result[i].permission_write+"-write"
+        write.type = "checkbox"
+        if(result[i].permission_write == 1){
+            write.checked = true
+        }
+        elem.append
+        elem.textContent = result[i].addedDrive_name
+        elem.id = result[i].addedDrive_name;
         permissionList.appendChild(elem)
         permissionList.appendChild(read)
         permissionList.appendChild(write)
@@ -63,6 +94,7 @@ let userIndex
 
 function openUserWindow(){
     userIndex = this.id
+    getPermissionList(userIndex)
     let userName = data[this.id].user_name
     document.getElementById("close").addEventListener("click", closeWindow)
     document.getElementById("delete-user").addEventListener("click", function(){
@@ -74,11 +106,14 @@ function openUserWindow(){
 
 function closeWindow(){
     document.getElementById("menu").style.display = "none"
+    document.getElementById("user-permissions").textContent = ""
     userIndex = ""
 }
 
 function clearList(){
     document.getElementById("user-list").textContent  = ""
+    document.getElementById("permission-list").textContent  = ""
+    document.getElementById("user-permissions").textContent  = ""
 }
 
 async function deleteUser(index){
