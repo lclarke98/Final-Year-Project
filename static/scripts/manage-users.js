@@ -137,7 +137,7 @@ async function deleteUser(index){
 function generatePermissionList(){
     let permissionTable = []
     for(let i = 0; i < userList.length; i++){
-        const userName = document.getElementById("userName")
+        const userName = document.getElementById("new-user-name")
         const driveName = document.getElementById(driveList[i].addedDrive_name)
         const read = document.getElementById(driveList[i].addedDrive_name+"-read")
         const write = document.getElementById(driveList[i].AddedDrive_name+"-write")
@@ -155,4 +155,25 @@ function generatePermissionList(){
         permissionTable.push(userEntry)
     }
     return permissionTable
+}
+
+
+async function addNeweUser(){
+    const permissions = generatePermissionList()
+    const userName = document.getElementById("new-user-name")
+    const password = document.getElementById("password")
+    const data = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          info: {
+            userName: userName,
+            password: password,
+            permissionList: permissions,
+          }
+        })
+      }
+    const response = await fetch('/api/newDrive', data);
 }
