@@ -4,6 +4,7 @@ let data
 
 function pageLoad(){
     document.getElementById("open-add-user").addEventListener("click", openAddUserWindow)
+    document.getElementById("add-user").addEventListener("click", addNeweUser)
 }
 
 function openAddUserWindow(){
@@ -136,11 +137,11 @@ async function deleteUser(index){
 
 function generatePermissionList(){
     let permissionTable = []
-    for(let i = 0; i < userList.length; i++){
-        const userName = document.getElementById("new-user-name")
-        const driveName = document.getElementById(driveList[i].addedDrive_name)
+    for(let i = 0; i < driveList.length; i++){
+        const userName = document.getElementById("new-user-name").value
+        const driveName = driveList[i].addedDrive_name
         const read = document.getElementById(driveList[i].addedDrive_name+"-read")
-        const write = document.getElementById(driveList[i].AddedDrive_name+"-write")
+        const write = document.getElementById(driveList[i].addedDrive_name+"-write")
         if (read.checked == true){ 
             readValue = true
         }else {
@@ -162,6 +163,9 @@ async function addNeweUser(){
     const permissions = generatePermissionList()
     const userName = document.getElementById("new-user-name")
     const password = document.getElementById("password")
+    console.log(permissions)
+    console.log(userName)
+    console.log(password)
     const data = {
         method: 'POST',
         headers: {
