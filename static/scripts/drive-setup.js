@@ -46,29 +46,6 @@ async function getUserList(){
     }
 }
 
-async function addNewDrive(){
-    const driveName = document.getElementById("drive-name").value
-    const raid = validateRaid()
-    const raidTarget = document.getElementById("raid-target").value
-    const userPermissionList = generatePermissionList()
-    const data = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          info: {
-            drivePath: path,
-            driveName: driveName,
-            raid: raid,
-            raidTarget: raidTarget,
-            permissionList: userPermissionList,
-          }
-        })
-      }
-    const response = await fetch('/api/newDrive', data);
-}
-
 function validateRaid(){
     const raid = document.getElementById("drive-raid")
     if (raid.checked == true){ 
@@ -116,4 +93,27 @@ async function getRaidList(){
       selectionList.appendChild(elem)
       selectionList.appendChild(select)
   }
+}
+
+async function addNewDrive(){
+  const driveName = document.getElementById("drive-name").value
+  const raid = validateRaid()
+  const raidTarget = document.getElementById("raid-target").value
+  const userPermissionList = generatePermissionList()
+  const data = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        info: {
+          drivePath: path,
+          driveName: driveName,
+          raid: raid,
+          raidTarget: raidTarget,
+          permissionList: userPermissionList,
+        }
+      })
+    }
+  const response = await fetch('/api/newDrive', data);
 }
