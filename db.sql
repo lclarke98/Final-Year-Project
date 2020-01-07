@@ -5,6 +5,21 @@ CREATE TABLE if not exists nas.user(
   user_password VARCHAR(64) NOT NULL
 );
 
+CREATE TABLE if not exists nas.unaddedDrive(
+  unaddedDrive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  unaddedDrive_name VARCHAR(64) NOT NULL,
+  unaddedDrive_path VARCHAR(200) NOT NULL,
+  unaddedDrive_added BOOLEAN NOT NULL
+);
+
+CREATE TABLE if not exists nas.addedDrive(
+  addedDrive_name VARCHAR(64) NOT NULL PRIMARY KEY,
+  addedDrive_path VARCHAR(200) NOT NULL,
+  addedDrive_raid BOOLEAN NOT NULL,
+  addedDrive_raidTarget VARCHAR(75),  
+  FOREIGN KEY (addedDrive_path) REFERENCES unaddedDrive(unaddedDrive_path) ON DELETE CASCADE
+);
+
 CREATE TABLE if not exists nas.permissions(
   permission_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   addedDrive_name VARCHAR(64) NOT NULL,
@@ -21,21 +36,6 @@ CREATE TABLE if not exists nas.raid(
   raid_dest_drive VARCHAR(64) NOT NULL,
   FOREIGN KEY (addedDrive_raid) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE,
   FOREIGN KEY (addedDrive_raidTarget) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
-);
-
-CREATE TABLE if not exists nas.addedDrive(
-  addedDrive_name VARCHAR(64) NOT NULL PRIMARY KEY,
-  addedDrive_path VARCHAR(200) NOT NULL,
-  addedDrive_raid BOOLEAN NOT NULL,
-  addedDrive_raidTarget VARCHAR(75),  
-  FOREIGN KEY (addedDrive_path) REFERENCES unaddedDrive(unaddedDrive_path) ON DELETE CASCADE
-);
-
-CREATE TABLE if not exists nas.unaddedDrive(
-  unaddedDrive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  unaddedDrive_name VARCHAR(64) NOT NULL,
-  unaddedDrive_path VARCHAR(200) NOT NULL,
-  unaddedDrive_added BOOLEAN NOT NULL
 );
 
 use nas
