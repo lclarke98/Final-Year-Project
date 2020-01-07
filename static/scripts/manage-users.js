@@ -161,8 +161,8 @@ function generatePermissionList(){
 
 async function addNeweUser(){
     const permissions = generatePermissionList()
-    const userName = document.getElementById("new-user-name")
-    const password = document.getElementById("password")
+    const userName = document.getElementById("new-user-name").value
+    const password = document.getElementById("password").value
     console.log(permissions)
     console.log(userName)
     console.log(password)
@@ -179,5 +179,5 @@ async function addNeweUser(){
           }
         })
       }
-    const response = await fetch('/api/newDrive', data);
+    const response = await fetch('/api/newUser', data);
 }
