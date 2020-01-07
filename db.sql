@@ -34,8 +34,8 @@ CREATE TABLE if not exists nas.raid(
   raid_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   raid_target_drive VARCHAR(64) NOT NULL,
   raid_dest_drive VARCHAR(64) NOT NULL,
-  FOREIGN KEY (addedDrive_raid) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE,
-  FOREIGN KEY (addedDrive_raidTarget) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
+  FOREIGN KEY (raid_target_drive) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE,
+  FOREIGN KEY (raid_dest_drive) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
 );
 
 use nas
