@@ -47,6 +47,7 @@ module.exports.addNewDrive = async (name, path, raid, raidTarget) => {
     }
 };
 
+//add user r/w permissions when adding a new drive
 module.exports.addDrivePermissions = async (driveName, permissionList) => {
     try{
         for(let i = 0; i < permissionList.length; i++){
@@ -60,8 +61,26 @@ module.exports.addDrivePermissions = async (driveName, permissionList) => {
         console.log(e)
     }
 };
+
+//add user r/w permissions when adding a new user
+module.exports.addUserPermissions = async (userName, permissionList) => {
+    try{
+        console.log("att permissions")
+        for(let i = 0; i < permissionList.length; i++){
+            const driveName = permissionList[i].driveName
+            const read = permissionList[i].readValue
+            const write = permissionList[i].writeValue
+            let con = await connection
+            con.query("INSERT INTO permissions(addedDrive_name, user_name, permission_read, permission_write ) VALUES (?,?,?,?)", [driveName, userName, read, write]);
+        }
+    }catch(e){
+        console.log(e)
+    }
+};
+
 module.exports.addNewUser = async (userName, password) => {
     try{
+        console.log("adding user")
         let con = await connection
         await con.query("INSERT INTO user(user_name, user_password) VALUES (?,?)", [userName, password]);
         return 200
