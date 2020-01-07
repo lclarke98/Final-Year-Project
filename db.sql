@@ -9,7 +9,8 @@ CREATE TABLE if not exists nas.unaddedDrive(
   unaddedDrive_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   unaddedDrive_name VARCHAR(64) NOT NULL,
   unaddedDrive_path VARCHAR(200) NOT NULL,
-  unaddedDrive_added BOOLEAN NOT NULL
+  unaddedDrive_added BOOLEAN NOT NULL,
+  CONSTRAINT unaddedDrive_unique UNIQUE (unaddedDrive_path),
 );
 
 CREATE TABLE if not exists nas.addedDrive(
