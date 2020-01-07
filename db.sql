@@ -10,20 +10,25 @@ CREATE TABLE if not exists nas.permissions(
   addedDrive_name VARCHAR(64) NOT NULL,
   user_name VARCHAR(64) NOT NULL,
   permission_read BOOLEAN NOT NULL,
-  permission_write BOOLEAN NOT NULL
+  permission_write BOOLEAN NOT NULL,
+  FOREIGN KEY (user_name) REFERENCES user(user_name) ON DELETE CASCADE,
+  FOREIGN KEY (addedDDrive_name) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists nas.raid(
   raid_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   raid_target_drive VARCHAR(64) NOT NULL,
-  raid_dest_drive VARCHAR(64) NOT NULL
+  raid_dest_drive VARCHAR(64) NOT NULL,
+  FOREIGN KEY (addedDDrive_raid) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE,
+  FOREIGN KEY (addedDDrive_raidTarget) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists nas.addedDrive(
   addedDrive_name VARCHAR(64) NOT NULL PRIMARY KEY,
   addedDrive_path VARCHAR(200) NOT NULL,
   addedDrive_raid BOOLEAN NOT NULL,
-  addedDrive_raidTarget VARCHAR(75)
+  addedDrive_raidTarget VARCHAR(75),  
+  FOREIGN KEY (addedDDrive_path) REFERENCES unaddedDrive(unaddedDrive_path) ON DELETE CASCADE
 );
 
 CREATE TABLE if not exists nas.unaddedDrive(
