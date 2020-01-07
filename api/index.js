@@ -76,6 +76,25 @@ api.post('/newDrive', async (req, res) => {
   }
 });
 
+api.post('/newUser', async (req, res) => {
+  try{
+    const userName = req.body.info.userName
+    console.log(userName)
+    const password = req.body.info.password
+    const permissionList = req.body.info.permissionList
+    const confirm = await db.addNewUser(userName,password)
+    if(confirm  == 200){
+      db.addUserPermissions(userName ,permissionList)
+      return res.sendStatus(200)
+    }else{
+      console.log("error2")
+    }
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 api.delete('/drive', async (req, res) => {
   try{
     const name = req.body.info.driveName
