@@ -174,7 +174,7 @@ async function addNeweUser(){
         body: JSON.stringify({
           info: {
             userName: userName,
-            password: password,
+            password: password, 
             permissionList: permissions,
           }
         })
