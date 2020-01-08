@@ -36,17 +36,21 @@ async function getDriveList(){
     for (let i = 0; i < driveList.length; i++) {
         const elem = document.createElement("li")
         const read = document.createElement("input")
+        const readLabel = document.createElement("p")
         read.id=driveList[i].addedDrive_name+"-read"
         read.type = "checkbox"
+        readLabel.textContent = "Read"
+        read.appendChild(readLabel)
         const write = document.createElement("input")
         write.id = driveList[i].addedDrive_name+"-write"
         write.type = "checkbox"
+        write.textContent = "Write"
         elem.append
         elem.textContent = driveList[i].addedDrive_name
         elem.id = driveList[i].addedDrive_name
+        elem.appendChild(read)
+        elem.appendChild(write)
         permissionList.appendChild(elem)
-        permissionList.appendChild(read)
-        permissionList.appendChild(write)
     }
 }
 
@@ -73,9 +77,9 @@ async function getPermissionList(index){
         elem.append
         elem.textContent = result[i].addedDrive_name
         elem.id = result[i].addedDrive_name;
+        elem.appendChild(read)
+        elem.appendChild(write)
         permissionList.appendChild(elem)
-        permissionList.appendChild(read)
-        permissionList.appendChild(write)
     }
 }
 
