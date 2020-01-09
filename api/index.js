@@ -66,7 +66,7 @@ api.post('/newDrive', async (req, res) => {
     const ID = await db.addNewDrive(name,path,raid,raidTarget)
     if(ID.length ==1){
       db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
-      return res.status(200).redirect('/api/fileManager') 
+      return res.sendStatus(200)
     }else{
       console.log("error2")
     }
