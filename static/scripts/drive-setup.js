@@ -104,5 +104,5 @@ async function addNewDrive(){
         }
       })
     }
-  const response = await fetch('/api/newDrive', data);
+  const response = await fetch('/api/newDrive', data)
 }

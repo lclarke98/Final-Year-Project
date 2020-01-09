@@ -81,7 +81,7 @@ async function getUnaddedDrivList(){
 function openSetupWindow(){
     document.getElementById("setup-window").style.display = "block"
     document.getElementById("cancel-setup-button").addEventListener("click", closeSetupWindow)
-    document.getElementById("title").textContent = this.id;
+    document.getElementById("title").textContent = this.id
     console.log(this.id)
 }
 
@@ -92,7 +92,7 @@ function closeSetupWindow(){
 async function getPermissionList(index){
     const driveName = dbData[index].addedDrive_name
     
-    const url = `/api/permissionList?driveName=${driveName}`;
+    const url = `/api/permissionList?driveName=${driveName}`
     const response = await fetch(url)
     result = await response.json()
     console.log(result)
@@ -133,7 +133,7 @@ async function deleteDrive(index){
           }
         })
       }
-    const response = await fetch('/api/drive', data);
+    const response = await fetch('/api/drive', data)
     closeWindow()
     getDrive()
 }
