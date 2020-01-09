@@ -5,11 +5,30 @@
     <link rel="stylesheet" type="text/css" href="/css/global.css">
     <link rel="stylesheet" type="text/css" href="/css/manage-drive-dashboard.css">
     <script type="text/javascript" src="scripts/manage-drive-dashboard.js"></script>
+    <script type="text/javascript" src="scripts/drive-setup.js"></script>
 
 </head>
 
 <html>
     <nav>NAS SYSTEM</nav>
+    <button id="add-new-drive">Add New Drive</button>
+    <div id="add-new-drive-window" class="menu">
+        <button id="close-add-drive-window">Close</button>
+        <section id="unadded-drive-list"></section>
+    </div>
+    <div id="setup-window" class="menu">
+        <p id="title"></p>
+        <ul>
+            <li><input id="drive-name" type=text placeholder="Drive Name"></input></li>
+            <li><input type="checkbox" id="drive-raid">Use as RAID<br></li>
+            <li><div id="raid-list"></div></li>
+            <li id="raid-target"><div id="user-drive-list"></div></li>
+            <li><h1>Set user permissions</h1></li>
+            <li id="user-permissions"><div id="user-permission-list"></div></li>
+            <li><button id="add-drive">Add New Drive</button></li>
+        </ul>
+        <button id="cancel-setup-button">Cancel</button>
+    </div>
     <div class="menu" id="menu">
         <div id="drive-name"></div>
         <div id="permission-list"></div>

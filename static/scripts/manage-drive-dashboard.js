@@ -1,4 +1,11 @@
-window.addEventListener('load', getDrive)
+window.addEventListener('load', pageLoad)
+
+
+function pageLoad(){
+    document.getElementById("add-new-drive").addEventListener("click", openAddNewDriveWindow)
+    getDrive()
+
+}
 
 let dbData
 
@@ -35,14 +42,51 @@ function openDriveWindow(){
         deleteDrive(driveIndex);
     }, false);
     document.getElementById("menu").style.display = "block";
-    document.getElementById("drive-name").textContent = dbData[this.id].addedDrive_name;
+    document.getElementById("drive-name").textContent = dbData[this.id].addedDrive_name
     getPermissionList(driveIndex)
 }
 
 function closeWindow(){
-    document.getElementById("menu").style.display = "none";
+    document.getElementById("menu").style.display = "none"
     document.getElementById("permission-list").textContent  = ""
     driveIndex = ""
+}
+
+function openAddNewDriveWindow(){
+    document.getElementById("add-new-drive-window").style.display = "block"
+    document.getElementById("close-add-drive-window").addEventListener("click", closeAddNewDriveWindow)
+    getUnaddedDrivList()
+}
+
+function closeAddNewDriveWindow(){
+    document.getElementById("add-new-drive-window").style.display = "none"
+    document.getElementById("unadded-drive-list").textContent = ""
+}
+
+async function getUnaddedDrivList(){
+    const url = `/api/unaddedDriveList`
+    const response = await fetch(url)
+    const result = await response.json()
+    console.log(result)
+    let list = document.getElementById('unadded-drive-list')
+    for(let i = 0; i < result.length; i++) {
+      let item = document.createElement('li')
+      item.textContent = result[i].unaddedDrive_path
+      item.id = result[i].unaddedDrive_path
+      item.addEventListener("click", openSetupWindow)
+      list.appendChild(item)
+    }
+}
+
+function openSetupWindow(){
+    document.getElementById("setup-window").style.display = "block"
+    document.getElementById("cancel-setup-button").addEventListener("click", closeSetupWindow)
+    document.getElementById("title").textContent = this.id;
+    console.log(this.id)
+}
+
+function closeSetupWindow(){
+    document.getElementById("setup-window").style.display = "none"
 }
 
 async function getPermissionList(index){

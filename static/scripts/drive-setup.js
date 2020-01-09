@@ -1,14 +1,3 @@
-//gets the displays ip address from the url
-function getUrlVars() {
-    let vars = {}
-    let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-      vars[key] = value
-    })
-    return vars
-}
-  
-window.addEventListener("load", getPath)
-window.addEventListener("load", getUserList)
 window.addEventListener("load", pageLoad);
   
 function pageLoad(){
@@ -28,7 +17,7 @@ async function getUserList(){
     const url = "/api/userList"
     const response = await fetch(url)
     userList = await response.json()
-    const permissionList = document.getElementById("permission-list")
+    const permissionList = document.getElementById("user-permission-list")
     for (let i = 0; i < userList.length; i++) {
         const elem = document.createElement("li")
         const read = document.createElement("input")

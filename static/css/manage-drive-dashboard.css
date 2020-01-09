@@ -1,4 +1,4 @@
-#menu{
+#mendu{
     
     position: fixed;
     z-index: 2;
@@ -29,4 +29,17 @@ li{
     list-style-type: none;
     font-weight: bold;
     font-size: 20px;
+}
+
+.menu{
+    position: fixed;
+    display: none;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+    height: 90%;
+    border: black;
+    border-style: solid;
+    align-self: centre;
+    background-color: cornsilk;
 }
