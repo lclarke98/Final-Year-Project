@@ -3,11 +3,13 @@ window.addEventListener('load', pageLoad)
 
 function pageLoad(){
     document.getElementById("add-new-drive").addEventListener("click", openAddNewDriveWindow)
+    document.getElementById("add-drive").addEventListener('click', addNewDrive)
     getDrive()
 
 }
 
 let dbData
+let userList
 
 function clearList(){
     document.getElementById("drive-list").textContent  = ""
@@ -52,17 +54,6 @@ function closeWindow(){
     driveIndex = ""
 }
 
-function openAddNewDriveWindow(){
-    document.getElementById("add-new-drive-window").style.display = "block"
-    document.getElementById("close-add-drive-window").addEventListener("click", closeAddNewDriveWindow)
-    getUnaddedDrivList()
-}
-
-function closeAddNewDriveWindow(){
-    document.getElementById("add-new-drive-window").style.display = "none"
-    document.getElementById("unadded-drive-list").textContent = ""
-}
-
 async function getUnaddedDrivList(){
     const url = `/api/unaddedDriveList`
     const response = await fetch(url)
@@ -78,16 +69,6 @@ async function getUnaddedDrivList(){
     }
 }
 
-function openSetupWindow(){
-    document.getElementById("setup-window").style.display = "block"
-    document.getElementById("cancel-setup-button").addEventListener("click", closeSetupWindow)
-    document.getElementById("title").textContent = this.id
-    console.log(this.id)
-}
-
-function closeSetupWindow(){
-    document.getElementById("setup-window").style.display = "none"
-}
 
 async function getPermissionList(index){
     const driveName = dbData[index].addedDrive_name
@@ -136,4 +117,127 @@ async function deleteDrive(index){
     const response = await fetch('/api/drive', data)
     closeWindow()
     getDrive()
+}
+
+
+/////////////////////////////////////////////////////////////
+//Add Drive Functions
+function openAddNewDriveWindow(){
+    document.getElementById("add-new-drive-window").style.display = "block"
+    document.getElementById("close-add-drive-window").addEventListener("click", closeAddNewDriveWindow)
+    getUnaddedDrivList()
+}
+
+function closeAddNewDriveWindow(){
+    document.getElementById("add-new-drive-window").style.display = "none"
+    document.getElementById("unadded-drive-list").textContent = ""
+}
+
+let path
+function openSetupWindow(){
+    document.getElementById("setup-window").style.display = "block"
+    document.getElementById("cancel-setup-button").addEventListener("click", closeSetupWindow)
+    document.getElementById("title").textContent = this.id
+    getUserList()
+    path = this.id
+    console.log(this.id)
+}
+
+function closeSetupWindow(){
+    document.getElementById("setup-window").style.display = "none"
+}
+
+async function getUserList(){
+    const url = "/api/userList"
+    const response = await fetch(url)
+    userList = await response.json()
+    const permissionList = document.getElementById("user-permission-list")
+    for (let i = 0; i < userList.length; i++) {
+        const elem = document.createElement("li")
+        const read = document.createElement("input")
+        read.id=userList[i].user_name+"-read"
+        read.type = "checkbox"
+        const write = document.createElement("input")
+        write.id = userList[i].user_name+"-write"
+        write.type = "checkbox"
+        elem.append
+        elem.textContent = userList[i].user_name
+        elem.id = userList[i].user_name;
+        permissionList.appendChild(elem)
+        permissionList.appendChild(read)
+        permissionList.appendChild(write)
+    }
+}
+
+function validateRaid(){
+    const raid = document.getElementById("drive-raid")
+    if (raid.checked == true){ 
+      return true
+    } else {
+      return false
+    }
+}
+
+function generatePermissionList(){
+    let permissionTable = []
+    console.log(userList)
+    for(let i = 0; i < userList.length; i++){
+        const user = document.getElementById(userList[i].user_name)
+        const read = document.getElementById(userList[i].user_name+"-read")
+        const write = document.getElementById(userList[i].user_name+"-write")
+        if (read.checked == true){ 
+            readValue = true
+        }else {
+            readValue = false
+        }
+        if (write.checked == true){ 
+            writeValue = true
+        }else {
+            writeValue = false
+        }
+        userEntry = {"user": userList[i].user_name, "readValue": readValue, "writeValue": writeValue}
+        permissionTable.push(userEntry)
+    }
+    return permissionTable
+}
+
+async function getRaidList(){
+  const url = "/api/driveList"
+  const response = await fetch(url)
+  const raidList = await response.json()
+  const selectionList = document.getElementById("raid-list")
+  for (let i = 0; i < raidList.length; i++) {
+      const elem = document.createElement("li")
+      const select = document.createElement("input")
+      select.id=raidList[i].addedDrive_name
+      select.type = "checkbox"
+      elem.append
+      elem.textContent = raidList[i].addedDrive_name
+      elem.id = raidList[i].addedDrive_path;
+      selectionList.appendChild(elem)
+      selectionList.appendChild(select)
+  }
+}
+
+async function addNewDrive(){
+  const driveName = document.getElementById("drive-name").value
+  const raid = validateRaid()
+  const raidTarget = document.getElementById("raid-target").value
+  const userPermissionList = generatePermissionList()
+  const data = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        info: {
+          drivePath: path,
+          driveName: driveName,
+          raid: raid,
+          raidTarget: raidTarget,
+          permissionList: userPermissionList,
+        }
+      })
+    }
+  const response = await fetch('/api/newDrive', data)
 }
