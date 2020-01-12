@@ -147,6 +147,12 @@ function closeSetupWindow(){
     document.getElementById("setup-window").style.display = "none"
 }
 
+function completedSetup(){
+    closeSetupWindow()
+    closeAddNewDriveWindow()
+    getDrive()
+}
+
 async function getUserList(){
     const url = "/api/userList"
     const response = await fetch(url)
@@ -240,4 +246,5 @@ async function addNewDrive(){
       })
     }
   const response = await fetch('/api/newDrive', data)
+  completedSetup()
 }
