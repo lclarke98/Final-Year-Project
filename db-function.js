@@ -91,7 +91,7 @@ module.exports.addNewUser = async (userName, password) => {
 
 
 module.exports.getUserList = async () => {
-    getMediaVolumes()
+    //getMediaVolumes()
     let con = await connection
     let [list] = await con.query("SELECT * FROM user")
     return JSON.stringify(list)
