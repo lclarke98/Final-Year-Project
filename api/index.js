@@ -125,6 +125,7 @@ api.post('/user', async (req, res) => {
     const approval = await db.addUser(name, password)
     if(approval == 200){
       db.addUserPermissions(permissions)
+      res.sendStatus(200)
     }
   }catch (e) {
     console.error(e);
@@ -168,10 +169,6 @@ api.post('/file', upload.array('media'), async (req, res, next) => {
       }
     };
   }
-});
-
-api.get('/fileManager', function(req, res) {
-  res.sendFile('static/file-manager.html')
 });
 
 api.get('/download', function(req, res) {

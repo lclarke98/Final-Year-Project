@@ -16,6 +16,7 @@ function openAddUserWindow(){
 function closeAddUserWindow(){
     document.getElementById("add-user-menu").style.display = "none"
     document.getElementById("permission-list").textContent = ""
+    getUsers()
 }
 
 async function getUsers(){
@@ -167,9 +168,6 @@ async function addNeweUser(){
     const permissions = generatePermissionList()
     const userName = document.getElementById("new-user-name").value
     const password = document.getElementById("password").value
-    console.log(permissions)
-    console.log(userName)
-    console.log(password)
     const data = {
         method: 'POST',
         headers: {
@@ -184,4 +182,6 @@ async function addNeweUser(){
         })
       }
     const response = await fetch('/api/newUser', data);
+    console.log(response)
+    closeAddUserWindow()
 }
