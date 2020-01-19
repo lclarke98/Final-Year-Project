@@ -95,6 +95,36 @@ api.post('/newUser', async (req, res) => {
   }
 });
 
+api.put('/userName', async (req, res) => {
+  try{
+    const userName = req.body.info.userName
+    const confirm = await db.updateUsername(userName)
+    if(confirm  == 200){
+      return res.sendStatus(200)
+    }else{
+      console.log("error2")
+    }
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
+api.put('/password', async (req, res) => {
+  try{
+    const password = req.body.info.userName
+    const confirm = await db.updatePassword(password)
+    if(confirm  == 200){
+      return res.sendStatus(200)
+    }else{
+      console.log("error2")
+    }
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 api.delete('/drive', async (req, res) => {
   try{
     const name = req.body.info.driveName
