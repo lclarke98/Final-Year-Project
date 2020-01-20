@@ -5,7 +5,6 @@ function pageLoad(){
     document.getElementById("add-new-drive").addEventListener("click", openAddNewDriveWindow)
     document.getElementById("add-drive").addEventListener('click', addNewDrive)
     getDrive()
-
 }
 
 let dbData
