@@ -103,6 +103,8 @@ function openUserWindow(){
     getPermissionList(userIndex)
     let userName = data[this.id].user_name
     document.getElementById("close").addEventListener("click", closeWindow)
+    document.getElementById("change-username-button").addEventListener('click', openChangeUsernameWindow)
+    document.getElementById("change-password-button").addEventListener('click', openChangePasswordWindow)
     document.getElementById("delete-user").addEventListener("click", function(){
         deleteUser(userIndex)
     }, false);
@@ -184,4 +186,26 @@ async function addNeweUser(){
     const response = await fetch('/api/newUser', data);
     console.log(response)
     closeAddUserWindow()
+}
+
+//////////////////////////Update functions////////////////////////////////////
+
+function openChangeUsernameWindow(){
+    console.log("open")
+    document.getElementById("change-username-window").style.display = "block"
+    document.getElementById("close-change-username-window").addEventListener("click", closeChangeUsernameWindow)
+}
+
+function openChangePasswordWindow(){
+    document.getElementById("change-password-window").style.display = "block"
+    document.getElementById("close-change-password-window").addEventListener("click", closeChangePasswordWindow)
+}
+
+function closeChangeUsernameWindow(){
+    console.log("here")
+    document.getElementById("change-username-window").style.display = "none"
+}
+
+function closeChangePasswordWindow(){
+    document.getElementById("change-password-window").style.display = "none"
 }
