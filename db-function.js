@@ -90,11 +90,12 @@ module.exports.addNewUser = async (userName, password) => {
     }
 };
 
-module.exports.updateUsername = async (currentUserName, newUserName) => {
+module.exports.updateUsername = async (currentUsername, newUsername) => {
     try{
-        console.log("adding user")
+        console.log(currentUsername)
+        console.log(newUsername)
         let con = await connection
-        await con.query("UPDATE user SET user_name = ? WHERE user_name = ? ",[newUserName, currentUserName])
+        await con.query("UPDATE user SET user_name = ? WHERE user_name = ? ",[newUsername, currentUsername])
         return 200
     }catch(e){
         console.log(e)
