@@ -95,10 +95,11 @@ api.post('/newUser', async (req, res) => {
   }
 });
 
-api.put('/userName', async (req, res) => {
+api.put('/username', async (req, res) => {
   try{
-    const userName = req.body.info.userName
-    const confirm = await db.updateUsername(userName)
+    const currentUsername = req.body.info.currentUsername
+    const newUsername = req.body.info.newUsername
+    const confirm = await db.updateUsername(currentUsername, newUsername)
     if(confirm  == 200){
       return res.sendStatus(200)
     }else{
