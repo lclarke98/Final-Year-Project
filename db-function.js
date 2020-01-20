@@ -90,6 +90,27 @@ module.exports.addNewUser = async (userName, password) => {
     }
 };
 
+module.exports.updateUsername = async (currentUserName, newUserName) => {
+    try{
+        console.log("adding user")
+        let con = await connection
+        await con.query("UPDATE user SET user_name = ? WHERE user_name = ? ",[newUserName, currentUserName])
+        return 200
+    }catch(e){
+        console.log(e)
+    }
+};
+
+module.exports.updatePassword = async (userName, newPassword) => {
+    try{
+        console.log("adding user")
+        let con = await connection
+        await con.query("UPDATE user SET user_password = ? WHERE user_name = ? ",[userName, newPassword])
+        return 200
+    }catch(e){
+        console.log(e)
+    }
+};
 
 module.exports.getUserList = async () => {
     //getMediaVolumes()
