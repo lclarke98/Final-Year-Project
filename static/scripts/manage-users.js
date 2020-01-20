@@ -194,11 +194,13 @@ function openChangeUsernameWindow(){
     console.log("open")
     document.getElementById("change-username-window").style.display = "block"
     document.getElementById("close-change-username-window").addEventListener("click", closeChangeUsernameWindow)
+    document.getElementById("change-username").addEventListener("click", changeUsername)
 }
 
 function openChangePasswordWindow(){
     document.getElementById("change-password-window").style.display = "block"
     document.getElementById("close-change-password-window").addEventListener("click", closeChangePasswordWindow)
+    document.getElementById("change-password").addEventListener("click", changePassword)
 }
 
 function closeChangeUsernameWindow(){
@@ -208,4 +210,26 @@ function closeChangeUsernameWindow(){
 
 function closeChangePasswordWindow(){
     document.getElementById("change-password-window").style.display = "none"
+}
+
+async function changeUsername(){
+    const currentUsername = document.getElementById("user-name").textContent
+    const newUsername = document.getElementById("updated-username").value
+    console.log(currentUsername)
+    console.log(newUsername)
+    const data = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          info: {
+            currentUsername: currentUsername,
+            newUsername: newUsername, 
+          }
+        })
+      }
+    const response = await fetch('/api/username', data);
+    console.log(response)
+    closeAddUserWindow()
 }
