@@ -48,7 +48,7 @@ api.get('/permissionList', async (req, res) => {
 
 api.get('/permissionListByUsername', async (req, res) => {
   try{
-    const name = req.query.userName
+    const name = req.query.userID
     res.send(await db.getPermissionListByUsername(name))
   }catch (e) {
     console.error(e);
@@ -113,8 +113,9 @@ api.put('/username', async (req, res) => {
 
 api.put('/password', async (req, res) => {
   try{
-    const password = req.body.info.userName
-    const confirm = await db.updatePassword(password)
+    const username = req.body.info.username
+    const password = req.body.info.newPassword
+    const confirm = await db.updatePassword(username,password)
     if(confirm  == 200){
       return res.sendStatus(200)
     }else{
@@ -138,7 +139,7 @@ api.delete('/drive', async (req, res) => {
 
 api.delete('/user', async (req, res) => {
   try{
-    const name = req.body.info.userName
+    const name = req.body.info.userID
     shell.exec('sh ../shell-scripts/delete-user.sh' + name)
     res.status(200).send(await db.deleteUser(name))
   }catch (e) {
