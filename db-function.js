@@ -52,11 +52,11 @@ module.exports.addNewDrive = async (name, path, raid, raidTarget) => {
 module.exports.addDrivePermissions = async (driveName, permissionList) => {
     try{
         for(let i = 0; i < permissionList.length; i++){
-            const user = permissionList[i].user
+            const userID = permissionList[i].user
             const read = permissionList[i].readValue
             const write = permissionList[i].writeValue
             let con = await connection
-            con.query("INSERT INTO permissions(addedDrive_name, user_name, permission_read, permission_write ) VALUES (?,?,?,?)", [driveName, user, read, write]);
+            con.query("INSERT INTO permissions(addedDrive_name, user_id, permission_read, permission_write ) VALUES (?,?,?,?)", [driveName, userID, read, write]);
         }
     }catch(e){
         console.log(e)
@@ -64,7 +64,7 @@ module.exports.addDrivePermissions = async (driveName, permissionList) => {
 };
 
 //add user r/w permissions when adding a new user
-module.exports.addUserPermissions = async (userName, permissionList) => {
+module.exports.addUserPermissions = async (userID, permissionList) => {
     try{
         console.log("att permissions")
         for(let i = 0; i < permissionList.length; i++){
@@ -72,7 +72,7 @@ module.exports.addUserPermissions = async (userName, permissionList) => {
             const read = permissionList[i].readValue
             const write = permissionList[i].writeValue
             let con = await connection
-            con.query("INSERT INTO permissions(addedDrive_name, user_name, permission_read, permission_write ) VALUES (?,?,?,?)", [driveName, userName, read, write]);
+            con.query("INSERT INTO permissions(addedDrive_name, user_id, permission_read, permission_write ) VALUES (?,?,?,?)", [driveName, userID, read, write]);
         }
     }catch(e){
         console.log(e)
@@ -102,11 +102,11 @@ module.exports.updateUsername = async (currentUsername, newUsername) => {
     }
 };
 
-module.exports.updatePassword = async (userName, newPassword) => {
+module.exports.updatePassword = async (username, newPassword) => {
     try{
         console.log("adding user")
         let con = await connection
-        await con.query("UPDATE user SET user_password = ? WHERE user_name = ? ",[userName, newPassword])
+        await con.query("UPDATE user SET user_password = ? WHERE user_name = ? ",[newPassword, username])
         return 200
     }catch(e){
         console.log(e)
@@ -141,12 +141,12 @@ module.exports.deleteUser = async (name) => {
 
 module.exports.getPermissionList = async (name) => {
     let con = await connection
-    let [list] = await con.query("SELECT * FROM permissions WHERE addedDrive_name = ? ",[name])
+    let [list] = await con.query("SELECT permissions.user_id, permissions.addedDrive_name, permissions.permission_read, permissions.permission_write, user.user_name FROM permissions INNER JOIN user ON permissions.user_id = user.user_id  where addedDrive_name = ? ",[name])
     return JSON.stringify(list)
 };
 
 module.exports.getPermissionListByUsername = async (name) => {
     let con = await connection
-    let [list] = await con.query("SELECT * FROM permissions WHERE user_name = ? ",[name])
+    let [list] = await con.query("SELECT permissions.user_id, permissions.addedDrive_name, permissions.permission_read, permissions.permission_write, user.user_name FROM permissions INNER JOIN user ON permissions.user_id = user.user_id  where permissions.user_id = ?",[name])
     return JSON.stringify(list)
 };
