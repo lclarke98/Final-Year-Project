@@ -93,7 +93,7 @@ async function getPermissionList(index){
         }
         elem.append
         elem.textContent = result[i].user_name
-        elem.id = result[i].user_name;
+        elem.id = result[i].id;
         permissionList.appendChild(elem)
         permissionList.appendChild(read)
         permissionList.appendChild(write)
@@ -160,14 +160,14 @@ async function getUserList(){
     for (let i = 0; i < userList.length; i++) {
         const elem = document.createElement("li")
         const read = document.createElement("input")
-        read.id=userList[i].user_name+"-read"
+        read.id=userList[i].user_id+"-read"
         read.type = "checkbox"
         const write = document.createElement("input")
-        write.id = userList[i].user_name+"-write"
+        write.id = userList[i].user_id+"-write"
         write.type = "checkbox"
         elem.append
         elem.textContent = userList[i].user_name
-        elem.id = userList[i].user_name;
+        elem.id = userList[i].user_id;
         permissionList.appendChild(elem)
         permissionList.appendChild(read)
         permissionList.appendChild(write)
@@ -187,9 +187,9 @@ function generatePermissionList(){
     let permissionTable = []
     console.log(userList)
     for(let i = 0; i < userList.length; i++){
-        const user = document.getElementById(userList[i].user_name)
-        const read = document.getElementById(userList[i].user_name+"-read")
-        const write = document.getElementById(userList[i].user_name+"-write")
+        const user = document.getElementById(userList[i].user_id)
+        const read = document.getElementById(userList[i].user_id+"-read")
+        const write = document.getElementById(userList[i].user_id+"-write")
         if (read.checked == true){ 
             readValue = true
         }else {
@@ -200,7 +200,7 @@ function generatePermissionList(){
         }else {
             writeValue = false
         }
-        userEntry = {"user": userList[i].user_name, "readValue": readValue, "writeValue": writeValue}
+        userEntry = {"user": userList[i].user_id, "readValue": readValue, "writeValue": writeValue}
         permissionTable.push(userEntry)
     }
     return permissionTable

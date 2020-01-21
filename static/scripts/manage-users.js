@@ -56,8 +56,8 @@ async function getDriveList(){
 }
 
 async function getPermissionList(index){
-    const userName = data[index].user_name
-    const url = `/api/permissionListByUsername?userName=${userName}`;
+    const userID = data[index].user_id
+    const url = `/api/permissionListByUsername?userID=${userID}`;
     const response = await fetch(url)
     result = await response.json()
     const permissionList = document.getElementById("user-permissions")
@@ -101,7 +101,7 @@ let userIndex
 function openUserWindow(){
     userIndex = this.id
     getPermissionList(userIndex)
-    let userName = data[this.id].user_name
+    let userName = data[this.id].user_id
     document.getElementById("close").addEventListener("click", closeWindow)
     document.getElementById("change-username-button").addEventListener('click', openChangeUsernameWindow)
     document.getElementById("change-password-button").addEventListener('click', openChangePasswordWindow)
@@ -125,7 +125,7 @@ function clearList(){
 }
 
 async function deleteUser(index){
-    const userName = data[index].user_name
+    const userName = data[index].user_id
     const userData = {
         method: 'DELETE',
         headers: {
@@ -230,6 +230,28 @@ async function changeUsername(){
         })
       }
     const response = await fetch('/api/username', data);
+    console.log(response)
+    closeAddUserWindow()
+}
+
+async function changePassword(){
+    const username = document.getElementById("user-name").textContent
+    const newPassword= document.getElementById("updated-password").value
+    console.log(username)
+    console.log(newPassword)
+    const data = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          info: {
+            username: username,
+            newPassword: newPassword, 
+          }
+        })
+      }
+    const response = await fetch('/api/password', data);
     console.log(response)
     closeAddUserWindow()
 }
