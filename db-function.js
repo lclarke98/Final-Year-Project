@@ -133,10 +133,10 @@ module.exports.deleteDrive = async (name) => {
     return 200
 };
 
-module.exports.deleteUser = async (name) => {
-    console.log(name)
+module.exports.deleteUser = async (id) => {
+    console.log(id)
     let con = await connection
-    await con.query("DELETE FROM user WHERE user_name = ? ",[name])
+    await con.query("DELETE FROM user WHERE user_id = ? ",[id])
     return 200
 };
 

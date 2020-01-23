@@ -125,7 +125,7 @@ function clearList(){
 }
 
 async function deleteUser(index){
-    const userName = data[index].user_id
+    const userID = data[index].user_id
     const userData = {
         method: 'DELETE',
         headers: {
@@ -133,7 +133,7 @@ async function deleteUser(index){
         },
         body: JSON.stringify({
           info: {
-            userName: userName,
+            userID: userID,
           }
         })
       }

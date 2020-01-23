@@ -141,9 +141,9 @@ api.delete('/drive', async (req, res) => {
 
 api.delete('/user', async (req, res) => {
   try{
-    const name = req.body.info.userID
-    shell.exec('sh ../shell-scripts/delete-user.sh' + name)
-    res.status(200).send(await db.deleteUser(name))
+    const userID = req.body.info.userID
+    shell.exec('sh ../shell-scripts/delete-user.sh' + userID)
+    res.status(200).send(await db.deleteUser(userID))
   }catch (e) {
     console.error(e);
     res.sendStatus(500);
