@@ -84,7 +84,8 @@ module.exports.addNewUser = async (userName, password) => {
         console.log("adding user")
         let con = await connection
         await con.query("INSERT INTO user(user_name, user_password) VALUES (?,?)", [userName, password]);
-        return 200
+        let [id] = await con.query("SELECT user_id FROM user WHERE user_name = ? ",[userName])
+        return id
     }catch(e){
         console.log(e)
     }
