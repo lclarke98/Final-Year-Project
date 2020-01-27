@@ -64,13 +64,13 @@ async function getPermissionList(index){
     for (let i = 0; i < result.length; i++) {
         const elem = document.createElement("li")
         const read = document.createElement("input")
-        read.id=result[i].permission_read+"-read"
+        read.id=result[i].addedDrive_name+"-read"
         read.type = "checkbox"
         if(result[i].permission_read == 1){
             read.checked = true
         }
         const write = document.createElement("input")
-        write.id = result[i].permission_write+"-write"
+        write.id = result[i].addedDrive_name+"-write"
         write.type = "checkbox"
         if(result[i].permission_write == 1){
             write.checked = true
@@ -103,6 +103,7 @@ function openUserWindow(){
     getPermissionList(userIndex)
     let userName = data[this.id].user_id
     document.getElementById("close").addEventListener("click", closeWindow)
+    document.getElementById("update-user-permsiions-button").addEventListener("click", updatePermissions)
     document.getElementById("change-username-button").addEventListener('click', openChangeUsernameWindow)
     document.getElementById("change-password-button").addEventListener('click', openChangePasswordWindow)
     document.getElementById("delete-user").addEventListener("click", function(){
@@ -110,6 +111,7 @@ function openUserWindow(){
     }, false);
     document.getElementById("menu").style.display = "block";
     document.getElementById("user-name").textContent = data[this.id].user_name
+    document.getElementById("user-name").setAttribute("name", data[this.id].user_id);
 }
 
 function closeWindow(){
@@ -257,9 +259,35 @@ async function changePassword(){
 }
 
 
+
+function generateNewPermissionList(){
+  let newPermissionTable = []
+  for(let i = 0; i < driveList.length; i++){
+    console.log(driveList[i])
+      const userID = document.getElementById("user-name").getAttribute("name")
+      const driveName = driveList[i].addedDrive_name
+      const read = document.getElementById(driveList[i].addedDrive_name+"-read")
+      const write = document.getElementById(driveList[i].addedDrive_name+"-write")
+      if (read.checked == true){ 
+          readValue = true
+      }else {
+          readValue = false
+      }
+      if (write.checked == true){ 
+          writeValue = true
+      }else {
+          writeValue = false
+      }
+      userEntry = {"user": userID, "driveName": driveName, "readValue": readValue, "writeValue": writeValue}
+      newPermissionTable.push(userEntry)
+  }
+  return newPermissionTable
+}
+
 async function updatePermissions(){
-  const newPermissionsTable = generatePermissionList()
-  const username = d
+  const newPermissionsTable = generateNewPermissionList()
+  const username = document.getElementById("user-name").userid
+  console.log(newPermissionsTable)
   const data = {
     method: 'PUT',
     headers: {
