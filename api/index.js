@@ -169,9 +169,8 @@ api.post('/user', async (req, res) => {
 
 api.put('/userPermissions', async (req, res) => {
   try{
-    const username = req.body.info.username
-    const permissionsTable = req.body.info.newPermissionsTable
-    res.send(await db.updateUserPermissions(username,permissionsTable))
+    const permissionsTable = req.body.info.newPermissions
+    res.send(await db.updateUserPermissions(permissionsTable))
   }catch (e) {
     console.error(e);
     res.sendStatus(500);
