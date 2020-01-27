@@ -1,10 +1,10 @@
 window.addEventListener('load', pageLoad)
 
-
 function pageLoad(){
     document.getElementById("add-new-drive").addEventListener("click", openAddNewDriveWindow)
     document.getElementById("add-drive").addEventListener('click', addNewDrive)
     getDrive()
+    onLoadUserList()
 }
 
 let dbData
@@ -36,8 +36,11 @@ async function displayDriveList(list){
 let driveIndex
 function openDriveWindow(){
     driveIndex = this.id
+    document.getElementById("display-drive-name").textContent = dbData[this.id].addedDrive_name
+    document.getElementById("display-drive-name").setAttribute("name", dbData[this.id].addedDrive_name);
     console.log(driveIndex)
     console.log(dbData[this.id])
+    document.getElementById("update-user-permsiions-button").addEventListener("click", updatePermissions)
     document.getElementById("close").addEventListener("click", closeWindow)
     document.getElementById("delete-drive").addEventListener("click", function(){
         deleteDrive(driveIndex);
@@ -51,6 +54,13 @@ function closeWindow(){
     document.getElementById("menu").style.display = "none"
     document.getElementById("permission-list").textContent  = ""
     driveIndex = ""
+}
+
+async function onLoadUserList(){
+    const url = "/api/userList"
+    const response = await fetch(url)
+    userList = await response.json()
+    return userList
 }
 
 async function getUnaddedDrivList(){
@@ -80,20 +90,20 @@ async function getPermissionList(index){
     for (let i = 0; i < result.length; i++) {
         const elem = document.createElement("li")
         const read = document.createElement("input")
-        read.id=result[i].ermission_read+"-read"
+        read.id=result[i].user_id+"-read"
         read.type = "checkbox"
         if(result[i].permission_read == 1){
             read.checked = true
         }
         const write = document.createElement("input")
-        write.id = result[i].permission_write+"-write"
+        write.id = result[i].user_id+"-write"
         write.type = "checkbox"
         if(result[i].permission_write == 1){
             write.checked = true
         }
         elem.append
         elem.textContent = result[i].user_name
-        elem.id = result[i].id;
+        elem.id = result[i].user_id;
         permissionList.appendChild(elem)
         permissionList.appendChild(read)
         permissionList.appendChild(write)
@@ -247,3 +257,45 @@ async function addNewDrive(){
   const response = await fetch('/api/newDrive', data)
   completedSetup()
 }
+
+function generateNewPermissionList(){
+    let newPermissionTable = []
+    for(let i = 0; i < userList.length; i++){
+        const driveName = document.getElementById("display-drive-name").getAttribute("name")
+        const userID = userList[i].user_id
+        const read = document.getElementById(userList[i].user_id+"-read")
+        const write = document.getElementById(userList[i].user_id+"-write")
+        if (read.checked == true){ 
+            readValue = true
+        }else {
+            readValue = false
+        }
+        if (write.checked == true){ 
+            writeValue = true
+        }else {
+            writeValue = false
+        }
+        userEntry = {"user": userID, "driveName": driveName, "readValue": readValue, "writeValue": writeValue}
+        newPermissionTable.push(userEntry)
+    }
+    console.log(newPermissionTable)
+    return newPermissionTable
+  }
+  
+  async function updatePermissions(){
+    const newPermissionsTable = generateNewPermissionList()
+    console.log(newPermissionsTable)
+    const data = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        info: {
+          newPermissions: newPermissionsTable, 
+        }
+      })
+    }
+  const response = await fetch('/api/userPermissions', data);
+  console.log(response)
+  }
