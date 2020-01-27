@@ -255,3 +255,24 @@ async function changePassword(){
     console.log(response)
     closeAddUserWindow()
 }
+
+
+async function updatePermissions(){
+  const newPermissionsTable = generatePermissionList()
+  const username = d
+  const data = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      info: {
+        username: username,
+        newPermissions: newPermissionsTable, 
+      }
+    })
+  }
+const response = await fetch('/api/userPermissions', data);
+console.log(response)
+closeAddUserWindow()
+}
