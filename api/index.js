@@ -167,6 +167,17 @@ api.post('/user', async (req, res) => {
   }
 });
 
+api.put('/userPermissions', async (req, res) => {
+  try{
+    const username = req.body.info.username
+    const permissionsTable = req.body.info.newPermissionsTable
+    res.send(await db.updatePassword(username,password))
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // File Manager Functions
 const fileManager = require('./file-manager-api');
@@ -215,3 +226,4 @@ api.get('/download', function(req, res) {
     }
   })
 });
+
