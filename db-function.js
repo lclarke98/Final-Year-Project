@@ -151,3 +151,23 @@ module.exports.getPermissionListByUsername = async (name) => {
     let [list] = await con.query("SELECT permissions.user_id, permissions.addedDrive_name, permissions.permission_read, permissions.permission_write, user.user_name FROM permissions INNER JOIN user ON permissions.user_id = user.user_id  where permissions.user_id = ?",[name])
     return JSON.stringify(list)
 };
+
+
+
+/////////////////////////////
+
+module.exports.updateUserPermissions = async (permissionList) => {
+    try{
+        console.log("att permissions")
+        for(let i = 0; i < permissionList.length; i++){
+            const userID = permissionList[i].user
+            const driveName = permissionList[i].driveName
+            const read = permissionList[i].readValue
+            const write = permissionList[i].writeValue
+            let con = await connection
+            con.query("UPDATE permissions SET permission_read = ?, permission_write = ? WHERE user_id = ? AND addedDrive_name = ?", [read, write, userID, driveName]);
+        }
+    }catch(e){
+        console.log(e)
+    }
+};
