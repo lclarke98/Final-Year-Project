@@ -23,3 +23,15 @@ sudo mount $newPath
 sudo chmod a+rwx $newPath
 
 # Now add to SAMBA ????????????????????????????
+
+
+smbConf="/etc/samba/smb.conf"
+name="nas1"
+newPath="/media/pi/"$name
+
+echo "[$name]" >> $smbConf
+echo "path = "$newPath >> $smbConf
+echo "writeable=yes" >> $smbConf
+echo "create mask=0777" >> $smbConf
+echo "directory mask=0777" >> $smbConf
+echo "public=no" >> $smbConf
