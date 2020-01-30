@@ -4,7 +4,7 @@
 # $1 drive path
 # $2 drive name
 
-newPath = "/media/pi" + $2
+newPath="/media/pi/"+$2
 
 # Step one umount the drive
 
