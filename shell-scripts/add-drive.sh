@@ -6,6 +6,14 @@
 
 newPath="/media/pi/"+$2
 
+# Step 0 create mount point
+
+sudo mkdir /home/pi/nas-mount/$2
+
+# Step get sda and add mount point to fstab
+
+
+
 # Step one umount the drive
 
 sudo umount -a $1
