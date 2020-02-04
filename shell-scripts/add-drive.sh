@@ -16,6 +16,8 @@ getPath="$(ls -l /dev/disk/by-label/MJRO1815 | tail -c 6)"
 
 sd="${getPath}" 
 
+sudo echo "/dev$sd /home/pi/nas-mount$2 vfat auto, nofail, noatime, users, rw, uid=pi,gid=pi 0 0" >> "/ect/fstab"
+
 echo $sd
 
 # Step one umount the drive
