@@ -12,7 +12,11 @@ sudo mkdir /home/pi/nas-mount/$2
 
 # Step get sda and add mount point to fstab
 
+getPath="$(ls -l /dev/disk/by-label/MJRO1815 | tail -c 6)"
 
+sd="${getPath}" 
+
+echo $sd
 
 # Step one umount the drive
 
