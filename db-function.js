@@ -1,11 +1,11 @@
 const fs = require('fs');
 const mysql = require('mysql2/promise')
 const config = require('./db-config')
-const connection = mysql.createConnection(config.mysql)
-//const connection = mysql.createConnection(config.mysqlPi)
-const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/media/'
+//const connection = mysql.createConnection(config.mysql)
+const connection = mysql.createConnection(config.mysqlPi)
+//const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/media/'
 //const path = 'E:/Documents/GitHub/Final-Year-Project/api/drive/media/'
-//const path = '/media/pi/'
+const path = '/media/pi/'
 
 function getMediaVolumes(){
     try {
