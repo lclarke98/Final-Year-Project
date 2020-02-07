@@ -3,8 +3,8 @@ const multer = require('multer');
 //const fs = require('fs');
 const api = express.Router();
 const db = require('../db-function');
+const shell = require('shell-script')
 const bodyParser = require('body-parser')
-const shell = require('shelljs');
 module.exports = api;
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -65,7 +65,8 @@ api.post('/newDrive', async (req, res) => {
     const permissionList = req.body.info.permissionList
     const ID = await db.addNewDrive(name,path,raid,raidTarget)
     if(ID.length ==1){
-      db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
+      await db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
+      await shell.addDrive(name,path,permissionList)
       return res.sendStatus(200)
     }else{
       console.log("error2")
@@ -142,7 +143,6 @@ api.delete('/drive', async (req, res) => {
 api.delete('/user', async (req, res) => {
   try{
     const userID = req.body.info.userID
-    shell.exec('sh ../shell-scripts/delete-user.sh' + userID)
     res.status(200).send(await db.deleteUser(userID))
   }catch (e) {
     console.error(e);
@@ -155,10 +155,10 @@ api.post('/user', async (req, res) => {
     const name = req.body.info.userName
     const password = req.body.info.password
     const permissions = req.body.info.permissions
-    shell.exec('sh ../shell-scripts/add-user.sh' + name)
     const approval = await db.addUser(name, password)
     if(approval == 200){
-      db.addUserPermissions(permissions)
+      await db.addUserPermissions(permissions)
+      await shell.addUser(name,permissions)
       res.sendStatus(200)
     }
   }catch (e) {
