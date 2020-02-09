@@ -1,0 +1,12 @@
+li{
+    float: left;
+    padding: 10%;
+}
+
+#file-manager-button{
+    padding-left: 33%;
+}
+
+#admin-dashboard-button{
+    padding-right: 33%;
+}

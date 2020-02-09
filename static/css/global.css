@@ -5,6 +5,10 @@ html {
   a {
     text-decoration: none;
   }
+
+  li{
+    list-style: none;
+  }
   
   body {
     margin: 0;

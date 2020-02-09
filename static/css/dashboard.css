@@ -1,0 +1,22 @@
+.item-tile{
+    width: 20%;
+    height: 25vh;
+    margin-top: 20vh;
+}
+
+#item-tile-1{
+    float: left;
+    margin-left: 10%;
+    text-align: center;
+}
+#item-tile-2{
+    float: left;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+}
+#item-tile-3{
+    float: right;
+    margin-right: 10%;
+    text-align: center;
+}

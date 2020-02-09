@@ -11,11 +11,13 @@ function openAddUserWindow(){
     getDriveList()
     document.getElementById("add-user-menu").style.display = "block";
     document.getElementById("close-add-window").addEventListener("click", closeAddUserWindow)
+    document.getElementById("user-list").style.pointerEvents = "none";
 }
 
 function closeAddUserWindow(){
     document.getElementById("add-user-menu").style.display = "none"
     document.getElementById("permission-list").textContent = ""
+    document.getElementById("user-list").style.pointerEvents = "all";
     getUsers()
 }
 
@@ -106,6 +108,7 @@ function openUserWindow(){
     document.getElementById("update-user-permsiions-button").addEventListener("click", updatePermissions)
     document.getElementById("change-username-button").addEventListener('click', openChangeUsernameWindow)
     document.getElementById("change-password-button").addEventListener('click', openChangePasswordWindow)
+    document.getElementById("user-list").style.pointerEvents = "none";
     document.getElementById("delete-user").addEventListener("click", function(){
         deleteUser(userIndex)
     }, false);
@@ -117,6 +120,7 @@ function openUserWindow(){
 function closeWindow(){
     document.getElementById("menu").style.display = "none"
     document.getElementById("user-permissions").textContent = ""
+    document.getElementById("user-list").style.pointerEvents = "all";
     userIndex = ""
 }
 
