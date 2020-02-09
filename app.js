@@ -3,6 +3,9 @@ const path = require('path');
 const app = express();
 
 app.use('/api', require('./api'));
+app.use('/user', require('./user'));
+
+
 app.use(express.static('static', { extensions: ['html'] }));
 app.use(express.static(path.join(__dirname, 'static')));
 //App runs on port 80
