@@ -14,7 +14,7 @@ sudo mkdir /home/pi/nas-mount/$2
 getPath="$(ls -l /dev/disk/by-label/$2 | tail -c 6)"
 sd="${getPath}" 
 
-sudo mkfs.ext4 /dev/$sd -L $2
+sudo mkfs.ext4 /dev/$sd -L $2 -y
 
 sudo echo "/dev$sd /home/pi/nas-mount/$2 ext4 defaults 0 0" >> "/etc/fstab"
 
