@@ -3,7 +3,7 @@ const multer = require('multer');
 //const fs = require('fs');
 const api = express.Router();
 const db = require('../db-function');
-const shell = require('shell-script')
+const shell = require('./shell-script')
 const bodyParser = require('body-parser')
 module.exports = api;
 api.use(bodyParser.json());
