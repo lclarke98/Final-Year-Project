@@ -1,8 +1,8 @@
 function loadScripts() {
-  loadPageHeader()
+  getPath()
   addEventListeners()
   getAllFiles()
-  getPath()
+
 };
 
 //gets the displays ip address from the url
@@ -17,28 +17,28 @@ function getUrlVars() {
 let path
 function getPath(){
   path = getUrlVars()["path"]
-  document.getElementById("path").textContent = path
+
 }
 
 async function getAllFiles() {
-  const url = '/api/allFiles';
-  const response = await fetch(url);
-  const allFiles = await response.json();
-  console.log(allFiles);
-  generateFileList("fileList", "delFilesList", allFiles);
+  console.log(path)
+  const url = `/api/allFiles?path=${path}`
+  const response = await fetch(url)
+  const allFiles = await response.json()
+  console.log(allFiles)
+  generateFileList("fileList", "delFilesList", allFiles)
 };
 
 async function generateFileList(ID, deleteID, files) {
-  console.log(files)
-  const list = document.getElementById(ID);
-  const deleteList = document.getElementById(deleteID);
+  const list = document.getElementById(ID)
+  const deleteList = document.getElementById(deleteID)
 
   for (let i = 0; i < files.length; i++) {
-    const elem = document.createElement("li");
-    elem.textContent = files[i];
-    elem.id = files[i];;
-    list.appendChild(elem);
-    document.getElementById(elem.id).addEventListener("click", openSubDir);
+    const elem = document.createElement("li")
+    elem.textContent = files[i]
+    elem.id = files[i]
+    list.appendChild(elem)
+    document.getElementById(elem.id).addEventListener("click", openSubDir)
   }
 };
 
