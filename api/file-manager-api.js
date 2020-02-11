@@ -15,14 +15,14 @@ const storage = multer.diskStorage({
 });
 
 //localhost path
-const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/';
+//const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/';
 
 //RaspberryPi path
 //const path = '/media/pi/'
 
 const upload = multer({ storage: storage });
 
-module.exports.getAllFiles = async (req, res) => {
+module.exports.getAllFiles1 = async (req, res) => {
   try {
     fs.readdir(path, (err, files) => {
       res.send(JSON.stringify(files))
@@ -31,6 +31,20 @@ module.exports.getAllFiles = async (req, res) => {
   catch (e) {
     console.log(e)
   }
+};
+
+module.exports.getAllFiles = async (path) => {
+  let data
+  try {
+    fs.readdir(path, (err, files) => {
+      data = files
+    });
+  }
+  catch (e) {
+    console.log(e)
+  }
+  console.log(data)
+  return data
 };
 
 module.exports.openSubDir = async (req, res) => {
