@@ -8,6 +8,7 @@ sudo apt install nodejs -y
 sudo apt-get install mysql-server -y
 sudo apt-get install mariadb-server -y
 sudo mysql_secure_installation -y
+#check the login issue
 
 sudo chmod a+rwx "/etc/fstab"
 sudo chmod a+rwx "/etc/samba/smb.conf"
