@@ -31,6 +31,15 @@ app.get('/dashboard', async (req, res) => {
   }
 });
 
+app.get('/dashboard', async (req, res) => {
+  try {
+      res.redirect("/index.html")
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 
 app.listen(port, (err) => {
   if (err) console.log('error', err);
