@@ -10,7 +10,7 @@
     border: black;
     border-style: solid;
     align-self: centre;
-    background-color: cornsilk;
+    background-image: linear-gradient(#F7F7F7, #D6D6D6);
 }
 
 body{
@@ -41,5 +41,5 @@ li{
     border: black;
     border-style: solid;
     align-self: centre;
-    background-color: cornsilk;
+    background-image: linear-gradient(#F7F7F7, #D6D6D6);
 }

@@ -33,38 +33,7 @@ html {
     -moz-transition: 0.2s;
     -o-transition: 0.2s;
   }
-  
-  /*-------------------------------------------*\
-     Text
-  \*-------------------------------------------*/
-  #pageTitle {
-    position: relative;
-    display: inline-block;
-    height: auto;
-    width: 96vw;
-    margin: 2vh 2vw 1vh 2vw;
-    padding: 0;
-    color: #621360;
-    background-color: #FFF;
-    box-sizing: border-box;
-    border: 2px solid #212121;
-    transition: 0.2s;
-    -webkit-transition: 0.2s;
-    -moz-transition: 0.2s;
-    -o-transition: 0.2s;
-  }
-  
-  #pageTitle h1 {
-    font-size: 2.5em;
-    padding: 15px;
-    margin: 0;
-  }
-  
-  .general-title {
-    font-size: 3em;
-    margin: 0;
-  }
-  
+
   /*-------------------------------------------*\
      General
   \*-------------------------------------------*/
@@ -93,3 +62,29 @@ html {
     text-align: center;
   }
   
+
+  .close {
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+  }
+  .close:hover {
+    opacity: 1;
+  }
+  .close:before, .close:after {
+    position: absolute;
+    left: 15px;
+    content: '  ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  .close:before {
+    transform: rotate(45deg);
+  }
+  .close:after {
+    transform: rotate(-45deg);
+  }
