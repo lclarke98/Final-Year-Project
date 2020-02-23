@@ -21,6 +21,14 @@ async function getDrive() {
   displayDriveList(dbData)
 }
 
+function activateOverlay(){
+  document.getElementById("overlay").classList.add("overlay");
+}
+
+function deactivateOverlay(){
+  document.getElementById("overlay").classList.remove("overlay");
+}
+
 async function displayDriveList(list) {
   clearList()
   const driveList = document.getElementById("drive-list")
@@ -35,6 +43,7 @@ async function displayDriveList(list) {
 
 let driveIndex
 function openDriveWindow() {
+  activateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "none";
   driveIndex = this.id
   document.getElementById("display-drive-name").textContent = dbData[this.id].addedDrive_name
@@ -52,6 +61,7 @@ function openDriveWindow() {
 }
 
 function closeWindow() {
+  deactivateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "all";
   document.getElementById("menu").style.display = "none"
   document.getElementById("permission-list").textContent = ""
@@ -134,6 +144,7 @@ async function deleteDrive(index) {
 /////////////////////////////////////////////////////////////
 //Add Drive Functions
 function openAddNewDriveWindow() {
+  activateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "none";
   document.getElementById("add-new-drive-window").style.display = "block"
   document.getElementById("close-add-drive-window").addEventListener("click", closeAddNewDriveWindow)
@@ -141,6 +152,7 @@ function openAddNewDriveWindow() {
 }
 
 function closeAddNewDriveWindow() {
+  deactivateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "all";
   document.getElementById("add-new-drive-window").style.display = "none"
   document.getElementById("unadded-drive-list").textContent = ""

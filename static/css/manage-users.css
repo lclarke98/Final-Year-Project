@@ -9,6 +9,7 @@
     border-style: solid;
     align-self: centre;
     background-image: linear-gradient(#F7F7F7, #D6D6D6);
+    z-index: 999;
 }
 
 #permission-list{
@@ -41,4 +42,9 @@ li{
     list-style-type: none;
     font-weight: bold;
     font-size: 20px;
+}
+
+#overlay{
+    width: 100%;
+    height: 100%;
 }

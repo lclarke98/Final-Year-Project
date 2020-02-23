@@ -7,18 +7,29 @@ function pageLoad(){
     document.getElementById("add-user").addEventListener("click", addNeweUser)
 }
 
+
+function activateOverlay(){
+  document.getElementById("overlay").classList.add("overlay");
+}
+
+function deactivateOverlay(){
+  document.getElementById("overlay").classList.remove("overlay");
+}
+
 function openAddUserWindow(){
     getDriveList()
     document.getElementById("add-user-menu").style.display = "block";
     document.getElementById("close-add-window").addEventListener("click", closeAddUserWindow)
     document.getElementById("user-list").style.pointerEvents = "none";
+    activateOverlay()
 }
 
 function closeAddUserWindow(){
     document.getElementById("add-user-menu").style.display = "none"
     document.getElementById("permission-list").textContent = ""
     document.getElementById("user-list").style.pointerEvents = "all";
-    getUsers()
+    document.getElementById("overlay").classList.remove("overlay");
+    deactivateOverlay()
 }
 
 async function getUsers(){
@@ -101,6 +112,7 @@ async function displayUserList(list){
 let userIndex
 
 function openUserWindow(){
+  activateOverlay()
     userIndex = this.id
     getPermissionList(userIndex)
     let userName = data[this.id].user_id
@@ -122,6 +134,7 @@ function closeWindow(){
     document.getElementById("user-permissions").textContent = ""
     document.getElementById("user-list").style.pointerEvents = "all";
     userIndex = ""
+    deactivateOverlay()
 }
 
 function clearList(){
