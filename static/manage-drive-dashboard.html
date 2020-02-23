@@ -5,14 +5,18 @@
     <link rel="stylesheet" type="text/css" href="/css/global.css">
     <link rel="stylesheet" type="text/css" href="/css/manage-drive-dashboard.css">
     <script type="text/javascript" src="scripts/manage-drive-dashboard.js"></script>
+    <script type="text/javascript" src="scripts/nav.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
 
 </head>
 
 <html>
-    <nav>NAS SYSTEM</nav>
+    <nav>
+        <button id="logout-button">Logout</button>
+    </nav>
     <button id="add-new-drive">Add New Drive</button>
     <div id="add-new-drive-window" class="menu">
-        <button id="close-add-drive-window">Close</button>
+        <button class="close"  id="close-add-drive-window">Close</button>
         <section id="unadded-drive-list"></section>
     </div>
     <div id="setup-window" class="menu">

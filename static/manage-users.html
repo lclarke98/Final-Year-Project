@@ -4,14 +4,18 @@
     <link rel="stylesheet" type="text/css" href="/css/global.css">
     <link rel="stylesheet" type="text/css" href="/css/manage-users.css">
     <script type="text/javascript" src="scripts/manage-users.js"></script>
+    <script type="text/javascript" src="scripts/nav.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/nav.css">
 
 </head>
 
-<html>
-    <nav>NAS SYSTEM</nav>
+<html id="page-mask">
+    <nav>
+        <button id="logout-button">Logout</button>
+    </nav>
     <button id="open-add-user">Add New User</button>
     <div class="menu" id="add-user-menu">
-        <button id="close-add-window">close</button>
+        <button class="close" id="close-add-window">close</button>
         <h1>Add A new User</h1>
         <input id="new-user-name" type="text" placeholder="Enter a user name">
         <input id="password" type="text" placeholder="Enter a user password">
@@ -19,7 +23,7 @@
         <div id="permission-list"></div>
     </div>
     <div class="menu" id="menu">
-        <button id="close">close</button>
+        <button class="close" id="close">close</button>
         <button id="change-username-button">Change username</button>
         <button id="change-password-button">Change password</button>
         <div id="user-name"></div>
@@ -29,13 +33,13 @@
     </div>
 
     <div class="menu" id="change-username-window">
-        <button id="close-change-username-window">close</button>
+        <button class="close" id="close-change-username-window">close</button>
         <input id="updated-username" type="text" placeholder="Enter new username">
         <button id="change-username">Change username</button>
     </div>
 
     <div class="menu" id="change-password-window">
-        <button id="close-change-password-window">close</button>
+        <button class="close" id="close-change-password-window">close</button>
         <input id="updated-password" type="text" placeholder="Enter new password">
         <button id="change-password">Change password</button>
     </div>
