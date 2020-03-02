@@ -31,7 +31,7 @@ app.get('/dashboard', async (req, res) => {
   }
 });
 
-app.get('/dashboard', async (req, res) => {
+app.get('/login', async (req, res) => {
   try {
       res.redirect("/index.html")
   }catch (e) {
