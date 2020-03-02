@@ -3,7 +3,7 @@ CREATE DATABASE if not exists nas;
 CREATE TABLE if not exists nas.user(
   user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   user_name VARCHAR(64) NOT NULL,
-  user_password VARCHAR(64) NOT NULL,
+  user_password VARCHAR(88) NOT NULL,
   CONSTRAINT user_unique UNIQUE (user_name)
 );
 
