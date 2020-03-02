@@ -5,6 +5,7 @@ const api = express.Router();
 const db = require('../db-function');
 const shell = require('./shell-script')
 const bodyParser = require('body-parser')
+const passwordHash = require('password-hash');
 module.exports = api;
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -83,7 +84,8 @@ api.post('/newUser', async (req, res) => {
     console.log(userName)
     const password = req.body.info.password
     const permissionList = req.body.info.permissionList
-    const confirm = await db.addNewUser(userName,password)
+    let hashedPassword = passwordHash.generate(password);
+    const confirm = await db.addNewUser(userName,hashedPassword)
     if(confirm != 0){
       userID = confirm[0].user_id
       console.log(userID)
