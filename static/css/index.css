@@ -1,0 +1,31 @@
+#welcome{
+    padding-top: 5vw;
+    padding-bottom: 5vw;
+    padding-left: 1vw;
+}
+
+.login-form{
+    margin-left: 40vw;
+    margin-right: 40vw;
+}
+
+input[type=text], input[type=password] {
+    width: 20vw;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button{
+    background-color: #0D74EF;
+    border: none;
+    width: 20vw;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
