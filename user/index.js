@@ -1,7 +1,7 @@
 const express = require('express')
 const user = express.Router()
-const session = require('express-session')
 const db = require('../user-db-function')
+
 const bodyParser = require('body-parser')
 module.exports = user
 user.use(bodyParser.json())
@@ -29,6 +29,7 @@ user.get('/login', async (req, res) => {
 user.get('/logout', async (req, res) => {
     try {
         req.session.destroy();
+        console.log(req.session)
         res.redirect("/login")
     }catch (e) {
       console.error(e);
