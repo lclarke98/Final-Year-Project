@@ -5,6 +5,10 @@
 # $2 drive name
 # $3 permissions
 
+echo $1
+echo $2
+
+
 newPath="/media/pi/"+$2
 
 # Step 0 create mount point
