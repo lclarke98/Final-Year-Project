@@ -43,7 +43,7 @@ CREATE TABLE if not exists nas.raid(
 
 use nas
 
-insert into user (user_name, user_password) values ('admin', 'admin');
+insert into user (user_name, user_password) values ('admin', 'sha1$e1dd8d92$1$3fb49fc188c65cc2eae99f2c587e52160ea0fbe2');
 insert into user (user_name, user_password) values ('root', 'root');
 insert into user (user_name, user_password) values ('lclarke', 'lclarke');
 
