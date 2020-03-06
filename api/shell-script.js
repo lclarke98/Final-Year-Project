@@ -19,8 +19,11 @@ function sortWriteList(permissions){
 
 module.exports.addDrive = async (driveName, drivePath, permissions) => {
     const readList = sortReadList(permissions)
+    console.log(readList)
     const writeList = sortWriteList(permissions)
-    shell.exec('sh ../shell-scripts/add-drive.sh' + drivePath, driveName, readList, writeList)
+    console.log(writeList)
+    console.log("Adding new Drive")
+    shell.exec('sh /home/pi/Final-Year-Project/shell-scripts/add-drive.sh' +" "+ drivePath +" "+ driveName +" "+ readList +" "+ writeList)
 };
 
 module.exports.addUser = async (userName, password, permissions) => {
