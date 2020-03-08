@@ -101,13 +101,20 @@ async function displayUserList(list){
     clearList()
     const userList = document.getElementById("user-list")
     for(let i = 0; i < list.length; i++) {
-        let item = document.createElement('li')
-        item.textContent =  list[i].user_name
-        item.id = i
-        item.addEventListener("click", openUserWindow)
-        userList.appendChild(item)
+      const tile = document.createElement("div")
+      tile.id = "tile"
+      const icon = document.createElement("IMG");
+      icon.setAttribute("src", "/image/user-icon.png")
+      let name = document.createElement("figcaption")
+      name.textContent =  list[i].user_name
+      icon.id = i
+      tile.appendChild(icon)
+      tile.appendChild(name)
+      icon.addEventListener("click", openUserWindow)
+      userList.appendChild(tile)
     }
 }
+
 
 let userIndex
 
