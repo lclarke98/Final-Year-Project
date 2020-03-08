@@ -48,3 +48,18 @@ li{
     width: 100%;
     height: 100%;
 }
+
+#user-list{
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
+#tile{
+    float: left;
+    padding: 1vw;
+    position: relative;
+}
+
+figcaption{
+    text-align: center;
+}
