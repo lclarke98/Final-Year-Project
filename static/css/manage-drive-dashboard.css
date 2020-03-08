@@ -18,6 +18,21 @@ li{
     font-size: 20px;
 }
 
+#drive-list{
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
+#tile{
+    float: left;
+    padding: 1vw;
+    position: relative;
+}
+
+figcaption{
+    text-align: center;
+}
+
 .menu{
     position: fixed;
     display: none;
