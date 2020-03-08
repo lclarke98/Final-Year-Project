@@ -33,11 +33,17 @@ async function displayDriveList(list) {
   clearList()
   const driveList = document.getElementById("drive-list")
   for (let i = 0; i < list.length; i++) {
-    let item = document.createElement('li')
-    item.textContent = list[i].addedDrive_name
-    item.id = i
-    driveList.appendChild(item)
-    item.addEventListener("click", openDriveWindow)
+    const tile = document.createElement("div")
+    tile.id = "tile"
+    const icon = document.createElement("IMG");
+    icon.setAttribute("src", "/image/nas-icon.png")
+    let name = document.createElement("figcaption")
+    name.textContent = list[i].addedDrive_name
+    icon.id = i
+    tile.appendChild(icon)
+    tile.appendChild(name)
+    driveList.appendChild(tile)
+    icon.addEventListener("click", openDriveWindow)
   }
 }
 
