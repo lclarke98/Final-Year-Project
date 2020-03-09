@@ -10,13 +10,19 @@ async function getDrive(){
 async function displayDriveList(list){
     const driveList = document.getElementById("drive-list")
     for(let i = 0; i < list.length; i++) {
-        let item = document.createElement('li');
         let a = document.createElement('a');
-        a.textContent = list[i].addedDrive_name;
-        let path = list[i].addedDrive_path;
-        let link = 'file-manager.html?path='+path;
-        a.setAttribute('href', link);
-        item.appendChild(a);
-        driveList.appendChild(item);
+        const tile = document.createElement("div")
+        tile.id = "tile"
+        const icon = document.createElement("IMG")
+        icon.setAttribute("src", "/image/nas-icon.png")
+        let name = document.createElement("figcaption")
+        name.textContent = list[i].addedDrive_name
+        let path = list[i].addedDrive_path
+        a.setAttribute("href",'file-manager.html?path='+path)
+        a.appendChild(icon)
+        tile.appendChild(a)
+        tile.appendChild(name)
+        driveList.appendChild(tile)
     }
 }
+
