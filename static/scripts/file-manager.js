@@ -34,6 +34,7 @@ async function generateFileList(files) {
   let list = document.getElementById('fileList');
     for(let i = 0; i < files.length; i++) {
       let item = document.createElement('li');
+      item.id = files[i].Name
       let link = 'file-manager.html?location='+ path + "/" + files[i].Path;
       if(files[i].IsDirectory === true){
         let a = document.createElement('a');
@@ -42,7 +43,22 @@ async function generateFileList(files) {
         item.appendChild(a);
       }
       else{
-          item.textContent = files[i].Name
+        let preview = document.createElement("button")
+        preview.textContent = "View"
+        preview.addEventListener("click", openPreview)
+        preview.id = path + "/" + files[i].Path;
+        let download = document.createElement("button")
+        download.addEventListener("click", downloadFile)
+        download.textContent = "Download"
+        download.id = path + "/" + files[i].Path;
+        let deleteItem = document.createElement("button")
+        deleteItem.textContent = "Delete"
+        deleteItem.id = path + "/" + files[i].Path;
+        deleteItem.addEventListener("click", deleteFile)
+        item.textContent = files[i].Name
+        item.appendChild(preview)
+        item.appendChild(download)
+        item.appendChild(deleteItem)
       }
       list.appendChild(item);
     }
@@ -63,7 +79,7 @@ function closeDialog() {
 }
 
 function openPreview() {
-  const file = this.id
+  const file = path + "/" + this.id
   let previewWindow
   if (file.substr(-4) === ".mp4" || file.substr(-5) === ".webm" || file.substr(-4) === ".ogg") {
     previewWindow = document.getElementById("previewVideo");
@@ -94,17 +110,17 @@ function closePreview() {
 
 
 async function downloadFile() {
-  const filePath = this.id
-  const url = `/api/download?path=${filePath}`
-  const response = await fetch(url)
-  const allFiles = await response.json()
+  console.log(this.id)
+  //const filePath = this.id
+  //const url = `/api/download?path=${filePath}`
+  //const response = await fetch(url)
+  //const allFiles = await response.json()
 }
 
-async function openSubDir(){
-  const reqPath = this.id
-  console.log(reqPath)
-  const url = '/api/subDir'
-  const response = await fetch(url)
-  const subDirFiles = await response.json()
-  console.log(subDirFiles)
+async function deleteFile() {
+  console.log(this.id)
+  //const filePath = this.id
+  //const url = `/api/download?path=${filePath}`
+  //const response = await fetch(url)
+  //const allFiles = await response.json()
 }
