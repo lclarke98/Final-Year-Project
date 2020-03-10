@@ -17,13 +17,13 @@ function getUrlVars() {
 
 let path
 function getPath(){
-  path = getUrlVars()["path"]
+  path = getUrlVars()["location"]
 
 }
 
 async function getAllFiles() {
   console.log(path)
-  const url = `/api/allFiles?path=${path}`
+  const url = `/api/allFiles?location=${path}`
   const response = await fetch(url)
   const allFiles = await response.json()
   console.log(allFiles)
@@ -31,14 +31,21 @@ async function getAllFiles() {
 }
 
 async function generateFileList(files) {
-  const list = document.getElementById("fileList")
-  for (let i = 0; i < files.length; i++) {
-    const item = document.createElement("li")
-    item.textContent = files[i]
-    item.id = path + "/" + files[i]
-    list.appendChild(item)
-    document.getElementById(item.id).addEventListener("click", openPreview)
-  }
+  let list = document.getElementById('fileList');
+    for(let i = 0; i < files.length; i++) {
+      let item = document.createElement('li');
+      let link = 'file-manager.html?location='+ path + "/" + files[i].Path;
+      if(files[i].IsDirectory === true){
+        let a = document.createElement('a');
+        a.textContent = files[i].Name;
+        a.setAttribute('href', link);
+        item.appendChild(a);
+      }
+      else{
+          item.textContent = files[i].Name
+      }
+      list.appendChild(item);
+    }
 }
 
 function addEventListeners() {

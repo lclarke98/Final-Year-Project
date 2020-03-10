@@ -6,6 +6,7 @@ const db = require('../db-function');
 const shell = require('./shell-script')
 const bodyParser = require('body-parser')
 const passwordHash = require('password-hash');
+const path = require("path")
 module.exports = api;
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
@@ -196,7 +197,7 @@ const upload = multer({ storage: storage });
 //api.get('/allFiles', fileManager.getAllFiles);
 const fs = require('fs');
 
-api.get('/allFiles', async (req, res) => {
+api.get('/allFiless', async (req, res) => {
   const path = req.query.path
   try {
     fs.readdir(path, (err, files) => {
@@ -207,6 +208,56 @@ api.get('/allFiles', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+
+api.get('/allFiles', function(req, res) {
+  var currentDir = req.query.location
+  console.log(currentDir)
+  var query = req.query.path || '';
+  if (query) currentDir = path.join(dir, query);
+  console.log("browsing ", currentDir);
+  fs.readdir(currentDir, function (err, files) {
+      if (err) {
+         throw err;
+       }
+       var data = [];
+       files.forEach(function (file) {
+         try {
+                 //console.log("processing ", file);
+                 var isDirectory = fs.statSync(path.join(currentDir,file)).isDirectory();
+                 if (isDirectory) {
+                   data.push({ Name : file, IsDirectory: true, Path : path.join(query, file)  });
+                 } else {
+                   var ext = path.extname(file);       
+                   data.push({ Name : file, Ext : ext, IsDirectory: false, Path : path.join(query, file) });
+                 }
+ 
+         } catch(e) {
+           console.log(e); 
+         }        
+         
+       });
+       //data = _.sortBy(data, function(f) { return f.Name });
+       console.log(data)
+       res.json(data);
+   });
+ });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 api.get('/subDir', fileManager.openSubDir);
 
