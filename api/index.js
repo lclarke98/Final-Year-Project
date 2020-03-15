@@ -183,6 +183,20 @@ api.put('/userPermissions', async (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // File Manager Functions
 const fileManager = require('./file-manager-api');
+
+api.post('/newFolder', async (req, res) => {
+  try{
+    const folderName = req.body.info.folderName
+    shell.addNewFolder(folderName)
+    res.sendStatus(200)
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive')

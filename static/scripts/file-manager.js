@@ -9,14 +9,14 @@ function pageLoad() {
 //gets the displays ip address from the url
 function getUrlVars() {
   let vars = {}
-  let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+  let parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
     vars[key] = value
   })
   return vars
 }
 
 let path
-function getPath(){
+function getPath() {
   path = getUrlVars()["location"]
 
 }
@@ -31,41 +31,44 @@ async function getAllFiles() {
 }
 
 async function generateFileList(files) {
+
   let list = document.getElementById('fileList');
-    for(let i = 0; i < files.length; i++) {
-      let item = document.createElement('li');
-      item.id = files[i].Name
-      let link = 'file-manager.html?location='+ path + "/" + files[i].Path;
-      if(files[i].IsDirectory === true){
-        let a = document.createElement('a');
-        a.textContent = files[i].Name;
-        a.setAttribute('href', link);
-        item.appendChild(a);
-      }
-      else{
-        let preview = document.createElement("button")
-        preview.textContent = "View"
-        preview.addEventListener("click", openPreview)
-        preview.id = path + "/" + files[i].Path;
-        let download = document.createElement("button")
-        download.addEventListener("click", downloadFile)
-        download.textContent = "Download"
-        download.id = path + "/" + files[i].Path;
-        let deleteItem = document.createElement("button")
-        deleteItem.textContent = "Delete"
-        deleteItem.id = path + "/" + files[i].Path;
-        deleteItem.addEventListener("click", deleteFile)
-        item.textContent = files[i].Name
-        item.appendChild(preview)
-        item.appendChild(download)
-        item.appendChild(deleteItem)
-      }
-      list.appendChild(item);
+  list.textContent = ""
+  for (let i = 0; i < files.length; i++) {
+    let item = document.createElement('li');
+    item.id = files[i].Name
+    let link = 'file-manager.html?location=' + path + "/" + files[i].Path;
+    if (files[i].IsDirectory === true) {
+      let a = document.createElement('a');
+      a.textContent = files[i].Name;
+      a.setAttribute('href', link);
+      item.appendChild(a);
     }
+    else {
+      let preview = document.createElement("button")
+      preview.textContent = "View"
+      preview.addEventListener("click", openPreview)
+      preview.id = path + "/" + files[i].Path;
+      let download = document.createElement("button")
+      download.addEventListener("click", downloadFile)
+      download.textContent = "Download"
+      download.id = path + "/" + files[i].Path;
+      let deleteItem = document.createElement("button")
+      deleteItem.textContent = "Delete"
+      deleteItem.id = path + "/" + files[i].Path;
+      deleteItem.addEventListener("click", deleteFile)
+      item.textContent = files[i].Name
+      item.appendChild(preview)
+      item.appendChild(download)
+      item.appendChild(deleteItem)
+    }
+    list.appendChild(item);
+  }
 }
 
 function addEventListeners() {
   document.getElementById("uploadNewFile").addEventListener("click", openDialog)
+  document.getElementById("create-folder").addEventListener("click", openNewFolderWindow)
   document.getElementById("dialogClose").addEventListener("click", closeDialog)
   document.getElementById("fileViewerClose").addEventListener("click", closePreview)
 }
@@ -108,6 +111,33 @@ function closePreview() {
   previewVideo.src = ""
 }
 
+function openNewFolderWindow() {
+  document.getElementById("new-folder-window").style.display = "block";
+  document.getElementById("close-new-folder-window").addEventListener("click", closeNewFolderWindow)
+  document.getElementById("add-new-folder-button").addEventListener("click", addNewFolder)
+}
+
+function closeNewFolderWindow() {
+  document.getElementById("new-folder-window").style.display = "none";
+  getAllFiles()
+}
+
+async function addNewFolder() {
+  const folderName = path + "/" + document.getElementById("new-folder-name").value
+  const data = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      info: {
+        folderName: folderName,
+      }
+    })
+  }
+  const response = await fetch('/api/newFolder', data);
+  closeNewFolderWindow()
+}
 
 async function downloadFile() {
   console.log(this.id)

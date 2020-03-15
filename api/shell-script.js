@@ -34,6 +34,10 @@ module.exports.addDrive = async (driveName, drivePath) => {
     //shell.exec('sh /home/pi/Final-Year-Project/shell-scripts/add.sh' +" "+ "helloWorld")
 };
 
+module.exports.addNewFolder = async (folderName) => {
+    shell.exec('sh /home/pi/shell/new-folder.sh' +" "+ folderName)
+};
+
 module.exports.addUser = async (userName, password, permissions) => {
     shell.exec('sh ../shell-scripts/add-user.sh' + userName, password)
 };
