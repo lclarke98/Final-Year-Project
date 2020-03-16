@@ -90,7 +90,8 @@ api.post('/newUser', async (req, res) => {
     if(confirm != 0){
       userID = confirm[0].user_id
       console.log(userID)
-      db.addUserPermissions(userID ,permissionList)
+      await db.addUserPermissions(userID ,permissionList)
+      await shell.addUser(userName,password)
       return res.sendStatus(200)
     }else{
       console.log("error2")
@@ -161,7 +162,7 @@ api.post('/user', async (req, res) => {
     const approval = await db.addUser(name, password)
     if(approval == 200){
       await db.addUserPermissions(permissions)
-      await shell.addUser(name,permissions)
+      await shell.addUser(name,password)
       res.sendStatus(200)
     }
   }catch (e) {
