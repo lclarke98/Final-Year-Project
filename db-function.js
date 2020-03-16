@@ -54,19 +54,19 @@ module.exports.addNewDrive = async (name, path, raid, raidTarget) => {
     }catch(e){
         console.log(e)
     }
-};
+}
 
 module.exports.getDriveList = async () => {
     let con = await connection
     let [list] = await con.query("SELECT * FROM addedDrive WHERE addedDrive_raid = ? ",[false])
-    return JSON.stringify(list)
-};
+    return list
+}
 
 module.exports.deleteDrive = async (name) => {
     let con = await connection
     await con.query("DELETE FROM addedDrive WHERE addedDrive_name = ? ",[name])
     return 200
-};
+}
 
 
 
@@ -140,7 +140,6 @@ module.exports.deleteUser = async (id) => {
  //add user r/w permissions when adding a new user
 module.exports.addUserPermissions = async (userID, permissionList) => {
     try{
-        console.log("att permissions")
         for(let i = 0; i < permissionList.length; i++){
             const driveName = permissionList[i].driveName
             const read = permissionList[i].readValue
