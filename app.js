@@ -40,6 +40,20 @@ app.get('/login', async (req, res) => {
   }
 });
 
+app.get('/download', function(req, res){
+  console.log("svr")
+  const file = req.query.path
+  console.log(file)
+  res.download(file, 'report.pdf', function (err) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("file downloading")
+    }
+  })
+});
+
+
 
 app.listen(port, (err) => {
   if (err) console.log('error', err);

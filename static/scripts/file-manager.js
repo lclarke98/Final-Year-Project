@@ -82,7 +82,7 @@ function closeDialog() {
 }
 
 function openPreview() {
-  const file = path + "/" + this.id
+  const file = "../" + this.id
   let previewWindow
   if (file.substr(-4) === ".mp4" || file.substr(-5) === ".webm" || file.substr(-4) === ".ogg") {
     previewWindow = document.getElementById("previewVideo");
@@ -141,10 +141,11 @@ async function addNewFolder() {
 
 async function downloadFile() {
   console.log(this.id)
-  //const filePath = this.id
-  //const url = `/api/download?path=${filePath}`
-  //const response = await fetch(url)
-  //const allFiles = await response.json()
+  const filePath = this.id
+  const url = `/download?path=${filePath}`
+  const response = await fetch(url)
+  const res = await response
+  console.log(res)
 }
 
 async function deleteFile() {
