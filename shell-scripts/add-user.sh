@@ -4,3 +4,7 @@
 #$2
 echo "name"
 echo $1
+
+
+# replace all drive permissions
+

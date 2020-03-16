@@ -1,6 +1,9 @@
-# by drive 
-    # search drive replace read and write lines
+#!/bin/bash
 
+# KEY
+# $1 comment line
+# $2 new permissions line
 
-# by user
-    # recursively replace all read and write lines - maybe for loop in js calling each time with next drive and replace ^^ first comment function 
+sed -i '/'$1'/c\'$2'' /etc/samab/smb.conf
+
+path = /home/pi/nas-mount/NAS1         #nas1-path
