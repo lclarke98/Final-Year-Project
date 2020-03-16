@@ -206,14 +206,6 @@ async function getUserList() {
   }
 }
 
-function validateRaid() {
-  const raid = document.getElementById("drive-raid")
-  if (raid.checked == true) {
-    return true
-  } else {
-    return false
-  }
-}
 
 function generatePermissionList() {
   let permissionTable = []
@@ -258,9 +250,9 @@ async function getRaidList() {
 
 async function addNewDrive() {
   const driveName = document.getElementById("drive-name").value
-  const raid = validateRaid()
-  const raidTarget = document.getElementById("raid-target").value
   const userPermissionList = generatePermissionList()
+  const raid = false
+  const raidTarget = "0"
   const data = {
     method: 'POST',
     headers: {
