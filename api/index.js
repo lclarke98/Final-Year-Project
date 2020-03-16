@@ -219,20 +219,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-//api.get('/allFiles', fileManager.getAllFiles);
 const fs = require('fs');
-
-api.get('/allFiless', async (req, res) => {
-  const path = req.query.path
-  try {
-    fs.readdir(path, (err, files) => {
-      res.send(files)
-    });
-  }catch (e) {
-    console.error(e);
-    res.sendStatus(500);
-  }
-});
 
 
 api.get('/allFiles', function(req, res) {
@@ -284,7 +271,6 @@ api.get('/allFiles', function(req, res) {
 
 
 
-api.get('/subDir', fileManager.openSubDir);
 
 api.post('/file', upload.array('media'), async (req, res, next) => {
   const files = req.files
