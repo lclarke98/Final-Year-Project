@@ -51,12 +51,10 @@ async function updatePermissions(){
     console.log(driveList)
     for(let i = 0; i < driveList.length; i++){
         let permissions = await db.getPermissionList(driveList[i].addedDrive_name)
-        let readList = sortReadList(driveList[i].addedDrive_name, permissions)
-        let writeList = sortWriteList(driveList[i].addedDrive_name, permissions)
+        let readList = "'" + sortReadList(driveList[i].addedDrive_name, permissions) + "'"
+        let writeList = "'" + sortWriteList(driveList[i].addedDrive_name, permissions) + "'"
         let readName = driveList[i].addedDrive_name + "read"
         let writeName = driveList[i].addedDrive_name + "write"
-        console.log(readList)
-        console.log(writeList)
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ readName +" "+ readList)
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ writeName +" "+ writeList)
     }
