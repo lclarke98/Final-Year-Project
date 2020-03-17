@@ -37,8 +37,6 @@ newPath="/home/pi/nas-mount/$2"
 sudo echo "[$2]" >> "/etc/samba/smb.conf"
 echo "path = $newPath" >> "/etc/samba/smb.conf"
 echo "writeable=yes" >> "/etc/samba/smb.conf"
-echo "almost there"
 echo "create mask=0777" >> "/etc/samba/smb.conf"
 echo "directory mask=0777" >> "/etc/samba/smb.conf"
 echo "public=no" >> "/etc/samba/smb.conf"
-#sudo reboot
