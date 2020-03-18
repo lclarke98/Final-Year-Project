@@ -59,3 +59,8 @@ async function updatePermissions(){
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ writeName +" "+ writeList)
     }
 }
+
+
+module.exports = {
+    updatePermissions
+}
