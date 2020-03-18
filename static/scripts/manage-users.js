@@ -5,6 +5,7 @@ let data
 function pageLoad(){
     document.getElementById("open-add-user").addEventListener("click", openAddUserWindow)
     document.getElementById("add-user").addEventListener("click", addNeweUser)
+    getDrives()
 }
 
 
@@ -41,11 +42,16 @@ async function getUsers(){
 
 let driveList
 
-//gets the nas drives tio allow admin to assign permissions for new user
-async function getDriveList(){
+async function getDrives(){
+  console.log("getting list")
     const url = "/api/driveList"
     const response = await fetch(url)
     driveList = await response.json()
+    return driveList
+}
+
+//gets the nas drives tio allow admin to assign permissions for new user
+async function getDriveList(){
     const permissionList = document.getElementById("permission-list")
     for (let i = 0; i < driveList.length; i++) {
         const elem = document.createElement("li")
@@ -66,6 +72,7 @@ async function getDriveList(){
         elem.appendChild(write)
         permissionList.appendChild(elem)
     }
+  return driveList
 }
 
 async function getPermissionList(index){
@@ -120,6 +127,7 @@ let userIndex
 
 function openUserWindow(){
   activateOverlay()
+  console.log(driveList)
     userIndex = this.id
     getPermissionList(userIndex)
     let userName = data[this.id].user_id
@@ -286,6 +294,7 @@ async function changePassword(){
 
 function generateNewPermissionList(){
   let newPermissionTable = []
+  console.log(driveList)
   for(let i = 0; i < driveList.length; i++){
     console.log(driveList[i])
       const userID = document.getElementById("user-name").getAttribute("name")
