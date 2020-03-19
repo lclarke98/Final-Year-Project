@@ -108,6 +108,7 @@ api.put('/username', async (req, res) => {
     const newUsername = req.body.info.newUsername
     const confirm = await db.updateUsername(currentUsername, newUsername)
     if(confirm  == 200){
+      shell.updatePermissions()
       return res.sendStatus(200)
     }else{
       console.log("error2")
@@ -147,7 +148,9 @@ api.delete('/drive', async (req, res) => {
 api.delete('/user', async (req, res) => {
   try{
     const userID = req.body.info.userID
-    res.status(200).send(await db.deleteUser(userID))
+    await db.deleteUser(userID)
+    shell.updatePermissions()
+    res.sendStatus(200)
   }catch (e) {
     console.error(e);
     res.sendStatus(500);
