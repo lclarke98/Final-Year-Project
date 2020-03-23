@@ -204,14 +204,8 @@ api.post('/newFolder', async (req, res) => {
 api.get('/download', function(req, res){
   const file = req.query.path
   console.log(file)
-  res.download(file, 'report.pdf', function (err) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log("file downloading")
-    }
-  })
-});
+  res.download(path.join(file, "steam.png"),"steam.png")
+})
 
 
 const storage = multer.diskStorage({
