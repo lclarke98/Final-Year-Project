@@ -57,7 +57,7 @@ async function updatePermissions(){
         let writeName = driveList[i].addedDrive_name + "write"
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ readName +" "+ readList)
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ writeName +" "+ writeList)
-    }
+    } //fix list names
 }
 
 
