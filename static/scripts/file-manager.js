@@ -142,7 +142,7 @@ async function addNewFolder() {
 async function downloadFile() {
   console.log(this.id)
   const filePath = this.id
-  const url = `/download?path=${filePath}`
+  const url = `/api/download?path=${filePath}`
   const response = await fetch(url)
   const res = await response
   console.log(res)
