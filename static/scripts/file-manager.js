@@ -86,11 +86,11 @@ function openPreview() {
   let previewWindow
   if (file.substr(-4) === ".mp4" || file.substr(-5) === ".webm" || file.substr(-4) === ".ogg") {
     previewWindow = document.getElementById("previewVideo");
-    previewWindow.src = file
+    previewWindow.src = "./statc/nas-mount/NEW/steam.png"
 
   } else if (file.substr(-4) === ".jpg" || file.substr(-4) === ".png" || file.substr(-4) === ".gif" || file.substr(-4) === ".svg" || file.substr(-5) === ".jpeg") {
     previewWindow = document.getElementById("previewImage")
-    previewWindow.src = file
+    previewWindow.src = "/nas-mount/NEW/steam.png"
   } else {
     previewWindow = document.getElementById("previewError")
   }
