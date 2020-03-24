@@ -68,7 +68,7 @@ api.post('/newDrive', async (req, res) => {
     const ID = await db.addNewDrive(name,path,raid,raidTarget)
     if(ID.length ==1){
       await db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
-      await shell.addDrive(name,path,permissionList)
+      await shell.addDrive(name,path)
       return res.sendStatus(200)
     }else{
       console.log("error2")
@@ -203,8 +203,7 @@ api.post('/newFolder', async (req, res) => {
 
 api.get('/download', function(req, res){
   const file = req.query.path
-  console.log(file)
-  res.download(path.join(file, "steam.png"),"steam.png")
+  res.download(path.join(file),"steam.png")
 })
 
 
