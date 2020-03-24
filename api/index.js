@@ -203,6 +203,7 @@ api.post('/newFolder', async (req, res) => {
 
 api.get('/download', function(req, res){
   const file = req.query.path
+  console.log(file)
   res.download(path.join(file),"steam.png")
 })
 
