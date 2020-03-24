@@ -82,7 +82,7 @@ function closeDialog() {
 }
 
 function openPreview() {
-  const file = this.id.replace("/home/pi/Final-Year-Project/static", "");
+  const file = this.id.replace("/home/pi/Final-Year-Project/static", "")
   console.log(file)
   let previewWindow
   if (file.substr(-4) === ".mp4" || file.substr(-5) === ".webm" || file.substr(-4) === ".ogg") {
@@ -142,7 +142,7 @@ async function addNewFolder() {
 
 async function downloadFile() {
   console.log(this.id)
-  const filePath = this.id
+  const filePath = this.id.replace("/home/pi/Final-Year-Project/", "")
   const url = `/api/download?path=${filePath}`
   const response = await fetch(url)
   const res = await response
@@ -150,7 +150,7 @@ async function downloadFile() {
 }
 
 async function deleteFile() {
-  console.log(this.id)
+  console.log(this.id) 
   //const filePath = this.id
   //const url = `/api/download?path=${filePath}`
   //const response = await fetch(url)
