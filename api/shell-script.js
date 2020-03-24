@@ -21,7 +21,7 @@ function sortWriteList(driveName, permissions){
     return writeList
 }
 
-module.exports.addDrive = async (driveName, drivePath) => {
+async function addDrive(driveName, drivePath) {
     let permissions = await db.getPermissionList(driveName)
     let readList = "'" + sortReadList(driveName, permissions) + "'" 
     //console.log(readList)
@@ -31,18 +31,18 @@ module.exports.addDrive = async (driveName, drivePath) => {
     //shell.exec('sh /home/pi/Final-Year-Project/shell-scripts/add.sh' +" "+ "helloWorld")
 };
 
-module.exports.addNewFolder = async (folderName) => {
+async function addNewFolder(folderName) {
     shell.exec('sh /home/pi/shell/new-folder.sh' +" "+ folderName)
 };
 
 
 
-module.exports.addUser = async (userName, password, permissions) => {
+async function addUser(userName, password, permissions) {
     //shell.exec('sh /home/pi/shell/new-user.sh' +" "+userName, password)
     updatePermissions(userName)
 };
 
-module.exports.deleteUser = async (userName) => {
+async function deleteUser(userName) {
     shell.exec('sh ../shell-scripts/delete-user.sh' + userName)
 };
 
@@ -62,5 +62,9 @@ async function updatePermissions(){
 
 
 module.exports = {
-    updatePermissions
+    updatePermissions,
+    addDrive,
+    addNewFolder,
+    deleteUser,
+    addUser
 }
