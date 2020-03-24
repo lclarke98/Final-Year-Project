@@ -82,15 +82,16 @@ function closeDialog() {
 }
 
 function openPreview() {
-  const file = "../" + this.id
+  const file = this.id.replace("/home/pi/Final-Year-Project/static", "");
+  console.log(file)
   let previewWindow
   if (file.substr(-4) === ".mp4" || file.substr(-5) === ".webm" || file.substr(-4) === ".ogg") {
     previewWindow = document.getElementById("previewVideo");
-    previewWindow.src = "./statc/nas-mount/NEW/steam.png"
+    previewWindow.src = file
 
   } else if (file.substr(-4) === ".jpg" || file.substr(-4) === ".png" || file.substr(-4) === ".gif" || file.substr(-4) === ".svg" || file.substr(-5) === ".jpeg") {
     previewWindow = document.getElementById("previewImage")
-    previewWindow.src = "/nas-mount/NEW/steam.png"
+    previewWindow.src = file
   } else {
     previewWindow = document.getElementById("previewError")
   }
