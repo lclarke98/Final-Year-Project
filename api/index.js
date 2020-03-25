@@ -204,7 +204,7 @@ api.post('/newFolder', async (req, res) => {
 api.get('/download', function(req, res){
   const file = req.query.path
   console.log(file)
-  res.download(path.join(file),"steam.png")
+  res.download(file.replace(/['"]+/g, ''))
 })
 
 const fs = require('fs');
@@ -277,12 +277,12 @@ api.post('/file', upload.array('media'), async (req, res, next) => {
       for (let i = 0; i < files.length; i++) {
         await db.addFile(files[i].originalname);
       }
-      res.status(200).redirect('/fileManager');
+      res.sendStatus(200)
     } catch (e) {
       if (e.status === 'exists') {
-        res.status(200).redirect('/fileManager'); // already done
+        res.sendStatus(200)
       } else {
-        res.status(200).redirect('/fileManager'); 
+        res.sendStatus(200)
       }
     };
   }

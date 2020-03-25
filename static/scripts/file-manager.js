@@ -145,9 +145,11 @@ async function downloadFile() {
   console.log(this.id)
   const filePath = this.id.replace("/home/pi/Final-Year-Project/", "")
   const url = `/api/download?path=${filePath}`
+  console.log(url)
   const response = await fetch(url)
   const res = await response
   console.log(res)
+  location.replace(res.url)
 }
 
 async function deleteFile() {
@@ -162,4 +164,5 @@ async function deleteFile() {
 async function sendPath(){
   const url = `/api/uploadPath?location=${path}`
   const response = await fetch(url)
+  getAllFiles()
 }
