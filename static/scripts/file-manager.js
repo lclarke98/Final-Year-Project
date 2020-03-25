@@ -1,6 +1,7 @@
 window.addEventListener('load', pageLoad)
 
 function pageLoad() {
+  document.getElementById("submitBtn").addEventListener("click", sendPath)
   getPath()
   addEventListeners()
   getAllFiles()
@@ -155,4 +156,10 @@ async function deleteFile() {
   //const url = `/api/download?path=${filePath}`
   //const response = await fetch(url)
   //const allFiles = await response.json()
+}
+
+
+async function sendPath(){
+  const url = `/api/uploadPath?location=${path}`
+  const response = await fetch(url)
 }

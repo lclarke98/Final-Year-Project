@@ -207,19 +207,15 @@ api.get('/download', function(req, res){
   res.download(path.join(file),"steam.png")
 })
 
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive')
-  },
-  filename: function (req, file, cb) {
-     cb(null, file.originalname);
-  }
-});
-
-const upload = multer({ storage: storage });
-
 const fs = require('fs');
+
+let uploadPath
+
+api.get('/uploadPath', function(req, res){
+  uploadPath = req.query.location
+  return uploadPath
+})
+
 
 
 api.get('/allFiles', function(req, res) {
@@ -258,17 +254,16 @@ api.get('/allFiles', function(req, res) {
 
 
 
+ const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadPath)
+  },
+  filename: function (req, file, cb) {
+     cb(null, file.originalname);
+  }
+});
 
-
-
-
-
-
-
-
-
-
-
+const upload = multer({ storage: storage });
 
 
 
@@ -291,16 +286,5 @@ api.post('/file', upload.array('media'), async (req, res, next) => {
       }
     };
   }
-});
-
-api.get('/download', function(req, res) {
-  //const path = req.query.path
-  const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/openDashboard.php'
-  console.log(path);
-  res.download(path, (err) => {
-    if (err) {
-      console.log(err);
-    }
-  })
 });
 
