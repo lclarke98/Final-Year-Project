@@ -291,7 +291,7 @@ api.post('/file', upload.array('media'), async (req, res, next) => {
       for (let i = 0; i < files.length; i++) {
         await db.addFile(files[i].originalname);
       }
-      res.sendStatus(200)
+      res.send(200)
     } catch (e) {
       if (e.status === 'exists') {
         res.sendStatus(200)
