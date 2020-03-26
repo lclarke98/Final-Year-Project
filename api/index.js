@@ -207,6 +207,20 @@ api.get('/download', function(req, res){
   res.download(file.replace(/['"]+/g, ''))
 })
 
+api.get('/delete', function(req, res){
+  const file = req.query.path
+  console.log(file)
+  fs.unlink(file, (err) => {
+    if (err) {
+      console.error(err)
+      return
+    }
+  
+    //file removed
+  })
+  res.sendStatus(200)
+})
+
 const fs = require('fs');
 
 let uploadPath

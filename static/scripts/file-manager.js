@@ -154,10 +154,10 @@ async function downloadFile() {
 
 async function deleteFile() {
   console.log(this.id) 
-  //const filePath = this.id
-  //const url = `/api/download?path=${filePath}`
-  //const response = await fetch(url)
-  //const allFiles = await response.json()
+  const filePath = this.id
+  const url = `/api/delete?path=${filePath}`
+  const response = await fetch(url)
+  getAllFiles()
 }
 
 
