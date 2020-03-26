@@ -427,3 +427,8 @@ form input, select {
   border-radius: 0.2em;
   cursor: pointer;
 }
+
+
+#button-group{
+  float: right;
+}

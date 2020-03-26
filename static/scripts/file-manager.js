@@ -46,22 +46,27 @@ async function generateFileList(files) {
       item.appendChild(a);
     }
     else {
+      let buttonGroup = document.createElement("div")
+      buttonGroup.id = "button-group"
       let preview = document.createElement("button")
       preview.textContent = "View"
       preview.addEventListener("click", openPreview)
       preview.id = path + "/" + files[i].Path;
+      buttonGroup.appendChild(preview)
       let download = document.createElement("button")
       download.addEventListener("click", downloadFile)
       download.textContent = "Download"
       download.id = path + "/" + files[i].Path;
+      buttonGroup.appendChild(download)
       let deleteItem = document.createElement("button")
       deleteItem.textContent = "Delete"
       deleteItem.id = path + "/" + files[i].Path;
       deleteItem.addEventListener("click", deleteFile)
+      buttonGroup.appendChild(deleteItem)
       item.textContent = files[i].Name
-      item.appendChild(preview)
-      item.appendChild(download)
-      item.appendChild(deleteItem)
+      item.appendChild(buttonGroup)
+      //item.appendChild(download)
+      //item.appendChild(deleteItem)
     }
     list.appendChild(item);
   }
