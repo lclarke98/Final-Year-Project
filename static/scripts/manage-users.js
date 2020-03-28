@@ -150,7 +150,7 @@ function openUserWindow() {
     deleteUser(userIndex)
   }, false);
   document.getElementById("menu").style.display = "block";
-  document.getElementById("user-name").textContent = "User: " + data[this.id].user_name
+  document.getElementById("user-name").textContent = data[this.id].user_name
   document.getElementById("user-name").setAttribute("name", data[this.id].user_id);
 }
 
@@ -230,6 +230,7 @@ async function addNeweUser() {
   const response = await fetch('/api/newUser', data);
   console.log(response)
   closeAddUserWindow()
+  getUsers()
 }
 
 //////////////////////////Update functions////////////////////////////////////
@@ -275,7 +276,9 @@ async function changeUsername() {
   }
   const response = await fetch('/api/username', data);
   console.log(response)
-  closeAddUserWindow()
+  closeChangeUsernameWindow()
+  closeWindow()
+  getUsers()
 }
 
 async function changePassword() {
@@ -297,7 +300,8 @@ async function changePassword() {
   }
   const response = await fetch('/api/password', data);
   console.log(response)
-  closeAddUserWindow()
+  closeChangePasswordWindow() 
+  closeWindow()
 }
 
 
@@ -345,5 +349,5 @@ async function updatePermissions() {
   }
   const response = await fetch('/api/userPermissions', data);
   console.log(response)
-  closeAddUserWindow()
+  closeWindow()
 }

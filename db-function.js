@@ -91,6 +91,7 @@ module.exports.addNewUser = async (userName, password) => {
 
 module.exports.updateUsername = async (currentUsername, newUsername) => {
     try{
+        console.log("Did i get here")
         console.log(currentUsername)
         console.log(newUsername)
         let con = await connection

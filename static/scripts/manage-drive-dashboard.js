@@ -52,8 +52,8 @@ function openDriveWindow() {
   activateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "none";
   driveIndex = this.id
-  document.getElementById("display-drive-name").textContent = dbData[this.id].addedDrive_name
-  document.getElementById("display-drive-name").setAttribute("name", dbData[this.id].addedDrive_name);
+  document.getElementById("display-drive-name").textContent = "Drive: " + dbData[this.id].addedDrive_name
+  document.getElementById("display-drive-name").setAttribute("name", dbData[this.id].addedDrive_name)
   console.log(driveIndex)
   console.log(dbData[this.id])
   document.getElementById("update-user-permsiions-button").addEventListener("click", updatePermissions)
@@ -62,7 +62,7 @@ function openDriveWindow() {
     deleteDrive(driveIndex);
   }, false);
   document.getElementById("menu").style.display = "block";
-  document.getElementById("drive-name").textContent = dbData[this.id].addedDrive_name
+  document.getElementById("drive-name").textContent = "Drive: " + dbData[this.id].addedDrive_name
   getPermissionList(driveIndex)
 }
 
