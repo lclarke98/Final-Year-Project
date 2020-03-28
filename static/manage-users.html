@@ -11,26 +11,35 @@
 
 <html id="page-mask">
     <nav>
-        <button id="logout-button">Logout</button>
+        <img src="/image/logout-icon.png" id="logout-button"></img>
     </nav>
     <button id="open-add-user">Add New User</button>
     <section id="user-list"></section>
     <div class="menu" id="add-user-menu">
-        <button class="close" id="close-add-window">close</button>
-        <h1>Add A new User</h1>
+        <header class="modal-header">
+            <div class="modal-left-container">
+                <a href="javascript:void(0)" class="close-modal-button" id="close-add-window">&times;</a>
+            </div>
+        </header>
         <input id="new-user-name" type="text" placeholder="Enter a user name">
         <input id="password" type="text" placeholder="Enter a user password">
         <button id="add-user">Add User</button>
         <div id="permission-list"></div>
     </div>
     <div class="menu" id="menu">
-        <button class="close" id="close">close</button>
-        <button id="change-username-button">Change username</button>
-        <button id="change-password-button">Change password</button>
-        <div id="user-name"></div>
+        <header class="modal-header">
+            <div class="modal-left-container">
+                <a href="javascript:void(0)" class="close-modal-button" id="close">&times;</a>
+            </div>
+            <div class="modal-right-container">
+                <button id="change-username-button">Change username</button>
+                <button id="change-password-button">Change password</button>
+                <button id="delete-user">delete User</button>
+            </div>
+        </header>
+        <div id="user-name" class="name-placeholder"></div>
         <div id="user-permissions"></div>
         <button id="update-user-permsiions-button">Update user permissions</button>
-        <button id="delete-user">delete User</button>
     </div>
 
     <div class="menu" id="change-username-window">

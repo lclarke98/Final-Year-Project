@@ -1,12 +1,11 @@
 nav{
     background-color: #0D74EF;
     width: 100vw;
-    height: 3vw;
+    height: 2vw;
+    padding: 0.5%;
 }
 
 #logout-button{
     margin-left: 90vw;
-    width: 10vw;
-    height: 3vw;
-    background-color:  #0D74EF;
+    left: 0;
 }

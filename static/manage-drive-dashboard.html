@@ -12,7 +12,7 @@
 
 <html>
     <nav>
-        <button id="logout-button">Logout</button>
+        <img src="/image/logout-icon.png" id="logout-button"></img>
     </nav>
     <button id="add-new-drive">Add New Drive</button>
     <div id="add-new-drive-window" class="menu">
@@ -30,11 +30,17 @@
         <button id="cancel-setup-button">Cancel</button>
     </div>
     <div class="menu" id="menu">
-        <div id="display-drive-name"></div>
+        <header class="modal-header">
+            <div class="modal-left-container">
+                <a href="javascript:void(0)" class="close-modal-button" id="close">&times;</a>
+            </div>
+            <div class="modal-right-container">
+                <button id="delete-drive">delete Drive</button>
+            </div>
+        </header>
+        <div id="display-drive-name" class="name-placeholder"></div>
         <div id="permission-list"></div>
         <button id="update-user-permsiions-button">Update user permissions</button>
-        <button id="delete-drive">delete Drive</button>
-        <button id="close">close</button>
     </div>
     <div id="overlay"></div>
     <section id="drive-list"></section>

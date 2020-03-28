@@ -106,6 +106,12 @@ async function getPermissionList(index) {
   console.log(result)
   const permissionList = document.getElementById("permission-list")
   for (let i = 0; i < result.length; i++) {
+    const permissionContainer = document.createElement("div")
+    permissionContainer.classList.add("permission-container")
+    const readLabel = document.createElement("label")
+    readLabel.textContent = "read"
+    const writeLabel = document.createElement("label")
+    writeLabel.textContent = "write"
     const elem = document.createElement("li")
     const read = document.createElement("input")
     read.id = result[i].user_id + "-read"
@@ -122,9 +128,12 @@ async function getPermissionList(index) {
     elem.append
     elem.textContent = result[i].user_name
     elem.id = result[i].user_id;
+    readLabel.appendChild(read)
+    writeLabel.appendChild(write)
+    permissionContainer.appendChild(readLabel)
+    permissionContainer.appendChild(writeLabel)
+    elem.appendChild(permissionContainer)
     permissionList.appendChild(elem)
-    permissionList.appendChild(read)
-    permissionList.appendChild(write)
   }
 }
 
