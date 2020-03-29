@@ -199,19 +199,28 @@ async function getUserList() {
   userList = await response.json()
   const permissionList = document.getElementById("user-permission-list")
   for (let i = 0; i < userList.length; i++) {
+    const permissionContainer = document.createElement("div")
+    permissionContainer.classList.add("permission-container")
+    const readLabel = document.createElement("label")
+    readLabel.textContent = "read"
+    const writeLabel = document.createElement("label")
+    writeLabel.textContent = "write"
     const elem = document.createElement("li")
     const read = document.createElement("input")
+    const write = document.createElement("input")
     read.id = userList[i].user_id + "-read"
     read.type = "checkbox"
-    const write = document.createElement("input")
     write.id = userList[i].user_id + "-write"
     write.type = "checkbox"
     elem.append
     elem.textContent = userList[i].user_name
     elem.id = userList[i].user_id;
+    readLabel.appendChild(read)
+    writeLabel.appendChild(write)
+    permissionContainer.appendChild(readLabel)
+    permissionContainer.appendChild(writeLabel)
+    elem.appendChild(permissionContainer)
     permissionList.appendChild(elem)
-    permissionList.appendChild(read)
-    permissionList.appendChild(write)
   }
 }
 
