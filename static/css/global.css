@@ -104,8 +104,8 @@ html {
   display: none;
   margin-left: 5%;
   margin-right: 5%;
-  width: 90%;
-  height: 90%;
+  width: 50vw;
+  height: 50vh;
   border: black;
   border-style: solid;
   align-self: centre;

@@ -56,7 +56,7 @@
     border: none;
     margin: 3vh 0 0 0;
     color: #FFF;
-    background-color: #4caf50;
+    background-color: #0D74EF;
     cursor: pointer;
     transition: 0.2s;
     -webkit-transition: 0.2s;
@@ -124,10 +124,7 @@
   /*-------------------------------------------*\
      Mouse Events
   \*-------------------------------------------*/
-  .upload-btn:hover {
-    transform: scale(0.98);
-    background-color: #449d48;
-  }
+
   
 
   /*-------------------------------------------*\
@@ -336,14 +333,16 @@
   left: 0;
   overflow-x: hidden;
   height: 100vh;
-  z-index: 900;
+  z-index: 999;
   width: 100vw;
   display: none;
   justify-content: center;
   align-items: center;
   padding: 0;
   margin: 0;
-  border: 0;
+  border: 1px;
+  border-style: solid;
+  border-color: #000;
 }
 
 .dialog-container article {
@@ -434,4 +433,18 @@ form input, select {
   float: right;
   right: 0;
   padding-right: 5vw;
+}
+
+.upload-menu{
+  position: fixed;
+  display: none;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 35vw;
+  height: 35vh;
+  border: black;
+  border-style: solid;
+  align-self: centre;
+  background-image: linear-gradient(#F7F7F7, #D6D6D6);
+  z-index: 999;
 }

@@ -23,15 +23,15 @@
 
 
 
-  <section id="uploadFileDialog" class="dialog-container">
+  <section id="uploadFileDialog" class="upload-menu">
 
-    <div class="dialog-internal-container">
+
       <article>
         <header class="dialog-header">
           <a href="javascript:void(0)" class="close-dialog" id="dialogClose">&times;</a>
 
           <div id="dialogText" class="dialog-text">
-            <h1>Files Manager</h1>
+            <h1>Upload Files</h1>
           </div>
 
           <form action="/api/file" method="post" enctype="multipart/form-data">
@@ -41,7 +41,7 @@
 
         </header>
       </article>
-    </div>
+
   </section>
 
   <section id="fileViewer" class="dialog-container">
@@ -62,7 +62,7 @@
     </div>
   </section>
 
-  <section id="new-folder-window" class="menu">
+  <section id="new-folder-window" class="upload-menu">
     <div id="window-content">
       <button id="close-new-folder-window">Close</button>
       <button id="add-new-folder-button">Add new folder</button>
