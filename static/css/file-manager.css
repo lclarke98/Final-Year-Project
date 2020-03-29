@@ -430,7 +430,6 @@ form input, select {
 
 #button-group{
   position: absolute;
-  float: right;
   right: 0;
   padding-right: 5vw;
 }
@@ -447,4 +446,29 @@ form input, select {
   align-self: centre;
   background-image: linear-gradient(#F7F7F7, #D6D6D6);
   z-index: 999;
+}
+
+.new-folder-menu{
+  position: fixed;
+  display: none;
+  margin-left: 5%;
+  margin-right: 5%;
+  width: 28vw;
+  height: 11vh;
+  border: black;
+  border-style: solid;
+  align-self: centre;
+  background-image: linear-gradient(#F7F7F7, #D6D6D6);
+  z-index: 999;
+}
+
+#new-folder-name{
+  margin-left: 1vw;
+  width: 12vw;
+  height: 3vh;
+}
+
+#add-new-folder-button{
+  width: 12vw;
+  height: 3vh;
 }

@@ -56,17 +56,17 @@
 
           <video id="previewVideo" class="preview" controls></video>
 
-          <p id="previewError" class="preview-error">Sorry, the media you selected cannot be previewed.</p>
+          <p id="previewError" class="preview-error">Cannot open file</p>
         </header>
       </article>
     </div>
   </section>
 
-  <section id="new-folder-window" class="upload-menu">
+  <section id="new-folder-window" class="new-folder-menu">
     <div id="window-content">
-      <button id="close-new-folder-window">Close</button>
-      <button id="add-new-folder-button">Add new folder</button>
+      <a href="javascript:void(0)" class="close-dialog" id="close-new-folder-window">&times;</a>
       <input id="new-folder-name" type="text" placeholder="Enter folder name">
+      <button id="add-new-folder-button" class="upload-btn">Add</button>
     </div>
   </section>
 
