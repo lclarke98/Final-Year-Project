@@ -33,7 +33,7 @@ sudo chmod a+rwx /home/pi/Final-Year-Project/static/nas-mount/$2
 
 # add drive to smb config
 smbConf="/etc/samba/smb.conf"
-newPath="/home/pi/nas-mount/$2"
+newPath="/home/pi/Final-Year-Project/static/nas-mount/$2"
 sudo echo "[$2]" >> "/etc/samba/smb.conf"
 echo "path = $newPath" >> "/etc/samba/smb.conf"
 echo "writeable=yes" >> "/etc/samba/smb.conf"
