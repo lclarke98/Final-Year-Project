@@ -27,9 +27,9 @@ yes| sudo mkfs.ext4 /dev/$sd -L $2
 sudo echo "/dev$sd /home/pi/Final-Year-Project/static/nas-mount/$2 ext4 defaults 0 0" >> "/etc/fstab"
 
 # mount the drive
-sudo mount /home/pi/nas-mount/$2
+sudo mount /home/pi/Final-Year-Project/static/nas-mount/$2
 # Step four change the r+w permissions
-sudo chmod a+rwx /home/pi/nas-mount/$2
+sudo chmod a+rwx /home/pi/Final-Year-Project/static/nas-mount/$2
 
 # add drive to smb config
 smbConf="/etc/samba/smb.conf"
