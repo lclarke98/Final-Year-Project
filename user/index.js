@@ -18,7 +18,11 @@ user.get('/login', async (req, res) => {
         }else{
             req.session.user_id = result[0].user_id
             req.session.user_name = result[0].user_name
-            res.redirect("/dashboard")
+            if(result[0].user_name === "admin"){
+                res.redirect("/dashboard")
+            }else{
+                res.redirect("/drive-select")
+            }
         }
     }catch (e) {
       console.error(e);

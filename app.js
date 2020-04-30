@@ -31,6 +31,15 @@ app.get('/dashboard', async (req, res) => {
   }
 });
 
+app.get('/drive-select', async (req, res) => {
+  try {
+      res.redirect("/drive-selection.html")
+  }catch (e) {
+    console.error(e);
+    res.sendStatus(500);
+  }
+});
+
 app.get('/login', async (req, res) => {
   try {
       res.redirect("/index.html")
