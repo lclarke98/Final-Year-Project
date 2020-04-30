@@ -40,10 +40,12 @@ async function generateFileList(files) {
     item.id = files[i].Name
     let link = 'file-manager.html?location=' + path + "/" + files[i].Path;
     if (files[i].IsDirectory === true) {
-      let a = document.createElement('a');
-      a.textContent = files[i].Name;
-      a.setAttribute('href', link);
-      item.appendChild(a);
+      if(files[i].Name !== "lost+found"){
+        let a = document.createElement('a');
+        a.textContent = files[i].Name;
+        a.setAttribute('href', link);
+        item.appendChild(a);
+      }
     }
     else {
       let buttonGroup = document.createElement("div")
