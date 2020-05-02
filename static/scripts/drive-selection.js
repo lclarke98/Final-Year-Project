@@ -1,7 +1,7 @@
 window.addEventListener('load', getDrive)
 
 async function getDrive(){
-    const url = `/api/driveList`
+    const url = `/user/userDriveList`
     const response = await fetch(url)
     const driveList = await response.json()
     displayDriveList(driveList)

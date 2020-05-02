@@ -30,6 +30,16 @@ user.get('/login', async (req, res) => {
     }
 });
 
+user.get('/userDriveList', async (req, res) => {
+    try {
+        res.send(await db.getUserDriveList(req.session.user_id)) 
+    }catch (e) {
+      console.error(e);
+      res.sendStatus(500);
+    }
+});
+
+
 user.get('/logout', async (req, res) => {
     try {
         req.session.destroy();

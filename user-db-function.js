@@ -18,3 +18,9 @@ module.exports.loginRequest = async (username, password) => {
         return empty
     }
 };
+
+module.exports.getUserDriveList = async (userID) => {
+    let con = await connection
+    let [list] = await con.query("SELECT addedDrive_name, permission_read from addedDrive INNER JOIN permissions ON addedDrive.addedDrive_name = permissions.addedDrive_name where user_id = ? AND permission_read = 1",[userID])
+    return list
+}
