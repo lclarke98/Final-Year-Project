@@ -10,6 +10,7 @@ async function getDrive(){
 async function displayDriveList(list){
     const driveList = document.getElementById("drive-list")
     console.log(list)
+    console.log("hi")
     for(let i = 0; i < list.length; i++) {
         let a = document.createElement('a');
         const tile = document.createElement("div")
