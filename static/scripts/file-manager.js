@@ -61,7 +61,7 @@ async function generateFileList(files) {
       download.addEventListener("click", downloadFile)
       download.id = path + "/" + files[i].Path;
       buttonGroup.appendChild(download)
-      if(write === 1){
+      if(write == 1){
         let deleteItem = document.createElement("img")
         deleteItem.setAttribute("src", "/image/delete-icon.png")
         deleteItem.id = path + "/" + files[i].Path;
