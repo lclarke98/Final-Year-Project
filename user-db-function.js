@@ -23,6 +23,6 @@ module.exports.getUserDriveList = async (userID) => {
     let con = await connection
     console.log("drive list test")
     //let [list] = await con.query("SELECT addedDrive_name, permission_read from addedDrive INNER JOIN permissions ON addedDrive.addedDrive_name = permissions.addedDrive_name where user_id = ? AND permission_read = 1",[userID])
-     let [list] = await con.query("SELECT permissions.addedDrive_name, addedDrive.addedDrive_path, permissions.write from permissions INNER JOIN addedDrive ON permissions.addedDrive_name = addedDrive.addedDrive_name where user_id = ? AND permission_read = 1",[userID])
+     let [list] = await con.query("SELECT permissions.addedDrive_name, addedDrive.addedDrive_path, permissions_write from permissions INNER JOIN addedDrive ON permissions.addedDrive_name = addedDrive.addedDrive_name where user_id = ? AND permission_read = 1",[userID])
     return list
 }
