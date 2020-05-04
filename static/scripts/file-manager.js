@@ -67,8 +67,6 @@ async function generateFileList(files) {
       buttonGroup.appendChild(deleteItem)
       item.textContent = files[i].Name
       item.appendChild(buttonGroup)
-      //item.appendChild(download)
-      //item.appendChild(deleteItem)
     }
     list.appendChild(item);
   }
