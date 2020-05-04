@@ -17,9 +17,10 @@ function getUrlVars() {
 }
 
 let path
+let write
 function getPath() {
   path = getUrlVars()["location"]
-
+  write = getUrlVars()["write"]
 }
 
 async function getAllFiles() {
@@ -60,11 +61,13 @@ async function generateFileList(files) {
       download.addEventListener("click", downloadFile)
       download.id = path + "/" + files[i].Path;
       buttonGroup.appendChild(download)
-      let deleteItem = document.createElement("img")
-      deleteItem.setAttribute("src", "/image/delete-icon.png")
-      deleteItem.id = path + "/" + files[i].Path;
-      deleteItem.addEventListener("click", deleteFile)
-      buttonGroup.appendChild(deleteItem)
+      if(write === 1){
+        let deleteItem = document.createElement("img")
+        deleteItem.setAttribute("src", "/image/delete-icon.png")
+        deleteItem.id = path + "/" + files[i].Path;
+        deleteItem.addEventListener("click", deleteFile)
+        buttonGroup.appendChild(deleteItem)
+      }
       item.textContent = files[i].Name
       item.appendChild(buttonGroup)
     }

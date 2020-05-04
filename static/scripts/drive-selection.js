@@ -20,7 +20,7 @@ async function displayDriveList(list){
         let name = document.createElement("figcaption")
         name.textContent = list[i].addedDrive_name
         let path = list[i].addedDrive_path
-        a.setAttribute("href",'file-manager.html?write=0?location='+path)
+        a.setAttribute("href",'file-manager.html?write=0&location='+path)
         a.appendChild(icon)
         tile.appendChild(a)
         tile.appendChild(name)
