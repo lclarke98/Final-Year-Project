@@ -30,14 +30,6 @@ CREATE TABLE if not exists nas.permissions(
   FOREIGN KEY (addedDrive_name) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
 );
 
-CREATE TABLE if not exists nas.raid(
-  raid_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  raid_target_drive VARCHAR(64) NOT NULL,
-  raid_dest_drive VARCHAR(64) NOT NULL,
-  FOREIGN KEY (raid_target_drive) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE,
-  FOREIGN KEY (raid_dest_drive) REFERENCES addedDrive(addedDrive_name) ON DELETE CASCADE
-);
-
 use nas
 
 insert into user (user_name, user_password) values ('admin', 'sha1$e1dd8d92$1$3fb49fc188c65cc2eae99f2c587e52160ea0fbe2');
