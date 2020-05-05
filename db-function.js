@@ -48,7 +48,7 @@ module.exports.addNewDrive = async (name, path) => {
         let con = await connection
         let newPath = '/home/pi/Final-Year-Project/static/nas-mount/' + name
         console.log(newPath)
-        await con.query("INSERT INTO addedDrive(addedDrive_name) VALUES (?,?)", [name, newPath]);
+        await con.query("INSERT INTO addedDrive(addedDrive_name, addedDrive_path) VALUES (?,?)", [name, newPath]);
         await con.query("UPDATE unaddedDrive SET unaddedDrive_added = ? WHERE unaddedDrive_path = ? ",[true, path])
         let [id] = await con.query("SELECT addedDrive_name FROM addedDrive WHERE addedDrive_name = ? ",[name])
         return id
