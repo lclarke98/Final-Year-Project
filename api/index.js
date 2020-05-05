@@ -62,10 +62,8 @@ api.post('/newDrive', async (req, res) => {
   try{
     const name = req.body.info.driveName
     const path = req.body.info.drivePath
-    const raid = req.body.info.raid
-    const raidTarget = req.body.info.raidTarget
     const permissionList = req.body.info.permissionList
-    const ID = await db.addNewDrive(name,path,raid,raidTarget)
+    const ID = await db.addNewDrive(name,path)
     if(ID.length ==1){
       await db.addDrivePermissions(ID[0].addedDrive_name,permissionList)
       await shell.addDrive(name,path)

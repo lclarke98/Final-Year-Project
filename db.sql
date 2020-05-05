@@ -17,9 +17,7 @@ CREATE TABLE if not exists nas.unaddedDrive(
 
 CREATE TABLE if not exists nas.addedDrive(
   addedDrive_name VARCHAR(64) NOT NULL PRIMARY KEY,
-  addedDrive_path VARCHAR(200) NOT NULL,
-  addedDrive_raid BOOLEAN NOT NULL,
-  addedDrive_raidTarget VARCHAR(75)
+  addedDrive_path VARCHAR(200) NOT NULL
 );
 
 CREATE TABLE if not exists nas.permissions(

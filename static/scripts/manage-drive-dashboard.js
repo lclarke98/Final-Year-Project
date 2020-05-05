@@ -248,29 +248,9 @@ function generatePermissionList() {
   return permissionTable
 }
 
-async function getRaidList() {
-  const url = "/api/driveList"
-  const response = await fetch(url)
-  const raidList = await response.json()
-  const selectionList = document.getElementById("raid-list")
-  for (let i = 0; i < raidList.length; i++) {
-    const elem = document.createElement("li")
-    const select = document.createElement("input")
-    select.id = raidList[i].addedDrive_name
-    select.type = "checkbox"
-    elem.append
-    elem.textContent = raidList[i].addedDrive_name
-    elem.id = raidList[i].addedDrive_path;
-    selectionList.appendChild(elem)
-    selectionList.appendChild(select)
-  }
-}
-
 async function addNewDrive() {
   const driveName = document.getElementById("drive-name").value
   const userPermissionList = generatePermissionList()
-  const raid = false
-  const raidTarget = "0"
   const data = {
     method: 'POST',
     headers: {
@@ -280,8 +260,6 @@ async function addNewDrive() {
       info: {
         drivePath: path,
         driveName: driveName,
-        raid: raid,
-        raidTarget: raidTarget,
         permissionList: userPermissionList,
       }
     })
