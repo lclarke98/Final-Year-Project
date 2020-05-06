@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-//const fs = require('fs');
+const fs = require('fs');
 const api = express.Router();
 const db = require('../db-function');
 const shell = require('./shell-script')
@@ -11,6 +11,7 @@ module.exports = api;
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: true }));
 
+// get undadded drive list route
 api.get('/unaddedDriveList', async (req, res) => {
   try {
       res.send(await db.getUnaddedDriveList()) 
@@ -20,6 +21,7 @@ api.get('/unaddedDriveList', async (req, res) => {
   }
 });
 
+// get user list route
 api.get('/userList', async (req, res) => {
   try {
       res.send(await db.getUserList()) 
@@ -29,6 +31,7 @@ api.get('/userList', async (req, res) => {
   }
 });
 
+// get drive list route
 api.get('/driveList', async (req, res) => {
   try {
       res.send(await db.getDriveList()) 
@@ -38,6 +41,7 @@ api.get('/driveList', async (req, res) => {
   }
 });
 
+// get permission list by drive name route
 api.get('/permissionList', async (req, res) => {
   try{
     const name = req.query.driveName
@@ -48,6 +52,7 @@ api.get('/permissionList', async (req, res) => {
   }
 });
 
+// get permission list by username route
 api.get('/permissionListByUsername', async (req, res) => {
   try{
     const name = req.query.userID
@@ -58,6 +63,7 @@ api.get('/permissionListByUsername', async (req, res) => {
   }
 });
 
+// add new drive route
 api.post('/newDrive', async (req, res) => {
   try{
     const name = req.body.info.driveName
@@ -77,6 +83,7 @@ api.post('/newDrive', async (req, res) => {
   }
 });
 
+// add new user route
 api.post('/newUser', async (req, res) => {
   try{
     const userName = req.body.info.userName
@@ -100,6 +107,7 @@ api.post('/newUser', async (req, res) => {
   }
 });
 
+// update username route
 api.put('/username', async (req, res) => {
   try{
     const currentUsername = req.body.info.currentUsername
@@ -117,6 +125,7 @@ api.put('/username', async (req, res) => {
   }
 });
 
+// update password route
 api.put('/password', async (req, res) => {
   try{
     const username = req.body.info.username
@@ -133,9 +142,12 @@ api.put('/password', async (req, res) => {
   }
 });
 
+// delete drive route
 api.delete('/drive', async (req, res) => {
   try{
     const name = req.body.info.driveName
+    const name = req.body.info.path
+    await shell.deleteDrive(name, path)
     res.status(200).send(await db.deleteDrive(name))
   }catch (e) {
     console.error(e);
@@ -143,6 +155,7 @@ api.delete('/drive', async (req, res) => {
   }
 });
 
+// delete user route
 api.delete('/user', async (req, res) => {
   try{
     const userID = req.body.info.userID
@@ -155,6 +168,7 @@ api.delete('/user', async (req, res) => {
   }
 });
 
+// add user route
 api.post('/user', async (req, res) => {
   try{
     const name = req.body.info.userName
@@ -172,6 +186,7 @@ api.post('/user', async (req, res) => {
   }
 });
 
+// update permissions route
 api.put('/userPermissions', async (req, res) => {
   try{
     const permissionsTable = req.body.info.newPermissions
@@ -184,10 +199,9 @@ api.put('/userPermissions', async (req, res) => {
   }
 });
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////
 // File Manager Functions
-const fileManager = require('./file-manager-api');
 
+// add new folder
 api.post('/newFolder', async (req, res) => {
   try{
     const folderName = req.body.info.folderName
@@ -199,13 +213,15 @@ api.post('/newFolder', async (req, res) => {
   }
 });
 
+// download file
 api.get('/download', function(req, res){
   const file = req.query.path
   console.log(file)
   res.download(file.replace(/['"]+/g, ''))
 })
 
-api.get('/delete', function(req, res){
+// delete file
+api.delete('/delete', function(req, res){
   const file = req.query.path
   console.log(file)
   fs.unlink(file, (err) => {
@@ -219,53 +235,48 @@ api.get('/delete', function(req, res){
   res.sendStatus(200)
 })
 
-const fs = require('fs');
-
 let uploadPath
 
+// gets the upload path for multer
 api.get('/uploadPath', function(req, res){
   uploadPath = req.query.location
   return uploadPath
 })
 
 
-
+// gets all files from selected nas drive
 api.get('/allFiles', function(req, res) {
   var currentDir = req.query.location
   console.log(currentDir)
   var query = req.query.path || '';
-  if (query) currentDir = path.join(dir, query);
-  console.log("browsing ", currentDir);
+  if (query) currentDir = path.join(dir, query)
+  console.log("browsing ", currentDir)
   fs.readdir(currentDir, function (err, files) {
       if (err) {
-         throw err;
+         throw err
        }
-       var data = [];
+       var data = []
        files.forEach(function (file) {
          try {
-                 //console.log("processing ", file);
-                 var isDirectory = fs.statSync(path.join(currentDir,file)).isDirectory();
+                 var isDirectory = fs.statSync(path.join(currentDir,file)).isDirectory()
                  if (isDirectory) {
-                   data.push({ Name : file, IsDirectory: true, Path : path.join(query, file)  });
+                   data.push({ Name : file, IsDirectory: true, Path : path.join(query, file)  })
                  } else {
                    var ext = path.extname(file);       
-                   data.push({ Name : file, Ext : ext, IsDirectory: false, Path : path.join(query, file) });
+                   data.push({ Name : file, Ext : ext, IsDirectory: false, Path : path.join(query, file) })
                  }
- 
          } catch(e) {
            console.log(e); 
          }        
          
        });
-       //data = _.sortBy(data, function(f) { return f.Name });
-       console.log(data)
        res.json(data);
    });
  });
 
 
 
-
+// multer config
  const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, uploadPath)
@@ -278,7 +289,7 @@ api.get('/allFiles', function(req, res) {
 const upload = multer({ storage: storage });
 
 
-
+// uploads file
 api.post('/file', upload.array('media'), async (req, res, next) => {
   const files = req.files
 

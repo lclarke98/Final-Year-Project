@@ -4,6 +4,7 @@ function pageLoad(){
     document.getElementById("login-button").addEventListener('click', login)
 }
 
+// login to system
 async function login(){
   const username = document.getElementById("username-input").value
   const password = document.getElementById("password-input").value

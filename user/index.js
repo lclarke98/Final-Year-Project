@@ -1,12 +1,12 @@
 const express = require('express')
 const user = express.Router()
 const db = require('../user-db-function')
-
 const bodyParser = require('body-parser')
 module.exports = user
 user.use(bodyParser.json())
 user.use(bodyParser.urlencoded({ extended: true }))
 
+// login route
 user.get('/login', async (req, res) => {
     try {
         const username = req.query.username
@@ -30,6 +30,7 @@ user.get('/login', async (req, res) => {
     }
 });
 
+// get user drive list route
 user.get('/userDriveList', async (req, res) => {
     try {
         res.send(await db.getUserDriveList(req.session.user_id)) 
@@ -39,12 +40,11 @@ user.get('/userDriveList', async (req, res) => {
     }
 });
 
-
+// login route
 user.get('/logout', async (req, res) => {
     try {
         req.session.destroy();
-        console.log(req.session)
-        res.redirect("/login")
+        res.redirect("/index")
     }catch (e) {
       console.error(e);
       res.sendStatus(500);

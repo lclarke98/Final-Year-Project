@@ -16,10 +16,11 @@ app.use('/user', require('./user'));
 
 app.use(express.static('static', { extensions: ['html'] }));
 app.use(express.static(path.join(__dirname, 'static')));
+
 //App runs on port 80
 const port = process.env.PORT || 80;
 
-
+// redirects user to admin dashboard
 app.get('/dashboard', async (req, res) => {
   try {
       const result = "login"
@@ -31,6 +32,7 @@ app.get('/dashboard', async (req, res) => {
   }
 });
 
+//redirects user to drive selection window
 app.get('/drive-select', async (req, res) => {
   try {
       res.redirect("/drive-selection.html")
@@ -40,7 +42,8 @@ app.get('/drive-select', async (req, res) => {
   }
 });
 
-app.get('/login', async (req, res) => {
+// redirects user to login page
+app.get('/index', async (req, res) => {
   try {
       res.redirect("/index.html")
   }catch (e) {
@@ -49,21 +52,7 @@ app.get('/login', async (req, res) => {
   }
 });
 
-app.get('/download', function(req, res){
-  console.log("svr")
-  const file = req.query.path
-  console.log(file)
-  res.download(file, 'report.pdf', function (err) {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log("file downloading")
-    }
-  })
-});
-
-
-
+// app runs on port 80
 app.listen(port, (err) => {
   if (err) console.log('error', err);
   else console.log(`app listening on port ${port}`);

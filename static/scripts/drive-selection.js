@@ -1,5 +1,6 @@
 window.addEventListener('load', getDrive)
 
+// gets drive list from db
 async function getDrive(){
     const url = `/user/userDriveList`
     const response = await fetch(url)
@@ -7,6 +8,7 @@ async function getDrive(){
     displayDriveList(driveList)
 }
 
+// displays drive list
 async function displayDriveList(list){
     const driveList = document.getElementById("drive-list")
     console.log(list)

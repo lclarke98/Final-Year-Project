@@ -8,11 +8,12 @@ function pageLoad() {
   getDrives()
 }
 
-
+// open overlay
 function activateOverlay() {
   document.getElementById("overlay").classList.add("overlay");
 }
 
+// close overlay
 function deactivateOverlay() {
   document.getElementById("overlay").classList.remove("overlay");
 }
@@ -42,8 +43,8 @@ async function getUsers() {
 
 let driveList
 
+// get drives
 async function getDrives() {
-  console.log("getting list")
   const url = "/api/driveList"
   const response = await fetch(url)
   driveList = await response.json()
@@ -75,6 +76,7 @@ async function getDriveList() {
   return driveList
 }
 
+//gets permissions for user
 async function getPermissionList(index) {
   const userID = data[index].user_id
   const url = `/api/permissionListByUsername?userID=${userID}`;
@@ -114,6 +116,7 @@ async function getPermissionList(index) {
   }
 }
 
+// displays all users
 async function displayUserList(list) {
   clearList()
   const userList = document.getElementById("user-list")
@@ -134,7 +137,7 @@ async function displayUserList(list) {
 
 
 let userIndex
-
+// opens user profile window
 function openUserWindow() {
   activateOverlay()
   console.log(driveList)
@@ -154,6 +157,7 @@ function openUserWindow() {
   document.getElementById("user-name").setAttribute("name", data[this.id].user_id);
 }
 
+// close user profile window
 function closeWindow() {
   document.getElementById("menu").style.display = "none"
   document.getElementById("user-permissions").textContent = ""
@@ -162,12 +166,14 @@ function closeWindow() {
   deactivateOverlay()
 }
 
+//clears user list
 function clearList() {
   document.getElementById("user-list").textContent = ""
   document.getElementById("permission-list").textContent = ""
   document.getElementById("user-permissions").textContent = ""
 }
 
+// deletes selected user
 async function deleteUser(index) {
   const userID = data[index].user_id
   const userData = {
@@ -186,6 +192,7 @@ async function deleteUser(index) {
   getUsers()
 }
 
+// creates a user permission table
 function generatePermissionList() {
   let permissionTable = []
   for (let i = 0; i < driveList.length; i++) {
@@ -209,7 +216,7 @@ function generatePermissionList() {
   return permissionTable
 }
 
-
+// adds new user to system
 async function addNeweUser() {
   const permissions = generatePermissionList()
   const userName = document.getElementById("new-user-name").value
@@ -257,6 +264,7 @@ function closeChangePasswordWindow() {
   document.getElementById("change-password-window").style.display = "none"
 }
 
+// updates username
 async function changeUsername() {
   const currentUsername = document.getElementById("user-name").textContent
   const newUsername = document.getElementById("updated-username").value
@@ -281,6 +289,7 @@ async function changeUsername() {
   getUsers()
 }
 
+// updates password
 async function changePassword() {
   const username = document.getElementById("user-name").textContent
   const newPassword = document.getElementById("updated-password").value
@@ -304,8 +313,7 @@ async function changePassword() {
   closeWindow()
 }
 
-
-
+// creates new permission table
 function generateNewPermissionList() {
   let newPermissionTable = []
   console.log(driveList)
@@ -331,6 +339,7 @@ function generateNewPermissionList() {
   return newPermissionTable
 }
 
+// updates exisitng permission table
 async function updatePermissions() {
   const newPermissionsTable = generateNewPermissionList()
   const username = document.getElementById("user-name").userid

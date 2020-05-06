@@ -1,6 +1,7 @@
 const shell = require('shelljs');
 const db = require('../db-function')
 
+// sorts the read list
 function sortReadList(driveName, permissions){
     let readList = driveName + "read"
     for(let i = 0; i < permissions.length; i++){
@@ -11,6 +12,7 @@ function sortReadList(driveName, permissions){
     return readList
 }
 
+// sorts the write list
 function sortWriteList(driveName, permissions){
     let writeList = driveName + "write"
     for(let i = 0; i < permissions.length; i++){
@@ -21,31 +23,36 @@ function sortWriteList(driveName, permissions){
     return writeList
 }
 
+// adds drive to samba and fstab
 async function addDrive(driveName, drivePath) {
     let permissions = await db.getPermissionList(driveName)
     let readList = "'" + sortReadList(driveName, permissions) + "'" 
-    //console.log(readList)
     let writeList = "'" + sortWriteList(driveName, permissions) + "'"
-
     shell.exec('sh /home/pi/shell/add-drive.sh' +" "+ drivePath +" "+ driveName +" "+ readList +" "+ writeList)
-    //shell.exec('sh /home/pi/Final-Year-Project/shell-scripts/add.sh' +" "+ "helloWorld")
 };
 
+// adds new folder
 async function addNewFolder(folderName) {
     shell.exec('sh /home/pi/shell/new-folder.sh' +" "+ folderName)
 };
 
-
-
-async function addUser(userName, password, permissions) {
-    //shell.exec('sh /home/pi/shell/new-user.sh' +" "+userName, password)
+// adds new user
+async function addUser(userName, password) {
+    shell.exec('sh /home/pi/shell/new-user.sh' +" "+userName +" "+ password)
     updatePermissions(userName)
 };
 
+// delets drive
+async function deleteDrive(path, name) {
+    shell.exec('sh ../shell-scripts/delete-drive.sh' + path +" "+ name)
+};
+
+// delets user
 async function deleteUser(userName) {
     shell.exec('sh ../shell-scripts/delete-user.sh' + userName)
 };
 
+// updates permissions
 async function updatePermissions(){
     const driveList = await db.getDriveList()
     console.log(driveList)
@@ -57,7 +64,7 @@ async function updatePermissions(){
         let writeName = driveList[i].addedDrive_name + "write"
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ readName +" "+ readList)
         shell.exec('sh /home/pi/shell/update-permissions.sh' +" "+ writeName +" "+ writeList)
-    } //fix list names
+    }
 }
 
 
@@ -65,6 +72,7 @@ module.exports = {
     updatePermissions,
     addDrive,
     addNewFolder,
+    deleteDrive,
     deleteUser,
     addUser
 }

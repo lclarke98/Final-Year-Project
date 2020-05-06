@@ -1,10 +1,7 @@
 const fs = require('fs');
 const mysql = require('mysql2/promise')
 const config = require('./db-config')
-//const connection = mysql.createConnection(config.mysql)
 const connection = mysql.createConnection(config.mysqlPi)
-//const path = '/Users/leoclarke/Documents/GitHub/Final-Year-Project/api/drive/media/'
-//const path = 'E:/Documents/GitHub/Final-Year-Project/api/drive/media/'
 const path = '/media/pi/'
 
 
@@ -14,6 +11,7 @@ const path = '/media/pi/'
  * Drive Functions
  */
 
+ // gets all new drives
 function getMediaVolumes(){
     try {
         fs.readdir(path, (err, unaddedDriveList) => {
@@ -24,6 +22,7 @@ function getMediaVolumes(){
     }
 }
 
+// checks media dir for new drives and compares to list in db
 async function refreshList(list){
     for(let i = 0; i < list.length; i++){
         let con = await connection
@@ -36,6 +35,7 @@ async function refreshList(list){
     }
 }
 
+// gets the new drive list for user
 module.exports.getUnaddedDriveList = async () => {
     getMediaVolumes()
     let con = await connection
@@ -43,6 +43,7 @@ module.exports.getUnaddedDriveList = async () => {
     return JSON.stringify(list)
 };
 
+// adds new drive
 module.exports.addNewDrive = async (name, path) => {
     try{
         let con = await connection
@@ -57,26 +58,25 @@ module.exports.addNewDrive = async (name, path) => {
     }
 }
 
+// gets added drive list
 module.exports.getDriveList = async () => {
     let con = await connection
     let [list] = await con.query("SELECT * FROM addedDrive")
     return list
 }
 
+// delets drive
 module.exports.deleteDrive = async (name) => {
     let con = await connection
     await con.query("DELETE FROM addedDrive WHERE addedDrive_name = ? ",[name])
     return 200
 }
 
-
-
  /**
  * User functions
  */
 
-
-
+// adds new user
 module.exports.addNewUser = async (userName, password) => {
     try{
         console.log("adding user")
@@ -89,6 +89,7 @@ module.exports.addNewUser = async (userName, password) => {
     }
 };
 
+// updates username
 module.exports.updateUsername = async (currentUsername, newUsername) => {
     try{
         console.log("Did i get here")
@@ -102,6 +103,7 @@ module.exports.updateUsername = async (currentUsername, newUsername) => {
     }
 };
 
+// updates password
 module.exports.updatePassword = async (username, newPassword) => {
     try{
         console.log("adding user")
@@ -113,6 +115,7 @@ module.exports.updatePassword = async (username, newPassword) => {
     }
 };
 
+// gets user list 
 module.exports.getUserList = async () => {
     //getMediaVolumes()
     let con = await connection
@@ -120,16 +123,13 @@ module.exports.getUserList = async () => {
     return JSON.stringify(list)
 };
 
-
+// delets user
 module.exports.deleteUser = async (id) => {
     console.log(id)
     let con = await connection
     await con.query("DELETE FROM user WHERE user_id = ? ",[id])
     return 200
 };
-
-
-
 
 /** 
  * Permission functions
@@ -170,19 +170,21 @@ module.exports.addDrivePermissions = async (driveName, permissionList) => {
 };
 
 
-
+// gets permission list by drive name
 module.exports.getPermissionList = async (name) => {
     let con = await connection
     let [list] = await con.query("SELECT permissions.user_id, permissions.addedDrive_name, permissions.permission_read, permissions.permission_write, user.user_name FROM permissions INNER JOIN user ON permissions.user_id = user.user_id  where addedDrive_name = ? ",[name])
     return list
 };
 
+// gets permission list by username
 module.exports.getPermissionListByUsername = async (name) => {
     let con = await connection
     let [list] = await con.query("SELECT permissions.user_id, permissions.addedDrive_name, permissions.permission_read, permissions.permission_write, user.user_name FROM permissions INNER JOIN user ON permissions.user_id = user.user_id  where permissions.user_id = ?",[name])
     return JSON.stringify(list)
 };
 
+// updates user permissions
 module.exports.updateUserPermissions = async (permissionList) => {
     try{
         console.log("att permissions")

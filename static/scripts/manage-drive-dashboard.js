@@ -14,6 +14,7 @@ function clearList() {
   document.getElementById("drive-list").textContent = ""
 }
 
+// gets drive list fro db
 async function getDrive() {
   const url = `/api/driveList`
   const response = await fetch(url)
@@ -29,6 +30,7 @@ function deactivateOverlay(){
   document.getElementById("overlay").classList.remove("overlay");
 }
 
+//displays the drive list
 async function displayDriveList(list) {
   clearList()
   const driveList = document.getElementById("drive-list")
@@ -48,6 +50,7 @@ async function displayDriveList(list) {
 }
 
 let driveIndex
+// opens drive profile window
 function openDriveWindow() {
   activateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "none";
@@ -66,6 +69,7 @@ function openDriveWindow() {
   getPermissionList(driveIndex)
 }
 
+// closes drive profile window
 function closeWindow() {
   deactivateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "all";
@@ -74,6 +78,7 @@ function closeWindow() {
   driveIndex = ""
 }
 
+//loads user list
 async function onLoadUserList() {
   const url = "/api/userList"
   const response = await fetch(url)
@@ -81,6 +86,7 @@ async function onLoadUserList() {
   return userList
 }
 
+// lists all new drives
 async function getUnaddedDrivList() {
   const url = `/api/unaddedDriveList`
   const response = await fetch(url)
@@ -96,10 +102,9 @@ async function getUnaddedDrivList() {
   }
 }
 
-
+// gets drive permission table
 async function getPermissionList(index) {
   const driveName = dbData[index].addedDrive_name
-
   const url = `/api/permissionList?driveName=${driveName}`
   const response = await fetch(url)
   result = await response.json()
@@ -137,6 +142,7 @@ async function getPermissionList(index) {
   }
 }
 
+// deletes selected drive
 async function deleteDrive(index) {
   const driveName = dbData[index].addedDrive_name
   const data = {
@@ -156,8 +162,7 @@ async function deleteDrive(index) {
 }
 
 
-/////////////////////////////////////////////////////////////
-//Add Drive Functions
+//opens add Drive window
 function openAddNewDriveWindow() {
   activateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "none";
@@ -166,6 +171,7 @@ function openAddNewDriveWindow() {
   getUnaddedDrivList()
 }
 
+// closes add drive window
 function closeAddNewDriveWindow() {
   deactivateOverlay()
   document.getElementById("drive-list").style.pointerEvents = "all";
@@ -174,6 +180,7 @@ function closeAddNewDriveWindow() {
 }
 
 let path
+// opens setup window
 function openSetupWindow() {
   document.getElementById("setup-window").style.display = "block"
   document.getElementById("cancel-setup-button").addEventListener("click", closeSetupWindow)
@@ -183,16 +190,19 @@ function openSetupWindow() {
   console.log(this.id)
 }
 
+// closes setup window
 function closeSetupWindow() {
   document.getElementById("setup-window").style.display = "none"
 }
 
+// complete setup process
 function completedSetup() {
   closeSetupWindow()
   closeAddNewDriveWindow()
   getDrive()
 }
 
+// gets user list for setup
 async function getUserList() {
   const url = "/api/userList"
   const response = await fetch(url)
@@ -224,7 +234,7 @@ async function getUserList() {
   }
 }
 
-
+// creates permission table for new drive
 function generatePermissionList() {
   let permissionTable = []
   console.log(userList)
@@ -248,6 +258,7 @@ function generatePermissionList() {
   return permissionTable
 }
 
+// adds the new drive
 async function addNewDrive() {
   const driveName = document.getElementById("drive-name").value
   const userPermissionList = generatePermissionList()
@@ -268,6 +279,7 @@ async function addNewDrive() {
   completedSetup()
 }
 
+// generates updated permission list
 function generateNewPermissionList() {
   let newPermissionTable = []
   for (let i = 0; i < userList.length; i++) {
@@ -292,6 +304,7 @@ function generateNewPermissionList() {
   return newPermissionTable
 }
 
+// updates the exiting permissions
 async function updatePermissions() {
   const newPermissionsTable = generateNewPermissionList()
   console.log(newPermissionsTable)

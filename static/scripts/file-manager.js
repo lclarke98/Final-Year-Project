@@ -18,11 +18,13 @@ function getUrlVars() {
 
 let path
 let write
+// gets url vars
 function getPath() {
   path = getUrlVars()["location"]
   write = getUrlVars()["write"]
 }
 
+// gets all files for selected nas drive
 async function getAllFiles() {
   console.log(path)
   const url = `/api/allFiles?location=${path}`
@@ -32,8 +34,8 @@ async function getAllFiles() {
   generateFileList(allFiles)
 }
 
+// creates the file list
 async function generateFileList(files) {
-
   let list = document.getElementById('fileList');
   list.textContent = ""
   for (let i = 0; i < files.length; i++) {
@@ -75,21 +77,25 @@ async function generateFileList(files) {
   }
 }
 
+// adds the event losteners
 function addEventListeners() {
-  document.getElementById("uploadNewFile").addEventListener("click", openDialog)
+  document.getElementById("uploadNewFile").addEventListener("click", openDownloadModal)
   document.getElementById("create-folder").addEventListener("click", openNewFolderWindow)
-  document.getElementById("dialogClose").addEventListener("click", closeDialog)
+  document.getElementById("dialogClose").addEventListener("click", closeDownloadModal)
   document.getElementById("fileViewerClose").addEventListener("click", closePreview)
 }
 
-function openDialog() {
+//open download window
+function openUploadModal() {
   document.getElementById("uploadFileDialog").style.display = "flex"
 }
 
-function closeDialog() {
+//close download window
+function closeUploadModal() {
   document.getElementById("uploadFileDialog").style.display = "none"
 }
 
+// opens preview window when file clicked
 function openPreview() {
   const file = this.id.replace("/home/pi/Final-Year-Project/static", "")
   console.log(file)
@@ -109,6 +115,7 @@ function openPreview() {
   document.getElementById("fileViewer").style.display = "flex"
 }
 
+// closes file preview window
 function closePreview() {
   const previewImage = document.getElementById("previewImage")
   const previewVideo = document.getElementById("previewVideo")
@@ -121,17 +128,20 @@ function closePreview() {
   previewVideo.src = ""
 }
 
+// opens new folder modal
 function openNewFolderWindow() {
   document.getElementById("new-folder-window").style.display = "block";
   document.getElementById("close-new-folder-window").addEventListener("click", closeNewFolderWindow)
   document.getElementById("add-new-folder-button").addEventListener("click", addNewFolder)
 }
 
+// closes new folder modal
 function closeNewFolderWindow() {
   document.getElementById("new-folder-window").style.display = "none";
   getAllFiles()
 }
 
+// adds new folder to nas drive
 async function addNewFolder() {
   const folderName = path + "/" + document.getElementById("new-folder-name").value
   const data = {
@@ -149,6 +159,7 @@ async function addNewFolder() {
   closeNewFolderWindow()
 }
 
+// downloads selected drive
 async function downloadFile() {
   console.log(this.id)
   const filePath = this.id.replace("/home/pi/Final-Year-Project/", "")
@@ -160,6 +171,7 @@ async function downloadFile() {
   location.replace(res.url)
 }
 
+// delets selected file
 async function deleteFile() {
   console.log(this.id) 
   const filePath = this.id
@@ -168,7 +180,7 @@ async function deleteFile() {
   getAllFiles()
 }
 
-
+// sends download path to server
 async function sendPath(){
   const url = `/api/uploadPath?location=${path}`
   const response = await fetch(url)
